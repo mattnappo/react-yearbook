@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   AppBar, Toolbar, IconButton, Typography, Button,
 } from '@material-ui/core/';
@@ -33,31 +36,47 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const TopBar = ({ loginText }) => {
+const TopBar = ({ loginText }) => {
   const classes = useStyles();
   const [loginURL, setLoginURL] = useState('');
+  const cookies = new Cookies();
 
   const getLoginURL = () => {
-    fetch(
-      authEndpoint('login'),
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
+    if (loginText === 'Login') {
+      fetch(
+        authEndpoint('login'),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    ).then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          console.log(res);
-          return;
-        }
+      ).then((res) => res.json())
+        .then((res) => {
+          if (res.error) {
+            console.log(res);
+            return;
+          }
 
-        setLoginURL(res);
-      });
+          setLoginURL(res.link);
+          cookies.set('state', res.state);
+        });
+    } else if (loginText === 'Logout') {
+      setLoginURL('');
+    }
   };
 
-  // componentDidMount
+  const login = () => {
+    if (loginText === 'Login') {
+      return <Redirect to={loginURL} />;
+    }
+
+    cookies.remove('state');
+    cookies.remove('code');
+    cookies.remove('token');
+    return <Redirect to="/" />;
+  };
+
   useEffect(getLoginURL, []);
 
   return (
@@ -71,7 +90,7 @@ export const TopBar = ({ loginText }) => {
         </Typography>
         <Button
           color="inherit"
-          href={loginURL}
+          onClick={login}
         >
           {loginText}
         </Button>
@@ -79,6 +98,12 @@ export const TopBar = ({ loginText }) => {
     </AppBar>
   );
 };
+
+TopBar.propTypes = {
+  loginText: PropTypes.string.isRequired,
+};
+
+export default TopBar;
 
 export const BottomBar = () => {
   const classes = useStyles();
