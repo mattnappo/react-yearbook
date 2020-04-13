@@ -56,7 +56,13 @@ const MainApp = () => {
           console.log(res);
         }
 
-        cookies.set('token', res, { path: '/' });
+        cookies.set(
+          'token',
+          JSON.stringify(res), {
+            path: '/',
+            maxAge: 30 * 60, // 30 minutes
+          },
+        );
       });
   };
 
@@ -64,7 +70,7 @@ const MainApp = () => {
 
   return (
     <div>
-      hi
+      {JSON.stringify(cookies.get('token'))}
     </div>
   );
 };
