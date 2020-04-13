@@ -9,6 +9,26 @@ const MainApp = () => {
   const [posts, setPosts] = useState({});
   const cookies = new Cookies();
 
+  const getPosts = () => {
+    fetch(
+      apiEndpoint('getPosts'),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.errors) {
+          console.log(res);
+        }
+
+        setPosts(res.data);
+      });
+  };
+
   const authorize = () => {
     const url = parseURL();
 
@@ -30,30 +50,11 @@ const MainApp = () => {
           console.log(res);
         }
       });
-  };
 
-  const getPosts = () => {
-    fetch(
-      apiEndpoint('getPosts'),
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `bearer ${cookies.get('token')}`,
-        },
-      },
-    ).then((res) => res.json())
-      .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
-
-        setPosts(res.data);
-      });
+    getPosts();
   };
 
   useEffect(authorize, []);
-  useEffect(getPosts, []);
 
   return (
     <div>

@@ -6,7 +6,7 @@ const Posts = ({ posts }) => {
   console.log(typeof posts);
   // return <div />;
   return Object.values(posts).map(
-    (post) => <Post postData={post} />,
+    (post) => <Post postData={post} key={post.id} />,
   );
 };
 

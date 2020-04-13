@@ -1,4 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,15 +14,18 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 750,
+    margin: 'auto',
+    'margin-top': '24px',
   },
   media: {
-    height: 0,
+    height: 600,
+    width: 600,
     paddingTop: '56.25%', // 16:9
+    marginTop: '30',
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -36,34 +42,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Post = () => {
+const Post = ({ postData }) => {
   const classes = useStyles();
-
+  console.log(postData);
   return (
     <Card className={classes.root}>
-      <CardHeader
-        avatar={(
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        )}
-        action={(
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        )}
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
-      />
-      <CardMedia
+      <Link className="link" to={`/accounts/${postData.sender}`}>
+        <CardHeader
+          avatar={(
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {/* {`${postData.sender[0]}${postData.sender.split('.')[1][0]}`.toUpperCase()} */}
+              {postData.sender[0].toUpperCase()}
+            </Avatar>
+          )}
+          title={postData.sender}
+        />
+      </Link>
+      {/* <CardMedia
         className={classes.media}
-        image="/static/images/cards/paella.jpg"
-        title="Paella dish"
+        src={`data:image/png;base64, ${postData.images[0]}`}
+        title={postData.post_id}
+      /> */}
+      <img
+        className={classes.media}
+        alt={postData.post_id}
+        src={`data:image/png;base64, ${postData.images[0]}`}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          {postData.message}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -76,6 +83,12 @@ const Post = () => {
       </CardActions>
     </Card>
   );
+};
+
+Post.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  postData: PropTypes.object.isRequired,
+  key: PropTypes.number.isRequired,
 };
 
 export default Post;
