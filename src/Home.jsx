@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   AppBar, Toolbar, IconButton, Typography, Button,
 } from '@material-ui/core/';
@@ -12,6 +12,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+
+import { authEndpoint, apiEndpoint } from './net';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,10 +38,31 @@ const useStyles = makeStyles((theme) => ({
 // Home is the landing page.
 export default function Home() {
   const classes = useStyles();
+  const [loginURL] = useState('');
 
-  const login = () => {
-    console.log('logged in');
-  };
+  fetch(
+    authEndpoint('login'),
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  ).then((res) => (res.json())
+    .then((res) => {
+      if (res.error) {
+        console.log(res);
+        return;
+      }
+
+      setLoginURL();
+      this.setState({
+        timestamp: res.timestamp.slice(0, 19),
+        id: res.id,
+        properties: res.properties,
+        settings: res.coreProperties,
+      });
+    }));
 
   return (
     <div>
@@ -53,7 +76,7 @@ export default function Home() {
           </Typography>
           <Button
             color="inherit"
-            onClick={login}
+            href={loginURL}
           >
             Login
           </Button>
