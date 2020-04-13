@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { authEndpoint, parseURL } from './utils';
+import { TopBar, BottomBar } from './Bar';
 
 // App is the main app containing all of the routes.
 const MainApp = () => {
@@ -26,6 +27,7 @@ const MainApp = () => {
           console.log(res);
         }
 
+        // Put the token in a cookie
         cookies.set(
           'token',
           JSON.stringify(res), {
@@ -40,7 +42,11 @@ const MainApp = () => {
 
   return (
     <div>
+      <TopBar loginText="Logout" />
+
       {JSON.stringify(cookies.get('token'))}
+
+      <BottomBar />
     </div>
   );
 };
