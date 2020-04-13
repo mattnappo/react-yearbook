@@ -41,6 +41,10 @@ const TopBar = ({ loginText }) => {
   const [loginURL, setLoginURL] = useState('');
 
   const getLoginURL = () => {
+    if (loginText === 'Logout') {
+      return;
+    }
+
     fetch(
       authEndpoint('login'),
       {

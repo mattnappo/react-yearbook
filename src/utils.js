@@ -8,7 +8,7 @@ const conf = {
 export const authEndpoint = (endpoint) => `/oauth/${endpoint}`;
 
 // apiEndpoint returns an endpoint to the API.
-export const apiEndpoint = (endpoint) => `${conf.protocol}://${conf.ip}:${conf.port}/api/${endpoint}`;
+export const apiEndpoint = (endpoint) => `/api/${endpoint}`;
 
 // parseURL parses a url.
 export const parseURL = () => {

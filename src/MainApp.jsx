@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
-import { authEndpoint, parseURL } from './utils';
+import { authEndpoint, apiEndpoint, parseURL } from './utils';
 import TopBar, { BottomBar } from './Bar';
 
-// App is the main app containing all of the routes.
+// MainApp is the main window.
 const MainApp = () => {
+  const [posts, setPosts] = useState({});
   const cookies = new Cookies();
 
   const authorize = () => {
@@ -30,7 +31,28 @@ const MainApp = () => {
       });
   };
 
+  const getPosts = () => {
+    fetch(
+      apiEndpoint('getPosts'),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          console.log(res);
+
+          setPosts(res.data);
+        }
+      });
+  };
+
   useEffect(authorize, []);
+  useEffect(getPosts, []);
 
   return (
     <div>
@@ -39,6 +61,9 @@ const MainApp = () => {
       {JSON.stringify(cookies.get('token'))}
       <hr />
       {JSON.stringify(cookies.get('state'))}
+      <hr />
+      <hr />
+      {JSON.stringify(posts)}
 
       <BottomBar />
     </div>
