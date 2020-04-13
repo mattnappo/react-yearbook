@@ -36,10 +36,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // Home is the landing page.
-export default function Home() {
+const Home = () => {
   const classes = useStyles();
   const [loginURL, setLoginURL] = useState('');
 
+  // componentDidMount
   useEffect(() => {
     fetch(
       authEndpoint('login'),
@@ -56,7 +57,7 @@ export default function Home() {
           return;
         }
 
-        setLoginURL(JSON.stringify(res));
+        setLoginURL(res);
       });
   }, []);
 
@@ -90,4 +91,6 @@ export default function Home() {
 
     </div>
   );
-}
+};
+
+export default Home;
