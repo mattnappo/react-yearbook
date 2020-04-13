@@ -45,7 +45,7 @@ const MainApp = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          console.log(`response: ${res}`);
+          console.log(res);
         }
 
         setPosts(res.data);

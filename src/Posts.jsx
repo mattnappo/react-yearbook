@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Post from './Post';
 
 const Posts = ({ posts }) => {
-  posts.map(
+  console.log(typeof posts);
+  // return <div />;
+  return Object.values(posts).map(
     (post) => <Post postData={post} />,
   );
 };
