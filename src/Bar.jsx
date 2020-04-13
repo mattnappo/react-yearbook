@@ -39,42 +39,25 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = ({ loginText }) => {
   const classes = useStyles();
   const [loginURL, setLoginURL] = useState('');
-  const cookies = new Cookies();
 
   const getLoginURL = () => {
-    if (loginText === 'Login') {
-      fetch(
-        authEndpoint('login'),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+    fetch(
+      authEndpoint('login'),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ).then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log(res);
-            return;
-          }
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          console.log(res);
+          return;
+        }
 
-          setLoginURL(res.link);
-          cookies.set('state', res.state);
-        });
-    } else if (loginText === 'Logout') {
-      setLoginURL('');
-    }
-  };
-
-  const login = () => {
-    if (loginText === 'Login') {
-      return <Redirect to={loginURL} />;
-    }
-
-    cookies.remove('state');
-    cookies.remove('code');
-    cookies.remove('token');
-    return <Redirect to="/" />;
+        setLoginURL(res);
+      });
   };
 
   useEffect(getLoginURL, []);
@@ -90,7 +73,7 @@ const TopBar = ({ loginText }) => {
         </Typography>
         <Button
           color="inherit"
-          onClick={login}
+          href={loginURL}
         >
           {loginText}
         </Button>

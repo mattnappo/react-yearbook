@@ -10,45 +10,24 @@ const MainApp = () => {
   const authorize = () => {
     const url = parseURL();
 
-    const cookieConf = {
-      path: '/',
-      maxAge: 30 * 60, // 30 minutes
-    };
-
-    // If this is the redirect directly from google, store url data
-    // in cookies. (do later to make the URL look cleaner.
-    if (!cookies.get('token')) {
-      fetch(
-        authEndpoint('authorize'),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            code: url.code,
-            state: url.state,
-          }),
+    fetch(
+      authEndpoint('authorize'),
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ).then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log(res);
-          }
-
-          // Put the token in a cookie
-          cookies.set(
-            'token',
-            JSON.stringify(res),
-            cookieConf,
-          );
-          cookies.set(
-            'state',
-            url.state,
-            cookieConf,
-          );
-        });
-    }
+        body: JSON.stringify({
+          code: url.code,
+          state: url.state,
+        }),
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          console.log(res);
+        }
+      });
   };
 
   useEffect(authorize, []);
@@ -58,6 +37,8 @@ const MainApp = () => {
       <TopBar loginText="Logout" />
 
       {JSON.stringify(cookies.get('token'))}
+      <hr />
+      {JSON.stringify(cookies.get('state'))}
 
       <BottomBar />
     </div>
