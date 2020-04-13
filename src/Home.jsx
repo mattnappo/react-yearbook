@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  fill: {
+    width: '100%',
+  },
   title: {
     flexGrow: 1,
   },
@@ -33,9 +36,14 @@ const useStyles = makeStyles((theme) => ({
 // Home is the landing page.
 export default function Home() {
   const classes = useStyles();
+
+  const login = () => {
+    console.log('logged in');
+  };
+
   return (
     <div>
-      <AppBar position="static">
+      <AppBar className={classes.fill} position="static">
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
@@ -43,11 +51,16 @@ export default function Home() {
           <Typography variant="h6" className={classes.title}>
             Grad20
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button
+            color="inherit"
+            onClick={login}
+          >
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
 
-      <Typography> Hi dopem this is cool</Typography>
+      <Typography> Hi this is the program umm yeah cool plz sign in pls</Typography>
 
       <BottomNavigation className={classes.stickToBottom}>
         <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
