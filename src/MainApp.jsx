@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { authEndpoint, apiEndpoint, parseURL } from './utils';
+import Posts from './Posts';
 import TopBar, { BottomBar } from './Bar';
 
 // MainApp is the main window.
@@ -25,7 +26,7 @@ const MainApp = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.error) {
+        if (res.errors) {
           console.log(res);
         }
       });
@@ -43,11 +44,11 @@ const MainApp = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.error) {
-          console.log(res);
-
-          setPosts(res.data);
+        if (res.errors) {
+          console.log(`response: ${res}`);
         }
+
+        setPosts(res.data);
       });
   };
 
@@ -57,14 +58,7 @@ const MainApp = () => {
   return (
     <div>
       <TopBar loginText="Logout" />
-
-      {JSON.stringify(cookies.get('token'))}
-      <hr />
-      {JSON.stringify(cookies.get('state'))}
-      <hr />
-      <hr />
-      {JSON.stringify(posts)}
-
+      <Posts posts={posts} />
       <BottomBar />
     </div>
   );

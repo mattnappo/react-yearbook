@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Cookies from 'universal-cookie';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   AppBar, Toolbar, IconButton, Typography, Button,
@@ -55,7 +53,7 @@ const TopBar = ({ loginText }) => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.error) {
+        if (res.errors) {
           console.log(res);
           return;
         }
