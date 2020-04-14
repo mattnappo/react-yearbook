@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
@@ -55,7 +54,11 @@ const Post = ({ postData }) => {
 
   return (
     <Card className={classes.root}>
-      <Link className="link" to={`/accounts/${postData.sender}`}>
+      <Link
+        className="link"
+        to={`/accounts/${postData.sender}`}
+      >
+
         <CardHeader
           avatar={(
             <Avatar aria-label="recipe" className={classes.avatar}>
@@ -65,7 +68,9 @@ const Post = ({ postData }) => {
           title={postData.sender}
         />
       </Link>
+
       {renderImages()}
+
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {postData.message}

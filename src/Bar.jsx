@@ -71,7 +71,7 @@ const TopBar = ({ loginText }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Grad20
+          Yearbook
         </Typography>
         <Button
           color="inherit"

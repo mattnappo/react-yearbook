@@ -2,13 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Post from './Post';
 
-const Posts = ({ posts }) => {
-  console.log(typeof posts);
-  // return <div />;
-  return Object.values(posts).map(
-    (post) => <Post postData={post} key={post.id} />,
-  );
-};
+const Posts = ({ posts }) => (
+  <div className="bottom-out">
+    { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) }
+  </div>
+);
 
 Posts.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
