@@ -5,7 +5,7 @@ import { apiEndpoint } from './utils';
 const User = (props) => {
   const cookies = new Cookies();
   const [userData, setUserData] = useState('');
-  const username = props.match.params.username;
+  const { username } = props.match.params;
 
   const getUserData = () => {
     fetch(
@@ -20,6 +20,7 @@ const User = (props) => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
+          // eslint-disable-next-line no-console
           console.log(res);
         }
 

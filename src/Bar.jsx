@@ -8,10 +8,11 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { makeStyles } from '@material-ui/core/styles';
 
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import FolderIcon from '@material-ui/icons/Folder';
+import HomeIcon from '@material-ui/icons/Home';
+import SearchIcon from '@material-ui/icons/Search';
+import AddIcon from '@material-ui/icons/Add';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { authEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -97,10 +98,11 @@ export const BottomBar = () => {
 
   return (
     <BottomNavigation className={classes.stickToBottom}>
-      <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
-      <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+      <BottomNavigationAction label="Feed" value="feed" icon={<HomeIcon />} />
+      <BottomNavigationAction label="Search" value="search" icon={<SearchIcon />} />
+      <BottomNavigationAction label="Post" value="post" icon={<AddIcon />} />
+      <BottomNavigationAction label="Me" value="me" icon={<AccountIcon />} />
+      <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
     </BottomNavigation>
   );
 };
