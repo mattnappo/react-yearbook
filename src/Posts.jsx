@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Post from './Post';
 
 const Posts = ({ posts }) => (
-  <div className="bottom-out">
+  <div className="posts">
     { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) }
   </div>
 );

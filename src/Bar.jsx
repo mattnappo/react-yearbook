@@ -17,6 +17,8 @@ import { authEndpoint } from './utils';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    position: 'fixed',
+    top: 0,
   },
   menuButton: {
     marginRight: theme.spacing(2),

@@ -3,6 +3,12 @@
     color: black;
 }
 
-.bottom-out {
+.posts {
     margin-bottom: 64px;
+    margin-top: 75px;
+}
+
+body {
+    background-color: #fafafa;
+    margin: 0px;
 }

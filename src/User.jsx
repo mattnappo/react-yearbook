@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
-import PropTypes from 'prop-types';
 import { apiEndpoint } from './utils';
 
 const User = (props) => {
@@ -31,11 +30,7 @@ const User = (props) => {
   useEffect(getUserData, []);
 
   return (
-    <div>
-      {/* { JSON.stringify(props) } */}
-      { JSON.stringify(userData) }
-    </div>
-
+    <div />
   );
 };
 

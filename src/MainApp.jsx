@@ -51,10 +51,11 @@ const MainApp = () => {
         }
       });
 
-    getPosts();
+    // getPosts();
   };
 
   useEffect(authorize, []);
+  useEffect(getPosts, []);
 
   return (
     <div>

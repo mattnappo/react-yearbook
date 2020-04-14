@@ -15,7 +15,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
 // https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css/10441480#answer-10441480
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 600,
     margin: 'auto',
