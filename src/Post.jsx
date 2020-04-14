@@ -17,25 +17,16 @@ import ShareIcon from '@material-ui/icons/Share';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 750,
+    maxWidth: 600,
     margin: 'auto',
     'margin-top': '24px',
   },
   media: {
-    height: 600,
-    width: 600,
-    paddingTop: '56.25%', // 16:9
-    marginTop: '30',
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
+    // 'object-fit': 'cover',
+    width: '100%',
+    // 'padding-top': '100%',
+    position: 'relative',
+    maxHeight: 600,
   },
   avatar: {
     backgroundColor: red[500],
