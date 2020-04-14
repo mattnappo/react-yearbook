@@ -15,6 +15,7 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
+// https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css/10441480#answer-10441480
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     // 'padding-top': '100%',
     position: 'relative',
-    maxHeight: 600,
+    // maxHeight: 600,
   },
   avatar: {
     backgroundColor: red[500],
@@ -36,29 +37,35 @@ const useStyles = makeStyles((theme) => ({
 const Post = ({ postData }) => {
   const classes = useStyles();
   console.log(postData);
+
+  const renderImages = () => {
+    if (postData.images !== null) {
+      return postData.images.map(
+        (image) => (
+          <img
+            className={classes.media}
+            alt={postData.post_id}
+            src={`data:image/png;base64, ${image}`}
+          />
+        ),
+      );
+    }
+    return <span />;
+  };
+
   return (
     <Card className={classes.root}>
       <Link className="link" to={`/accounts/${postData.sender}`}>
         <CardHeader
           avatar={(
             <Avatar aria-label="recipe" className={classes.avatar}>
-              {/* {`${postData.sender[0]}${postData.sender.split('.')[1][0]}`.toUpperCase()} */}
               {postData.sender[0].toUpperCase()}
             </Avatar>
           )}
           title={postData.sender}
         />
       </Link>
-      {/* <CardMedia
-        className={classes.media}
-        src={`data:image/png;base64, ${postData.images[0]}`}
-        title={postData.post_id}
-      /> */}
-      <img
-        className={classes.media}
-        alt={postData.post_id}
-        src={`data:image/png;base64, ${postData.images[0]}`}
-      />
+      {renderImages()}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {postData.message}
