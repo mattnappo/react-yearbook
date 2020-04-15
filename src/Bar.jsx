@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   AppBar, Toolbar, IconButton, Typography, Button,
 } from '@material-ui/core/';
@@ -98,7 +98,7 @@ export default TopBar;
 export const BottomBar = () => {
   const classes = useStyles();
 
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(1);
 
   return (
     <BottomNavigation
@@ -106,15 +106,30 @@ export const BottomBar = () => {
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
-        return <Redirect to={event.target.value} />;
+        // return <Redirect to={`/${event.target.value}`} />;
       }}
       showLabels
     >
-      <BottomNavigationAction label="Feed" value="feed" icon={<HomeIcon />} />
-      <BottomNavigationAction label="Search" value="search" icon={<SearchIcon />} />
-      <BottomNavigationAction label="Post" value="post" icon={<AddIcon />} />
-      <BottomNavigationAction label="Me" value="me" icon={<AccountIcon />} />
-      <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
+      <Link to="/feed">
+        <BottomNavigationAction label="Feed" value="feed" icon={<HomeIcon />} />
+      </Link>
+
+      <Link to="/search">
+        <BottomNavigationAction label="Search" value="search" icon={<SearchIcon />} />
+      </Link>
+
+      <Link to="/settings">
+        <BottomNavigationAction label="Post" value="post" icon={<AddIcon />} />
+      </Link>
+
+      <Link to="/me">
+        <BottomNavigationAction label="Me" value="me" icon={<AccountIcon />} />
+      </Link>
+
+      <Link to="/settings">
+        <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
+      </Link>
+
     </BottomNavigation>
   );
 };
