@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { TextField, makeStyles } from '@material-ui/core';
 import { apiEndpoint } from './utils';
@@ -18,12 +18,6 @@ const Settings = (props) => {
 
   // Just to display data initially
   const [userData, setUserData] = useState('');
-
-  // Mutables
-  const [bio, setBio] = useState('');
-  const [will, setWill] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [profilePic, setProfilePic] = useState('');
 
   const getUserData = () => {
     const { username } = props.match.params;
@@ -48,12 +42,34 @@ const Settings = (props) => {
       });
   };
 
+  const genSeniorWill = () => {
+    if (userData.grade === 'senior') {
+      return (
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Senior Will"
+          multiline
+          rowsMax={4}
+          value={userData.will}
+          onChange={(e) => {
+            const newUserData = userData;
+            newUserData.will = e.target.value;
+            console.log(`NEW USER DATA ${JSON.stringify(newUserData)}`);
+            setUserData(newUserData);
+          }}
+          variant="outlined"
+        />
+      );
+    }
+    return <span />;
+  };
+
+  useEffect(getUserData, []);
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField id="standard-basic" label="Nickname" />
-        <TextField id="standard-basic" label="Grade" />
-      </div>
+      <TextField id="standard-basic" label="Nickname" />
+      <TextField id="standard-basic" label="Grade" />
 
       <div>
         <TextField
@@ -65,6 +81,8 @@ const Settings = (props) => {
           onChange={(e) => { setBio(e.target.value); }}
           variant="outlined"
         />
+
+        {genSeniorWill()}
       </div>
 
       <div>
