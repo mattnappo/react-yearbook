@@ -39,3 +39,9 @@ export const parseURL = () => {
   });
   return result;
 };
+
+// capitalize capitalizes the first letter of a string.
+export const capitalize = (s) => {
+  if (typeof s !== 'string') return '';
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};

@@ -14,7 +14,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { authEndpoint } from './utils';
+import { authEndpoint, capitalize } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,6 +95,17 @@ TopBar.propTypes = {
 
 export default TopBar;
 
+const BottomBarLink = ({ to, icon }) => (
+  <Link to={`/${to}`}>
+    <BottomNavigationAction label={capitalize(to)} value={to} icon={icon} />
+  </Link>
+);
+BottomBarLink.propTypes = {
+  to: PropTypes.string.isRequired,
+  icon: PropTypes.element.isRequired,
+};
+
+
 export const BottomBar = () => {
   const classes = useStyles();
 
@@ -110,25 +121,11 @@ export const BottomBar = () => {
       }}
       showLabels
     >
-      <Link to="/feed">
-        <BottomNavigationAction label="Feed" value="feed" icon={<HomeIcon />} />
-      </Link>
-
-      <Link to="/search">
-        <BottomNavigationAction label="Search" value="search" icon={<SearchIcon />} />
-      </Link>
-
-      <Link to="/settings">
-        <BottomNavigationAction label="Post" value="post" icon={<AddIcon />} />
-      </Link>
-
-      <Link to="/me">
-        <BottomNavigationAction label="Me" value="me" icon={<AccountIcon />} />
-      </Link>
-
-      <Link to="/settings">
-        <BottomNavigationAction label="Settings" value="settings" icon={<SettingsIcon />} />
-      </Link>
+      <BottomBarLink to="feed" icon={<HomeIcon />} />
+      <BottomBarLink to="search" icon={<SearchIcon />} />
+      <BottomBarLink to="post" icon={<AddIcon />} />
+      <BottomBarLink to="me" icon={<AccountIcon />} />
+      <BottomBarLink to="settings" icon={<SettingsIcon />} />
 
     </BottomNavigation>
   );
