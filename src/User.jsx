@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { apiEndpoint } from './utils';
-import TopBar from './Bar';
+// import TopBar from './Bar';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const User = (props) => {
   const cookies = new Cookies();
-  const [userData, setUserData] = useState('');
+  const [user, setUser] = useState('');
   const classes = useState();
   const { username } = props.match.params;
 
@@ -45,10 +45,26 @@ const User = (props) => {
         if (res.errors) {
           // eslint-disable-next-line no-console
           console.log(res);
+          // window.location.href = '/';
         }
 
-        setUserData(res.data);
+        setUser(res.data);
       });
+  };
+
+  const getGrade = () => {
+    switch (user.grade) {
+      case 0:
+        return 'Freshman';
+      case 1:
+        return 'Sophomore';
+      case 2:
+        return 'junior';
+      case 3:
+        return 'Senior';
+      default:
+        return 'Error';
+    }
   };
 
   useEffect(getUserData, []);
@@ -60,14 +76,16 @@ const User = (props) => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <Paper className={classes.paper}>username</Paper>
+            <Paper className={classes.paper}>{user.username}</Paper>
           </Grid>
 
           <Grid item xs={3}>
-            <Paper className={classes.paper}>profile pic</Paper>
+            <Paper className={classes.paper}>
+              <img alt="profile_pic" src={`data:image/png;base64, ${user.profile_pic}`} />
+            </Paper>
           </Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}>grade</Paper>
+            <Paper className={classes.paper}>{getGrade()}</Paper>
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.paper}># posts</Paper>
@@ -77,17 +95,17 @@ const User = (props) => {
           </Grid>
 
           <Grid item xs={12}>
-            <Paper className={classes.paper}>bio</Paper>
+            <Paper className={classes.paper}>{user.bio}</Paper>
           </Grid>
 
           <Divider className={classes.divider} />
 
           <Grid item xs={12}>
-            <Paper className={classes.paper}>will</Paper>
+            <Paper className={classes.paper}>{user.will}</Paper>
           </Grid>
 
         </Grid>
-        {JSON.stringify(userData)}
+        {JSON.stringify(user)}
       </Container>
     </div>
   );

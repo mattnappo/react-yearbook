@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Post = ({ postData }) => {
+const Post = ({ postData, key }) => {
   const classes = useStyles();
   console.log(postData);
 
@@ -53,7 +53,7 @@ const Post = ({ postData }) => {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} id={key}>
       <Link
         className="link"
         to={`/accounts/${postData.sender}`}

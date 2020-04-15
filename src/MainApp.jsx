@@ -23,6 +23,9 @@ const MainApp = () => {
       .then((res) => {
         if (res.errors) {
           console.log(res);
+          console.log('ERRORSRRR');
+          // window.location.href = '/';
+          // window.location.href = `/errors=${res.errors}`;
         }
 
         setPosts(res.data);
