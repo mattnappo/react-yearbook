@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import {
   AppBar, Toolbar, IconButton, Typography, Button,
 } from '@material-ui/core/';
@@ -57,6 +58,7 @@ const TopBar = ({ loginText }) => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
+          // eslint-disable-next-line no-console
           console.log(res);
           return;
         }
@@ -96,8 +98,18 @@ export default TopBar;
 export const BottomBar = () => {
   const classes = useStyles();
 
+  const [value, setValue] = useState(0);
+
   return (
-    <BottomNavigation className={classes.stickToBottom}>
+    <BottomNavigation
+      className={classes.stickToBottom}
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+        return <Redirect to={event.target.value} />;
+      }}
+      showLabels
+    >
       <BottomNavigationAction label="Feed" value="feed" icon={<HomeIcon />} />
       <BottomNavigationAction label="Search" value="search" icon={<SearchIcon />} />
       <BottomNavigationAction label="Post" value="post" icon={<AddIcon />} />
