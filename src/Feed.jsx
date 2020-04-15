@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { authEndpoint, apiEndpoint, parseURL } from './utils';
-import Posts from './Posts';
+import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
 
-// MainApp is the main window.
-const MainApp = () => {
+// Feed is the main window containing the post feed.
+const Feed = () => {
   const [posts, setPosts] = useState({});
   const cookies = new Cookies();
 
@@ -54,7 +54,7 @@ const MainApp = () => {
         }
       });
 
-    // getPosts();
+    // getPosts(); // This or useEffect
   };
 
   useEffect(authorize, []);
@@ -63,10 +63,12 @@ const MainApp = () => {
   return (
     <div>
       <TopBar loginText="Logout" />
-      <Posts posts={posts} />
+      <div className="posts">
+        { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) }
+      </div>
       <BottomBar />
     </div>
   );
 };
 
-export default MainApp;
+export default Feed;
