@@ -10,3 +10,4 @@
  * Make the posts show in reverse (most recent on top)
  * Make the posts render \~ 20 at a time
  * Add component rendering for the main page (Mainwindow component={\<Settings\>}, for example)
+ * Clean up state

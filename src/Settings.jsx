@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
-import { TextField, Button, makeStyles } from '@material-ui/core';
+import {
+  TextField, Button, NativeSelect, makeStyles,
+} from '@material-ui/core';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,12 +19,14 @@ const Settings = (props) => {
   const cookies = new Cookies();
 
   // Just to display data initially
-  const [userData, setUserData] = useState('');
-  const updateUserData = (e, field) => {
-    const newUserData = userData;
-    newUserData[field] = e.target.value;
-    setUserData(newUserData);
-  };
+  const [state, setState] = useState({
+    username: '',
+    grade: '',
+    bio: '',
+    will: '',
+    profile_pic: '',
+    nickname: '',
+  });
 
   const getUserData = () => {
     const { username } = props.match.params;
@@ -43,7 +47,7 @@ const Settings = (props) => {
           // window.location.href = '/';
         }
 
-        setUserData(res.data);
+        setState(res.data);
       });
   };
 
@@ -57,12 +61,12 @@ const Settings = (props) => {
           Authorization: `bearer ${cookies.get('token')}`,
         },
         body: {
-          username: userData.username,
-          grade: userData.grade,
-          bio: userData.bio,
-          will: userData.will,
-          profile_pic: userData.profile_pic,
-          nickname: userData.nickname,
+          username: state.username,
+          grade: state.grade,
+          bio: state.bio,
+          will: state.will,
+          profile_pic: state.profile_pic,
+          nickname: state.nickname,
         },
       },
     ).then((res) => res.json())
@@ -78,20 +82,26 @@ const Settings = (props) => {
   };
 
   const genSeniorWill = () => {
-    if (userData.grade === 'senior') {
+    if (state.grade === 'senior') {
       return (
         <TextField
           id="outlined-multiline-flexible"
           label="Senior Will"
           multiline
           rowsMax={4}
-          value={userData.will}
-          onChange={(e) => { updateUserData(e, 'will'); }}
+          value={state.will}
+          onChange={(e) => { setState({ will: e.target.value }); }}
           variant="outlined"
         />
       );
     }
     return <span />;
+  };
+
+  const handleChange = (event) => {
+    const grade = event.target.name;
+    state.grade = grade;
+    setState({ grade });
   };
 
   useEffect(getUserData, []);
@@ -101,15 +111,24 @@ const Settings = (props) => {
       <TextField
         id="standard-basic"
         label="Nickname"
-        value={userData.nickname}
-        onChange={(e) => { updateUserData(e, 'nickname'); }}
+        value={state.nickname}
+        onChange={(e) => { setState({ nickname: e.target.value }); }}
       />
-      <TextField
-        id="standard-basic"
-        label="Grade"
-        value={userData.grade}
-        onChange={(e) => { updateUserData(e, 'grade'); }}
-      />
+
+      <NativeSelect
+        value={state.grade}
+        onChange={handleChange}
+        inputProps={{
+          name: 'grade',
+          id: 'grade-native-simple',
+        }}
+      >
+        <option aria-label="None" value="" />
+        <option value="freshman">Freshman</option>
+        <option value="sophomore">Sophomore</option>
+        <option value="junior">Junior</option>
+        <option value="senior">Senior</option>
+      </NativeSelect>
 
       <div>
         <TextField
@@ -117,8 +136,8 @@ const Settings = (props) => {
           label="Senior Will"
           multiline
           rowsMax={4}
-          value={userData.will}
-          onChange={(e) => { updateUserData(e, 'will'); }}
+          value={state.will}
+          onChange={(e) => { setState({ will: e.target.value }); }}
           variant="outlined"
         />
 
@@ -130,7 +149,7 @@ const Settings = (props) => {
       </div>
 
       <Button variant="contained" color="primary">
-        Primary
+        Save
       </Button>
 
     </form>
