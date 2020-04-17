@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, NativeSelect, makeStyles,
+  TextField, Button, Select, MenuItem, makeStyles,
+  NativeSelect,
 } from '@material-ui/core';
 import { apiEndpoint } from './utils';
 
@@ -9,8 +10,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: 200,
     },
+    width: 1000,
+    border: '1px solid red',
   },
 }));
 
@@ -55,7 +58,7 @@ const Settings = (props) => {
     fetch(
       apiEndpoint('updateUser'),
       {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `bearer ${cookies.get('token')}`,
@@ -85,7 +88,7 @@ const Settings = (props) => {
     if (state.grade === 'senior') {
       return (
         <TextField
-          id="outlined-multiline-flexible"
+          id="multiline"
           label="Senior Will"
           multiline
           rowsMax={4}
@@ -98,16 +101,10 @@ const Settings = (props) => {
     return <span />;
   };
 
-  const handleChange = (event) => {
-    const grade = event.target.name;
-    state.grade = grade;
-    setState({ grade });
-  };
-
   useEffect(getUserData, []);
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
+    <div className={classes.root}>
       <TextField
         id="standard-basic"
         label="Nickname"
@@ -115,15 +112,11 @@ const Settings = (props) => {
         onChange={(e) => { setState({ nickname: e.target.value }); }}
       />
 
-      <NativeSelect
+      {/* <NativeSelect
         value={state.grade}
-        onChange={handleChange}
-        inputProps={{
-          name: 'grade',
-          id: 'grade-native-simple',
-        }}
+        onChange={(e) => { setState({ grade: e.target.value }); }}
       >
-        <option aria-label="None" value="" />
+        <option aria-label="none" value="" />
         <option value="freshman">Freshman</option>
         <option value="sophomore">Sophomore</option>
         <option value="junior">Junior</option>
@@ -132,27 +125,27 @@ const Settings = (props) => {
 
       <div>
         <TextField
-          id="outlined-multiline-flexible"
-          label="Senior Will"
+          id="standard-multiline"
+          label="Bio"
           multiline
           rowsMax={4}
-          value={state.will}
-          onChange={(e) => { setState({ will: e.target.value }); }}
+          value={state.bio}
+          onChange={(e) => { setState({ bio: e.target.value }); }}
           variant="outlined"
-        />
+        /> */}
 
-        {genSeniorWill()}
-      </div>
+        {/* {genSeniorWill()} */}
+      {/* </div> */}
 
-      <div>
+      {/* <div>
         <TextField id="standard-basic" label="Standard" />
-      </div>
+      </div> */}
 
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={save}>
         Save
       </Button>
 
-    </form>
+    </div>
   );
 };
 
