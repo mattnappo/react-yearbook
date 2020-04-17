@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { authEndpoint, apiEndpoint, parseURL } from './utils';
 import Post from './Post';
-import TopBar, { BottomBar } from './Bar';
+import Content from './Content';
 
 // Feed is the main window containing the post feed.
 const Feed = () => {
@@ -61,13 +61,9 @@ const Feed = () => {
   useEffect(getPosts, []);
 
   return (
-    <div>
-      <TopBar loginText="Logout" />
-      <div className="posts">
-        { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) }
-      </div>
-      <BottomBar />
-    </div>
+    <Content>
+      { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) }
+    </Content>
   );
 };
 

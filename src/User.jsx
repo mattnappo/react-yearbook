@@ -81,7 +81,7 @@ const User = (props) => {
 
           <Grid item xs={3}>
             <Paper className={classes.paper}>
-              <img alt="profile_pic" src={`data:image/png;base64, ${user.profile_pic}`} />
+              <img alt="profile_pic" src={user.profile_pic} />
             </Paper>
           </Grid>
           <Grid item xs={3}>
@@ -100,6 +100,7 @@ const User = (props) => {
 
           <Divider className={classes.divider} />
 
+          {/* Will only show if they are a senior */}
           <Grid item xs={12}>
             <Paper className={classes.paper}>{user.will}</Paper>
           </Grid>

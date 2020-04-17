@@ -1,13 +1,12 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import TopBar from './Bar';
+import Content from './Content';
 
 // Home is the landing page.
 const Home = () => (
-  <div>
-    <TopBar loginText="Login" />
-    <Typography>Hi im this is thi</Typography>
-  </div>
+  <Content bottomBar={false}>
+    <Typography>Welcome to the homepage</Typography>
+  </Content>
 );
 
 export default Home;

@@ -3,9 +3,11 @@
     color: black;
 }
 
-.posts {
+.main-content {
     margin-bottom: 64px;
     margin-top: 75px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 body {

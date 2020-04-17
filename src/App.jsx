@@ -4,7 +4,7 @@ import Home from './Home';
 import Feed from './Feed';
 import NewPost from './NewPost';
 import Settings from './Settings';
-import Test from './Test';
+// import Test from './Test';
 import User from './User';
 
 // App is the main app containing all of the routes.
@@ -14,8 +14,6 @@ const App = () => (
     <Route exact path="/feed" component={Feed} />
     <Route exact path="/post" component={NewPost} />
     <Route exact path="/settings/:username" component={Settings} />
-    {/* <Route exact path="/settings/:username" component={Settings} /> */}
-
     <Route exact path="/accounts/:username" component={User} />
   </Switch>
 );
