@@ -137,9 +137,9 @@ const Settings = (props) => {
         {/* {genSeniorWill()} */}
       {/* </div> */}
 
-      {/* <div>
-        <TextField id="standard-basic" label="Standard" />
-      </div> */}
+       <div>
+         <TextField id="standard-basic" label="Standard" />
+       </div>
 
       <Button variant="contained" color="primary" onClick={save}>
         Save
