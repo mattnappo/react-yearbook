@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { apiEndpoint } from './utils';
-// import TopBar from './Bar';
+import TopBar, { BottomBar } from './Bar';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -71,8 +71,8 @@ const User = (props) => {
 
   return (
     <div>
-      {/* <TopBar loginText="Logout" /> */}
-      <Container maxWidth="sm">
+      <TopBar loginText="Logout" />
+      <Container className="main-content" maxWidth="sm">
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
@@ -108,6 +108,7 @@ const User = (props) => {
         </Grid>
         {JSON.stringify(user)}
       </Container>
+      <BottomBar />
     </div>
   );
 };

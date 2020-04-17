@@ -6,7 +6,9 @@ import TopBar from './Bar';
 const Home = () => (
   <div>
     <TopBar loginText="Login" />
-    <Typography>Hi im this is thi</Typography>
+    <div className="main-content">
+      <Typography>Welcome!</Typography>
+    </div>
   </div>
 );
 
