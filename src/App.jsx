@@ -14,7 +14,7 @@ const App = () => (
     <Route exact path="/feed" component={Feed} />
     <Route exact path="/post" component={NewPost} />
     <Route exact path="/search" component={Search} />
-    <Route exact path="/settings/:username" component={Settings} />
+    <Route exact path="/settings" component={Settings} />
     <Route exact path="/accounts/:username" component={User} />
   </Switch>
 );

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Settings = (props) => {
+const Settings = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
@@ -33,7 +33,7 @@ const Settings = (props) => {
   });
 
   const getUserData = () => {
-    const { username } = props.match.params;
+    const username = cookies.get('username');
     fetch(
       apiEndpoint(`getUserWithAuthentication/${username}`),
       {
