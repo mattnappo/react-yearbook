@@ -106,7 +106,7 @@ const Settings = () => {
 
   return (
     <div>
-      <TopBar />
+      <TopBar loginText="Logout" />
       <div className="main-content">
         <div className={classes.root}>
           <TextField

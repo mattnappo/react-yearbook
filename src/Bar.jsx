@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import {
   AppBar, Toolbar, IconButton, Typography, Button,
 } from '@material-ui/core/';
@@ -14,7 +15,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { authEndpoint, capitalize } from './utils';
+import { authEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,19 +96,22 @@ TopBar.propTypes = {
 
 export default TopBar;
 
-const BottomBarLink = ({ to, icon }) => (
-  <Link to={`/${to}`}>
-    <BottomNavigationAction label={capitalize(to)} value={to} icon={icon} />
+const BottomBarLink = ({ to, label, icon }) => (
+  <Link to={to}>
+    <BottomNavigationAction label={label} value={to} icon={icon} />
   </Link>
 );
 BottomBarLink.propTypes = {
   to: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
 };
 
 
 export const BottomBar = () => {
   const classes = useStyles();
+  const cookies = new Cookies();
+  const username = cookies.get('username');
 
   const [value, setValue] = useState(1);
 
@@ -121,11 +125,11 @@ export const BottomBar = () => {
       }}
       showLabels
     >
-      <BottomBarLink to="feed" icon={<HomeIcon />} />
-      <BottomBarLink to="search" icon={<SearchIcon />} />
-      <BottomBarLink to="post" icon={<AddIcon />} />
-      <BottomBarLink to="me" icon={<AccountIcon />} />
-      <BottomBarLink to="settings" icon={<SettingsIcon />} />
+      <BottomBarLink to="/feed" label="Feed" icon={<HomeIcon />} />
+      <BottomBarLink to="/search" label="Search" icon={<SearchIcon />} />
+      <BottomBarLink to="/post" label="Post" icon={<AddIcon />} />
+      <BottomBarLink to={`/accounts/${username}`} label="" icon={<AccountIcon />} />
+      <BottomBarLink to="/settings" icon={<SettingsIcon />} />
 
     </BottomNavigation>
   );
