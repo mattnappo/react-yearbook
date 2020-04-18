@@ -8,27 +8,30 @@ import { apiEndpoint, capitalize } from './utils';
 import TopBar, { BottomBar } from './Bar';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(12, 1fr)',
-    gridGap: theme.spacing(3),
-  },
   pfp: {
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+    width: '100%',
+    height: '100%',
   },
   divider: {
     margin: theme.spacing(2, 0),
   },
-  test: {
-    border: '1px solid blue',
+  item: {
+    // border: '1px solid blue',
+    position: 'relative',
+  },
+  centered: {
+    'text-align': 'center',
   },
 }));
 
 const CTypography = withStyles({
   root: {
+    // border: '1px solid red',
     'text-align': 'center',
-    border: '1px solid red',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
   },
 })(Typography);
 
@@ -98,35 +101,39 @@ const User = (props) => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <CTypography>{genHeaderText()}</CTypography>
+            <Typography className={classes.centered}>{genHeaderText()}</Typography>
           </Grid>
 
-          <Grid item xs={3} className={classes.test}>
+          <Grid item xs={3} className={classes.item}>
             <Avatar alt={user.username} src={user.profile_pic} className={classes.pfp} />
           </Grid>
-          <Grid item xs={3} className={classes.test}>
+          <Grid item xs={3} className={classes.item}>
             <CTypography>{getGrade()}</CTypography>
           </Grid>
-          <Grid item xs={3} className={classes.test}>
+          <Grid item xs={3} className={classes.item}>
             <CTypography># posts</CTypography>
           </Grid>
-          <Grid item xs={3} className={classes.test}>
+          <Grid item xs={3} className={classes.item}>
             <CTypography># congratulations</CTypography>
           </Grid>
 
-          <Grid item xs={12} className={classes.test}>
+          <Grid item xs={12} className={classes.item}>
             <Typography>{getBioText()}</Typography>
           </Grid>
 
           <Divider className={classes.divider} />
 
           {/* Will only show if they are a senior */}
-          <Grid item xs={12} className={classes.test}>
+          <Grid item xs={12} className={classes.item}>
             <Typography>{user.will}</Typography>
           </Grid>
 
         </Grid>
+
+        <br />
+        <br />
         {JSON.stringify(user)}
+
       </Container>
       <BottomBar />
     </div>
