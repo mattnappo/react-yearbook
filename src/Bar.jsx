@@ -128,8 +128,8 @@ export const BottomBar = () => {
       <BottomBarLink to="/feed" label="Feed" icon={<HomeIcon />} />
       <BottomBarLink to="/search" label="Search" icon={<SearchIcon />} />
       <BottomBarLink to="/post" label="Post" icon={<AddIcon />} />
-      <BottomBarLink to={`/accounts/${username}`} label="" icon={<AccountIcon />} />
-      <BottomBarLink to="/settings" icon={<SettingsIcon />} />
+      <BottomBarLink to={`/accounts/${username}`} label="Me" icon={<AccountIcon />} />
+      <BottomBarLink to="/settings" label="Settings" icon={<SettingsIcon />} />
 
     </BottomNavigation>
   );

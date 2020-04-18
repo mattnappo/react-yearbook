@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Typography, Grid, Paper, Container, Divider, makeStyles,
+  Typography, Grid, Avatar, Container, Divider,
+  makeStyles, withStyles,
 } from '@material-ui/core';
 import Cookies from 'universal-cookie';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, capitalize } from './utils';
 import TopBar, { BottomBar } from './Bar';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,22 +13,29 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: 'repeat(12, 1fr)',
     gridGap: theme.spacing(3),
   },
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-    whiteSpace: 'nowrap',
-    marginBottom: theme.spacing(1),
+  pfp: {
+    width: theme.spacing(12),
+    height: theme.spacing(12),
   },
   divider: {
     margin: theme.spacing(2, 0),
   },
+  test: {
+    border: '1px solid blue',
+  },
 }));
+
+const CTypography = withStyles({
+  root: {
+    'text-align': 'center',
+    border: '1px solid red',
+  },
+})(Typography);
 
 const User = (props) => {
   const cookies = new Cookies();
   const [user, setUser] = useState('');
-  const classes = useState();
+  const classes = useStyles();
   const { username } = props.match.params;
 
   const getUserData = () => {
@@ -67,6 +75,20 @@ const User = (props) => {
     }
   };
 
+  const genHeaderText = () => {
+    if (user.nickname === '') {
+      return `${capitalize(user.firstname)} ${capitalize(user.lastname)} (@${user.username})`;
+    }
+    return `${user.nickname} ${user.lastname} (@${user.username})`;
+  };
+
+  const getBioText = () => {
+    if (user.bio === '') {
+      return 'No bio';
+    }
+    return user.bio;
+  };
+
   useEffect(getUserData, []);
 
   return (
@@ -76,33 +98,31 @@ const User = (props) => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <Paper className={classes.paper}>{user.username}</Paper>
+            <CTypography>{genHeaderText()}</CTypography>
           </Grid>
 
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              <img alt="profile_pic" src={user.profile_pic} />
-            </Paper>
+          <Grid item xs={3} className={classes.test}>
+            <Avatar alt={user.username} src={user.profile_pic} className={classes.pfp} />
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>{getGrade()}</Paper>
+          <Grid item xs={3} className={classes.test}>
+            <CTypography>{getGrade()}</CTypography>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}># posts</Paper>
+          <Grid item xs={3} className={classes.test}>
+            <CTypography># posts</CTypography>
           </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}># congratulations</Paper>
+          <Grid item xs={3} className={classes.test}>
+            <CTypography># congratulations</CTypography>
           </Grid>
 
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>{user.bio}</Paper>
+          <Grid item xs={12} className={classes.test}>
+            <Typography>{getBioText()}</Typography>
           </Grid>
 
           <Divider className={classes.divider} />
 
           {/* Will only show if they are a senior */}
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>{user.will}</Paper>
+          <Grid item xs={12} className={classes.test}>
+            <Typography>{user.will}</Typography>
           </Grid>
 
         </Grid>
