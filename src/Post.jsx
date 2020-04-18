@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,9 +11,9 @@ import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import { apiEndpoint } from './utils';
 
 // https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css/10441480#answer-10441480
 const useStyles = makeStyles(() => ({
@@ -28,14 +29,12 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
     // maxHeight: 600,
   },
-  avatar: {
-    backgroundColor: red[500],
-  },
 }));
 
 const Post = ({ postData, key }) => {
   const classes = useStyles();
-  console.log(postData);
+  const cookies = new Cookies();
+  const [profilePic, setProfilePic] = useState('');
 
   const renderImages = () => {
     if (postData.images !== null) {
@@ -52,6 +51,30 @@ const Post = ({ postData, key }) => {
     return <span />;
   };
 
+  const getSenderProfilePic = () => {
+    fetch(
+      apiEndpoint(`getUser/${postData.sender}`),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.errors) {
+          // eslint-disable-next-line no-console
+          console.log(res);
+          // window.location.href = '/';
+        }
+
+        setProfilePic(res.data.profile_pic);
+      });
+  };
+
+  useEffect(getSenderProfilePic, []);
+
   return (
     <Card className={classes.root} id={key}>
       <Link
@@ -61,7 +84,7 @@ const Post = ({ postData, key }) => {
 
         <CardHeader
           avatar={(
-            <Avatar aria-label="recipe" className={classes.avatar}>
+            <Avatar aria-label="recipe" src={profilePic}>
               {postData.sender[0].toUpperCase()}
             </Avatar>
           )}
