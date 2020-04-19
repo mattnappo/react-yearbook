@@ -7,13 +7,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, formatTime } from './utils';
 
 // https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css/10441480#answer-10441480
 const useStyles = makeStyles(() => ({
@@ -98,15 +94,11 @@ const Post = ({ postData, key }) => {
         <Typography variant="body2" color="textSecondary" component="p">
           {postData.message}
         </Typography>
+        <br />
+        <Typography variant="body2" color="textSecondary" component="p">
+          {formatTime(postData.timestamp)}
+        </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
     </Card>
   );
 };

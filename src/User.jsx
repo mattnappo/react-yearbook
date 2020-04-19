@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   pfp: {
     width: '100%',
     height: '100%',
+    maxWidth: 100,
+    maxHeight: 100,
   },
   divider: {
     margin: theme.spacing(2, 0),
@@ -105,16 +107,20 @@ const User = (props) => {
           </Grid>
 
           <Grid item xs={3} className={classes.item}>
-            <Avatar alt={user.username} src={user.profile_pic} className={classes.pfp} />
+            <Avatar
+              alt={user.username}
+              src={user.profile_pic}
+              className={classes.pfp}
+            />
           </Grid>
           <Grid item xs={3} className={classes.item}>
             <CTypography>{getGrade()}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography># posts</CTypography>
+            <CTypography>12 Posts</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography># congratulations</CTypography>
+            <CTypography>3 Congratulations</CTypography>
           </Grid>
 
           <Grid item xs={12} className={classes.item}>
@@ -129,10 +135,6 @@ const User = (props) => {
           </Grid>
 
         </Grid>
-
-        <br />
-        <br />
-        {JSON.stringify(user)}
 
       </Container>
       <BottomBar />

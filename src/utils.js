@@ -1,3 +1,6 @@
+// import { Date } from 'datejs';
+const moment = require('moment');
+
 const conf = {
   ip: 'localhost',
   port: 8081,
@@ -45,3 +48,5 @@ export const capitalize = (s) => {
   if (typeof s !== 'string') return '';
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
+
+export const formatTime = (t) => (moment(t).format('ddd, MMM. YYYY'));
