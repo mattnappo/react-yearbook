@@ -72,7 +72,7 @@ const Settings = () => {
           profile_pic: state.profile_pic,
           nickname: state.nickname,
         },
-      },
+      }, // State seems to not be working here
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
