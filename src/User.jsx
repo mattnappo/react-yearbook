@@ -142,8 +142,4 @@ const User = (props) => {
   );
 };
 
-// User.proptypes = {
-//   username: PropTypes.string.isRequired,
-// }
-
 export default User;

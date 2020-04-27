@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   TextField, Button, Select, MenuItem, makeStyles,
-  NativeSelect,
+  NativeSelect, Container,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
 import { apiEndpoint } from './utils';
@@ -107,53 +107,44 @@ const Settings = () => {
   return (
     <div>
       <TopBar loginText="Logout" />
-      <div className="main-content">
-        <div className={classes.root}>
-          <TextField
-            id="standard-basic"
-            label="Nickname"
-            value={state.nickname}
-            onChange={(e) => { setState({ nickname: e.target.value }); }}
-          />
+      <Container className="main-content" maxWidth="sm">
+        <TextField
+          id="standard-basic"
+          label="Nickname"
+          value={state.nickname}
+          onChange={(e) => { setState({ nickname: e.target.value }); }}
+        />
 
-          {/* <NativeSelect
-            value={state.grade}
-            onChange={(e) => { setState({ grade: e.target.value }); }}
-          >
-            <option aria-label="none" value="" />
-            <option value="freshman">Freshman</option>
-            <option value="sophomore">Sophomore</option>
-            <option value="junior">Junior</option>
-            <option value="senior">Senior</option>
-          </NativeSelect>
-
-          <div>
-            <TextField
-              id="standard-multiline"
-              label="Bio"
-              multiline
-              rowsMax={4}
-              value={state.bio}
-              onChange={(e) => { setState({ bio: e.target.value }); }}
-              variant="outlined"
-            /> */}
-
-            {/* {genSeniorWill()} */}
-          {/* </div> */}
-
-          <div>
-            <TextField id="standard-basic" label="Standard" />
-          </div>
-
-          <Button variant="contained" color="primary" onClick={save}>
-            Save
-          </Button>
-
-        </div>
-      </div>
+      </Container>
       <BottomBar />
     </div>
   );
 };
 
 export default Settings;
+
+
+// {/* <NativeSelect
+//       value={state.grade}
+//       onChange={(e) => { setState({ grade: e.target.value }); }}
+//     >
+//       <option aria-label="none" value="" />
+//       <option value="freshman">Freshman</option>
+//       <option value="sophomore">Sophomore</option>
+//       <option value="junior">Junior</option>
+//       <option value="senior">Senior</option>
+//     </NativeSelect>
+
+//     <div>
+//       <TextField
+//         id="standard-multiline"
+//         label="Bio"
+//         multiline
+//         rowsMax={4}
+//         value={state.bio}
+//         onChange={(e) => { setState({ bio: e.target.value }); }}
+//         variant="outlined"
+//       /> */}
+
+//     {/* {genSeniorWill()} */}
+//     {/* </div> */}
