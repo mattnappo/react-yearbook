@@ -72,16 +72,6 @@ const Settings = () => {
   };
 
   const save = () => {
-    const body = {
-      username: state.username,
-      grade: state.grade,
-      bio: state.bio,
-      will: state.will,
-      profile_pic: state.profile_pic,
-      nickname: state.nickname,
-    };
-
-    console.log(`BODY: ${JSON.stringify(body)}`);
     fetch(
       apiEndpoint('updateUser'),
       {
@@ -90,7 +80,14 @@ const Settings = () => {
           'Content-Type': 'application/json',
           Authorization: `bearer ${cookies.get('token')}`,
         },
-        body,
+        body: JSON.stringify({
+          username: state.username,
+          grade: state.grade,
+          bio: state.bio,
+          will: state.will,
+          profile_pic: state.profile_pic,
+          nickname: state.nickname,
+        }),
       }, // State seems to not be working here
     ).then((res) => res.json())
       .then((res) => {
@@ -180,8 +177,6 @@ const Settings = () => {
         </Grid>
 
       </Container>
-
-      {JSON.stringify(state)}
 
       <BottomBar />
     </div>
