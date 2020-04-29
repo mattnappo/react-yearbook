@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, Select, MenuItem, makeStyles,
-  NativeSelect, Container, Typography, Grid,
+  TextField, Button, NativeSelect, Container,
+  Typography, Grid, makeStyles,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
 import {
@@ -72,6 +72,16 @@ const Settings = () => {
   };
 
   const save = () => {
+    const body = {
+      username: state.username,
+      grade: state.grade,
+      bio: state.bio,
+      will: state.will,
+      profile_pic: state.profile_pic,
+      nickname: state.nickname,
+    };
+
+    console.log(`BODY: ${JSON.stringify(body)}`);
     fetch(
       apiEndpoint('updateUser'),
       {
@@ -80,14 +90,7 @@ const Settings = () => {
           'Content-Type': 'application/json',
           Authorization: `bearer ${cookies.get('token')}`,
         },
-        body: {
-          username: state.username,
-          grade: state.grade,
-          bio: state.bio,
-          will: state.will,
-          profile_pic: state.profile_pic,
-          nickname: state.nickname,
-        },
+        body,
       }, // State seems to not be working here
     ).then((res) => res.json())
       .then((res) => {
@@ -165,6 +168,14 @@ const Settings = () => {
           <Grid item xs={12}>
             {genSeniorWill()}
           </Grid>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={save}
+          >
+            Save Changes
+          </Button>
 
         </Grid>
 
