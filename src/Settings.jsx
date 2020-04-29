@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   TextField, Button, Select, MenuItem, makeStyles,
-  NativeSelect, Container,
+  NativeSelect, Container, Typography, Grid,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
 import { apiEndpoint } from './utils';
@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     },
     width: 1000,
     border: '1px solid red',
+  },
+  centered: {
+    'text-align': 'center',
   },
 }));
 
@@ -107,15 +110,62 @@ const Settings = () => {
   return (
     <div>
       <TopBar loginText="Logout" />
+
       <Container className="main-content" maxWidth="sm">
-        <TextField
-          id="standard-basic"
-          label="Nickname"
-          value={state.nickname}
-          onChange={(e) => { setState({ nickname: e.target.value }); }}
-        />
+        <Grid container spacing={3}>
+
+          <Grid item xs={12}>
+            <Typography className={classes.centered}>Edit Account Settings</Typography>
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              id="standard-basic"
+              label="Nickname"
+              value={state.nickname}
+              onChange={(e) => { setState({ nickname: e.target.value }); }}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <NativeSelect
+              value={state.grade}
+              onChange={(e) => { setState({ grade: e.target.value }); }}
+            >
+              <option aria-label="none" value="" />
+              <option value="freshman">Freshman</option>
+              <option value="sophomore">Sophomore</option>
+              <option value="junior">Junior</option>
+              <option value="senior">Senior</option>
+            </NativeSelect>
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              id="standard-multiline"
+              label="Bio"
+              multiline
+              rowsMax={4}
+              value={state.bio}
+              onChange={(e) => { setState({ bio: e.target.value }); }}
+              variant="outlined"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="standard-multiline"
+              label="Senior Will"
+              multiline
+              rowsMax={4}
+              value={state.will}
+              onChange={(e) => { setState({ will: e.target.value }); }}
+              variant="outlined"
+            />
+          </Grid>
+
+        </Grid>
 
       </Container>
+
       <BottomBar />
     </div>
   );
@@ -136,15 +186,15 @@ export default Settings;
 //     </NativeSelect>
 
 //     <div>
-//       <TextField
-//         id="standard-multiline"
-//         label="Bio"
-//         multiline
-//         rowsMax={4}
-//         value={state.bio}
-//         onChange={(e) => { setState({ bio: e.target.value }); }}
-//         variant="outlined"
-//       /> */}
+// <TextField
+//   id="standard-multiline"
+//   label="Bio"
+//   multiline
+//   rowsMax={4}
+//   value={state.bio}
+//   onChange={(e) => { setState({ bio: e.target.value }); }}
+//   variant="outlined"
+// /> */}
 
 //     {/* {genSeniorWill()} */}
 //     {/* </div> */}
