@@ -65,3 +65,18 @@ export const gradeIntToString = (gradeInt) => {
       return 'invalid grade';
   }
 };
+
+export const gradeStringToInt = (gradeString) => {
+  switch (gradeString) {
+    case 'freshman':
+      return 0;
+    case 'sophomore':
+      return 1;
+    case 'junior':
+      return 2;
+    case 'senior':
+      return 0;
+    default:
+      return 'invalid grade';
+  }
+};

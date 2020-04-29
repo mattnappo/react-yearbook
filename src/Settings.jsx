@@ -5,7 +5,9 @@ import {
   NativeSelect, Container, Typography, Grid,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
-import { apiEndpoint, gradeIntToString } from './utils';
+import {
+  apiEndpoint, gradeIntToString, gradeStringToInt,
+} from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -140,8 +142,8 @@ const Settings = () => {
             <NativeSelect
               className={classes.fill}
               variant="standard"
-              value={state.grade}
-              onChange={(e) => { setState({ ...state, grade: e.target.value }); }}
+              value={gradeIntToString(state.grade)}
+              onChange={(e) => { setState({ ...state, grade: gradeStringToInt(e.target.value) }); }}
             >
               <option aria-label="none" value="" />
               <option value="freshman">Freshman</option>
