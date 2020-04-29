@@ -16,8 +16,18 @@ const useStyles = makeStyles((theme) => ({
     width: 1000,
     border: '1px solid red',
   },
+  border: {
+    border: '1px solid red',
+  },
   centered: {
     'text-align': 'center',
+  },
+  wide: {
+    width: '100%',
+  },
+  fill: {
+    width: '100%',
+    height: '100%',
   },
 }));
 
@@ -92,13 +102,12 @@ const Settings = () => {
     if (state.grade === 'senior') {
       return (
         <TextField
-          id="multiline"
           label="Senior Will"
+          className={classes.wide}
           multiline
           rowsMax={4}
           value={state.will}
           onChange={(e) => { setState({ will: e.target.value }); }}
-          variant="outlined"
         />
       );
     }
@@ -120,7 +129,7 @@ const Settings = () => {
 
           <Grid item xs={6}>
             <TextField
-              id="standard-basic"
+              className={classes.wide}
               label="Nickname"
               value={state.nickname}
               onChange={(e) => { setState({ nickname: e.target.value }); }}
@@ -128,10 +137,12 @@ const Settings = () => {
           </Grid>
           <Grid item xs={6}>
             <NativeSelect
+              className={classes.fill}
+              variant="standard"
               value={state.grade}
               onChange={(e) => { setState({ grade: e.target.value }); }}
             >
-              <option aria-label="none" value="" />
+              <option aria-label="none" value="">Grade</option>
               <option value="freshman">Freshman</option>
               <option value="sophomore">Sophomore</option>
               <option value="junior">Junior</option>
@@ -141,25 +152,15 @@ const Settings = () => {
 
           <Grid item xs={12}>
             <TextField
-              id="standard-multiline"
               label="Bio"
+              className={classes.wide}
               multiline
-              rowsMax={4}
               value={state.bio}
               onChange={(e) => { setState({ bio: e.target.value }); }}
-              variant="outlined"
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              id="standard-multiline"
-              label="Senior Will"
-              multiline
-              rowsMax={4}
-              value={state.will}
-              onChange={(e) => { setState({ will: e.target.value }); }}
-              variant="outlined"
-            />
+            {genSeniorWill()}
           </Grid>
 
         </Grid>
@@ -172,29 +173,3 @@ const Settings = () => {
 };
 
 export default Settings;
-
-
-// {/* <NativeSelect
-//       value={state.grade}
-//       onChange={(e) => { setState({ grade: e.target.value }); }}
-//     >
-//       <option aria-label="none" value="" />
-//       <option value="freshman">Freshman</option>
-//       <option value="sophomore">Sophomore</option>
-//       <option value="junior">Junior</option>
-//       <option value="senior">Senior</option>
-//     </NativeSelect>
-
-//     <div>
-// <TextField
-//   id="standard-multiline"
-//   label="Bio"
-//   multiline
-//   rowsMax={4}
-//   value={state.bio}
-//   onChange={(e) => { setState({ bio: e.target.value }); }}
-//   variant="outlined"
-// /> */}
-
-//     {/* {genSeniorWill()} */}
-//     {/* </div> */}
