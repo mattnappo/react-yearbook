@@ -5,7 +5,7 @@ import {
   NativeSelect, Container, Typography, Grid,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, gradeIntToString } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +44,7 @@ const Settings = () => {
     profile_pic: '',
     nickname: '',
   });
+
 
   const getUserData = () => {
     const username = cookies.get('username');
@@ -107,7 +108,7 @@ const Settings = () => {
           multiline
           rowsMax={4}
           value={state.will}
-          onChange={(e) => { setState({ will: e.target.value }); }}
+          onChange={(e) => { setState({ ...state, will: e.target.value }); }}
         />
       );
     }
@@ -132,7 +133,7 @@ const Settings = () => {
               className={classes.wide}
               label="Nickname"
               value={state.nickname}
-              onChange={(e) => { setState({ nickname: e.target.value }); }}
+              onChange={(e) => { setState({ ...state, nickname: e.target.value }); }}
             />
           </Grid>
           <Grid item xs={6}>
@@ -140,9 +141,9 @@ const Settings = () => {
               className={classes.fill}
               variant="standard"
               value={state.grade}
-              onChange={(e) => { setState({ grade: e.target.value }); }}
+              onChange={(e) => { setState({ ...state, grade: e.target.value }); }}
             >
-              <option aria-label="none" value="">Grade</option>
+              <option aria-label="none" value="" />
               <option value="freshman">Freshman</option>
               <option value="sophomore">Sophomore</option>
               <option value="junior">Junior</option>
@@ -156,7 +157,7 @@ const Settings = () => {
               className={classes.wide}
               multiline
               value={state.bio}
-              onChange={(e) => { setState({ bio: e.target.value }); }}
+              onChange={(e) => { setState({ ...state, bio: e.target.value }); }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -166,6 +167,8 @@ const Settings = () => {
         </Grid>
 
       </Container>
+
+      {JSON.stringify(state)}
 
       <BottomBar />
     </div>

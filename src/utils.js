@@ -50,3 +50,18 @@ export const capitalize = (s) => {
 };
 
 export const formatTime = (t) => (moment(t).format('ddd, MMM. YYYY'));
+
+export const gradeIntToString = (gradeInt) => {
+  switch (gradeInt) {
+    case 0:
+      return 'freshman';
+    case 1:
+      return 'sophomore';
+    case 2:
+      return 'junior';
+    case 3:
+      return 'senior';
+    default:
+      return 'invalid grade';
+  }
+};
