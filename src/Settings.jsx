@@ -102,7 +102,7 @@ const Settings = () => {
   };
 
   const genSeniorWill = () => {
-    if (state.grade === 'senior') {
+    if (state.grade === 3) { // If senior
       return (
         <TextField
           label="Senior Will"

@@ -75,7 +75,7 @@ export const gradeStringToInt = (gradeString) => {
     case 'junior':
       return 2;
     case 'senior':
-      return 0;
+      return 3;
     default:
       return 'invalid grade';
   }

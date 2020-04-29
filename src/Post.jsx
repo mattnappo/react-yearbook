@@ -77,7 +77,7 @@ const Post = ({ postData, key }) => {
         className="link"
         to={`/accounts/${postData.sender}`}
       >
-
+        {`KEY: ${key}`}
         <CardHeader
           avatar={(
             <Avatar aria-label="recipe" src={profilePic}>

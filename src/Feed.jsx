@@ -63,6 +63,7 @@ const Feed = () => {
     <div>
       <TopBar loginText="Logout" />
       <div className="main-content">
+        {/* { Object.values(posts).map((post) => post.id) } */}
         { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) }
       </div>
       <BottomBar />
