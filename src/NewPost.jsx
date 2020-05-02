@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   TextField, Button, Container, Chip,
-  Typography, Grid, Avatar, makeStyles,
+  Typography, Grid, Avatar, Autocomplete, makeStyles,
 } from '@material-ui/core';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
 import TopBar, { BottomBar } from './Bar';
+import SelectRecipients from './SelectRecipients';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +80,10 @@ const NewPost = () => {
       });
   };
 
+  const post = () => {
+    return;
+  };
+
   useEffect(getUsers, []);
 
   return (
@@ -92,55 +97,37 @@ const NewPost = () => {
             <Typography className={classes.centered}>Make New Post</Typography>
           </Grid>
 
-          <Grid item xs={6}>
-            <TextField
-              className={classes.wide}
-              label="Nickname"
-              value={state.nickname}
-              onChange={(e) => { setState({ ...state, nickname: e.target.value }); }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Chip
-              avatar={<Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />}
-              label="Deletable"
-              onDelete={handleDelete}
-              variant="outlined"
-            />
-          </Grid>
-
           <Grid item xs={12}>
-            <Select
+            {/* <Select
               closeMenuOnSelect={false}
               components={animatedComponents}
               isMulti
               options={users}
-            />
+            /> */}
+            <SelectRecipients />
           </Grid>
 
           <Grid item xs={12}>
             <TextField
-              label="Bio"
+              label="Message"
               className={classes.wide}
               multiline
-              value={state.bio}
-              onChange={(e) => { setState({ ...state, bio: e.target.value }); }}
+              value={state.message}
+              onChange={(e) => { setState({ ...state, message: e.target.value }); }}
             />
           </Grid>
 
           <Button
             variant="contained"
             color="primary"
-            // onClick={}
+            onClick={post}
           >
-            Save Changes
+            Post
           </Button>
 
         </Grid>
 
       </Container>
-      {JSON.stringify(users)}
-      {typeof [1, 2, 3]}
 
       <BottomBar />
     </div>
