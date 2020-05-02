@@ -40,6 +40,10 @@ const CTypography = withStyles({
 const User = (props) => {
   const cookies = new Cookies();
   const [user, setUser] = useState('');
+  const [n, setn] = useState({
+    inbound: 0,
+    outbound: 0,
+  });
   const classes = useStyles();
   const { username } = props.match.params;
 
@@ -62,6 +66,17 @@ const User = (props) => {
         }
 
         setUser(res.data);
+
+        if (res.data.inbound_posts === null) { // Inbound = congrats
+          setn({ ...n, inbound: 0 });
+        } else {
+          setn({ ...n, inbound: res.data.inbound_posts.length });
+        }
+        if (res.data.outbound_posts === undefined) { // Outbound = posts
+          setn({ ...n, outbound: 0 });
+        } else {
+          setn({ ...n, outbound: res.data.outbound_posts.length });
+        }
       });
   };
 
@@ -117,10 +132,10 @@ const User = (props) => {
             <CTypography>{getGrade()}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography>12 Posts</CTypography>
+            <CTypography>{`${n.outbound} Posts`}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography>3 Congratulations</CTypography>
+            <CTypography>{`${n.inbound} Congratulations`}</CTypography>
           </Grid>
 
           <Grid item xs={12} className={classes.item}>
@@ -135,6 +150,9 @@ const User = (props) => {
           </Grid>
 
         </Grid>
+        {JSON.stringify(user)}
+        <br />
+        {JSON.stringify(n)}
 
       </Container>
       <BottomBar />
