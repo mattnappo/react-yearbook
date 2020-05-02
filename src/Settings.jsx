@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   TextField, Button, NativeSelect, Container,
-  Typography, Grid, makeStyles,
+  Typography, Grid, Select, FormControl,
+  InputLabel, makeStyles,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
 import {
@@ -49,7 +50,6 @@ const Settings = () => {
     profile_pic: '',
     nickname: '',
   });
-
 
   const getUserData = () => {
     const username = cookies.get('username');
@@ -104,6 +104,9 @@ const Settings = () => {
       });
   };
 
+  const variant = 'outlined';
+  // const variant = 'standard';
+
   const genSeniorWill = () => {
     if (state.grade === 3) { // If senior
       return (
@@ -137,14 +140,14 @@ const Settings = () => {
             <TextField
               className={classes.wide}
               label="Nickname"
+              variant={variant}
               value={state.nickname}
               onChange={(e) => { setState({ ...state, nickname: e.target.value }); }}
             />
           </Grid>
           <Grid item xs={6}>
-            <NativeSelect
+            {/* <NativeSelect
               className={classes.fill}
-              variant="standard"
               value={gradeIntToString(state.grade)}
               onChange={(e) => { setState({ ...state, grade: gradeStringToInt(e.target.value) }); }}
             >
@@ -153,7 +156,30 @@ const Settings = () => {
               <option value="sophomore">Sophomore</option>
               <option value="junior">Junior</option>
               <option value="senior">Senior</option>
-            </NativeSelect>
+            </NativeSelect> */}
+
+            <FormControl variant="outlined" className={classes.fill}>
+              <InputLabel htmlFor="outlined-grade-native-simple">Grade</InputLabel>
+              <Select
+                native
+                value={gradeIntToString(state.grade)}
+                onChange={(e) => {
+                  setState({ ...state, grade: gradeStringToInt(e.target.value) });
+                }}
+                label="Grade"
+                inputProps={{
+                  id: 'outlined-grade-native-simple',
+                  name: 'grade',
+                }}
+              >
+                <option aria-label="none" value="" />
+                <option value="freshman">Freshman</option>
+                <option value="sophomore">Sophomore</option>
+                <option value="junior">Junior</option>
+                <option value="senior">Senior</option>
+              </Select>
+            </FormControl>
+
           </Grid>
 
           <Grid item xs={12}>
@@ -161,6 +187,7 @@ const Settings = () => {
               label="Bio"
               className={classes.wide}
               multiline
+              variant={variant}
               value={state.bio}
               onChange={(e) => { setState({ ...state, bio: e.target.value }); }}
             />

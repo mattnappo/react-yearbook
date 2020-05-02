@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   TextField, Button, Container, Chip,
-  Typography, Grid, Avatar, Autocomplete, makeStyles,
+  Typography, Grid, Avatar, makeStyles,
 } from '@material-ui/core';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
-import SelectRecipients from './SelectRecipients';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +32,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const animatedComponents = makeAnimated();
-
 const NewPost = () => {
   const [state, setState] = useState({
     sender: '',
@@ -44,7 +40,7 @@ const NewPost = () => {
     images: [],
   });
 
-  const [users, setUsers] = useState([]);
+  const [seniors, setSeniors] = useState([]);
 
   const classes = useStyles();
   const cookies = new Cookies();
@@ -55,7 +51,7 @@ const NewPost = () => {
 
   const getUsers = () => {
     fetch(
-      apiEndpoint('getUsernames'),
+      apiEndpoint('getSeniors'),
       {
         method: 'GET',
         headers: {
@@ -69,14 +65,13 @@ const NewPost = () => {
           console.log(res);
         }
 
-        const tempUsers = [];
+        const tempSeniors = [];
         for (let i = 0; i < res.data.length; i++) {
-          tempUsers.push({
-            label: res.data[i],
-            value: res.data[i],
+          tempSeniors.push({
+            name: res.data[i],
           });
         }
-        setUsers(tempUsers);
+        setSeniors(tempSeniors);
       });
   };
 
@@ -98,13 +93,21 @@ const NewPost = () => {
           </Grid>
 
           <Grid item xs={12}>
-            {/* <Select
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              isMulti
-              options={users}
-            /> */}
-            <SelectRecipients />
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              options={seniors}
+              getOptionLabel={(option) => option.name}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  // eslint-disable-next-line react/jsx-props-no-spreading
+                  {...params}
+                  variant="outlined"
+                  label="Recipients"
+                />
+              )}
+            />
           </Grid>
 
           <Grid item xs={12}>
@@ -113,6 +116,7 @@ const NewPost = () => {
               className={classes.wide}
               multiline
               value={state.message}
+              variant="outlined"
               onChange={(e) => { setState({ ...state, message: e.target.value }); }}
             />
           </Grid>
