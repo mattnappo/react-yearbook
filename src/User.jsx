@@ -84,7 +84,7 @@ const User = (props) => {
     if (user.nickname === '') {
       return `${capitalize(user.firstname)} ${capitalize(user.lastname)} (@${user.username})`;
     }
-    return `${user.nickname} ${user.lastname} (@${user.username})`;
+    return `${capitalize(user.nickname)} ${capitalize(user.lastname)} (@${user.username})`;
   };
 
   const getBioText = () => {
