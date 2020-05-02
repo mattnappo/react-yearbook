@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import Cookies from 'universal-cookie';
 import {
-  TextField, Button, NativeSelect, Container,
-  Typography, Grid, makeStyles,
+  TextField, Button, Container, Chip,
+  Typography, Grid, Avatar, makeStyles,
 } from '@material-ui/core';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 import TopBar, { BottomBar } from './Bar';
+import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +33,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const animatedComponents = makeAnimated();
+
 const NewPost = () => {
   const [state, setState] = useState({
     sender: '',
@@ -37,7 +43,34 @@ const NewPost = () => {
     images: [],
   });
 
+  const [users, setUsers] = useState([]);
+
   const classes = useStyles();
+  const cookies = new Cookies();
+
+  const handleDelete = () => {
+    console.log('you deleted something');
+  };
+
+  const getUsers = () => {
+    fetch(
+      apiEndpoint('getUsernames'),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.errors) {
+          console.log(res);
+        }
+
+        setUsers(res.data);
+      });
+  };
 
   return (
     <div>
@@ -47,7 +80,7 @@ const NewPost = () => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <Typography className={classes.centered}>Edit Account Settings</Typography>
+            <Typography className={classes.centered}>Make New Post</Typography>
           </Grid>
 
           <Grid item xs={6}>
@@ -59,18 +92,21 @@ const NewPost = () => {
             />
           </Grid>
           <Grid item xs={6}>
-            <NativeSelect
-              className={classes.fill}
-              variant="standard"
-              value={gradeIntToString(state.grade)}
-              onChange={(e) => { setState({ ...state, grade: gradeStringToInt(e.target.value) }); }}
-            >
-              <option aria-label="none" value="" />
-              <option value="freshman">Freshman</option>
-              <option value="sophomore">Sophomore</option>
-              <option value="junior">Junior</option>
-              <option value="senior">Senior</option>
-            </NativeSelect>
+            <Chip
+              avatar={<Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />}
+              label="Deletable"
+              onDelete={handleDelete}
+              variant="outlined"
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <Select
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              isMulti
+              options={users}
+            />
           </Grid>
 
           <Grid item xs={12}>
@@ -86,7 +122,7 @@ const NewPost = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={save}
+            // onClick={}
           >
             Save Changes
           </Button>
