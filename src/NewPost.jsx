@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   TextField, Button, Container, Chip,
@@ -68,9 +68,18 @@ const NewPost = () => {
           console.log(res);
         }
 
-        setUsers(res.data);
+        const tempUsers = [];
+        for (let i = 0; i < res.data.length; i++) {
+          tempUsers.push({
+            label: res.data[i],
+            value: res.data[i],
+          });
+        }
+        setUsers(tempUsers);
       });
   };
+
+  useEffect(getUsers, []);
 
   return (
     <div>
@@ -130,6 +139,8 @@ const NewPost = () => {
         </Grid>
 
       </Container>
+      {JSON.stringify(users)}
+      {typeof [1, 2, 3]}
 
       <BottomBar />
     </div>

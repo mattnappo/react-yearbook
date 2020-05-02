@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
   },
+  main: {
+    'background-color': 'white',
+  },
 }));
 
 const Settings = () => {
