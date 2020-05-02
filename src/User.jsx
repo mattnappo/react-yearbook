@@ -67,16 +67,15 @@ const User = (props) => {
 
         setUser(res.data);
 
-        if (res.data.inbound_posts === null) { // Inbound = congrats
-          setn({ ...n, inbound: 0 });
-        } else {
-          setn({ ...n, inbound: res.data.inbound_posts.length });
-        }
-        if (res.data.outbound_posts === undefined) { // Outbound = posts
-          setn({ ...n, outbound: 0 });
-        } else {
-          setn({ ...n, outbound: res.data.outbound_posts.length });
-        }
+        setn({
+          ...n,
+          inbound: (res.data.inbound_posts === null) ? 0 : res.data.inbound_posts.length,
+        }); // Congrats
+
+        setn({
+          ...n,
+          outbound: (res.data.outbound_posts == null) ? 0 : res.data.outbound_posts.length,
+        }); // Posts
       });
   };
 
@@ -150,9 +149,6 @@ const User = (props) => {
           </Grid>
 
         </Grid>
-        {JSON.stringify(user)}
-        <br />
-        {JSON.stringify(n)}
 
       </Container>
       <BottomBar />
