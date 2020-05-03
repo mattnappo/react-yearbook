@@ -67,16 +67,32 @@ const NewPost = () => {
 
         const tempSeniors = [];
         for (let i = 0; i < res.data.length; i++) {
-          tempSeniors.push({
-            name: res.data[i],
-          });
+          tempSeniors.push(res.data[i]);
         }
         setSeniors(tempSeniors);
       });
   };
 
   const post = () => {
-    return;
+    fetch(
+      apiEndpoint('createPost'),
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+        body: JSON.stringify({
+          ...state,
+          sender: cookies.get('username'),
+        }),
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        if (res.errors) {
+          console.log(res);
+        }
+      });
   };
 
   useEffect(getUsers, []);
@@ -97,7 +113,11 @@ const NewPost = () => {
               multiple
               id="tags-outlined"
               options={seniors}
-              getOptionLabel={(option) => option.name}
+              getOptionLabel={(option) => option}
+              onChange={(e, val) => setState({
+                ...state,
+                recipients: val,
+              })}
               filterSelectedOptions
               renderInput={(params) => (
                 <TextField
@@ -123,6 +143,17 @@ const NewPost = () => {
 
           <Button
             variant="contained"
+            component="label"
+          >
+            Upload File
+            <input
+              type="file"
+              style={{ display: 'none' }}
+            />
+          </Button>
+
+          <Button
+            variant="contained"
             color="primary"
             onClick={post}
           >
@@ -132,7 +163,7 @@ const NewPost = () => {
         </Grid>
 
       </Container>
-
+      {JSON.stringify(state)}
       <BottomBar />
     </div>
   );

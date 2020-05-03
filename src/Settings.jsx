@@ -84,12 +84,7 @@ const Settings = () => {
           Authorization: `bearer ${cookies.get('token')}`,
         },
         body: JSON.stringify({
-          username: state.username,
-          grade: state.grade,
-          bio: state.bio,
-          will: state.will,
-          profile_pic: state.profile_pic,
-          nickname: state.nickname,
+          ...state,
         }),
       }, // State seems to not be working here
     ).then((res) => res.json())
@@ -146,18 +141,6 @@ const Settings = () => {
             />
           </Grid>
           <Grid item xs={6}>
-            {/* <NativeSelect
-              className={classes.fill}
-              value={gradeIntToString(state.grade)}
-              onChange={(e) => { setState({ ...state, grade: gradeStringToInt(e.target.value) }); }}
-            >
-              <option aria-label="none" value="" />
-              <option value="freshman">Freshman</option>
-              <option value="sophomore">Sophomore</option>
-              <option value="junior">Junior</option>
-              <option value="senior">Senior</option>
-            </NativeSelect> */}
-
             <FormControl variant="outlined" className={classes.fill}>
               <InputLabel htmlFor="outlined-grade-native-simple">Grade</InputLabel>
               <Select

@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Post = ({ postData, key }) => {
+const Post = ({ postData }, key) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const [profilePic, setProfilePic] = useState('');
@@ -77,7 +77,6 @@ const Post = ({ postData, key }) => {
         className="link"
         to={`/accounts/${postData.sender}`}
       >
-        {`KEY: ${key}`}
         <CardHeader
           avatar={(
             <Avatar aria-label="recipe" src={profilePic}>
@@ -106,7 +105,6 @@ const Post = ({ postData, key }) => {
 Post.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   postData: PropTypes.object.isRequired,
-  key: PropTypes.number.isRequired,
 };
 
 export default Post;

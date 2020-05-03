@@ -58,9 +58,9 @@ const Feed = () => {
 
   const renderPosts = () => {
     if (posts === undefined) {
-      return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
+      return <p>No posts</p>;
     }
-    return <p>No posts</p>;
+    return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
   };
 
   useEffect(authorize, []);
@@ -70,8 +70,8 @@ const Feed = () => {
     <div>
       <TopBar loginText="Logout" />
       <div className="main-content">
-        {/* { Object.values(posts).map((post) => post.id) } */}
         { renderPosts() }
+        {/* { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) } */}
       </div>
       <BottomBar />
     </div>
