@@ -155,17 +155,6 @@ const NewPost = () => {
             <Crop handleImageCallback={handleImage} />
           </Grid>
 
-          {/* <Button
-            variant="contained"
-            component="label"
-          >
-            Upload File
-            <input
-              type="file"
-              style={{ display: 'none' }}
-            />
-          </Button> */}
-
           <Button
             variant="contained"
             color="primary"
@@ -177,11 +166,7 @@ const NewPost = () => {
         </Grid>
 
       </Container>
-      <br />
-      <br />
-      <br />
-      {`STATE: ${JSON.stringify(state)}`}
-      {console.log(`STATE: ${JSON.stringify(state)}`)}
+      {console.log(state.images)}
       <BottomBar />
     </div>
   );

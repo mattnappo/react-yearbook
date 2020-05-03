@@ -40,7 +40,7 @@ const Crop = ({ handleImageCallback }) => {
       newCrop.height,
     );
 
-    handleImageCallback(canvas.toDataURL('image/jpeg'));
+    handleImageCallback(canvas.toDataURL('image/jpeg').substring(23));
   };
 
   const makeClientCrop = async (clientCrop) => {
