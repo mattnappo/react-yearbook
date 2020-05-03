@@ -69,7 +69,7 @@ const User = (props) => {
 
         setn({
           ...n,
-          inbound: (res.data.inbound_posts === null) ? 0 : res.data.inbound_posts.length,
+          inbound: (res.data.inbound_posts == null) ? 0 : res.data.inbound_posts.length,
         }); // Congrats
 
         setn({

@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
+import Crop from './Crop';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -151,6 +152,8 @@ const NewPost = () => {
               style={{ display: 'none' }}
             />
           </Button>
+
+          <Crop />
 
           <Button
             variant="contained"
