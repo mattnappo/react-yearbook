@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
-const Crop = () => {
+const Crop = ({ handleImageCallback }) => {
   const [upImg, setUpImg] = useState();
   const [imgRef, setImgRef] = useState(null);
   const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 1 });
-  const [previewUrl, setPreviewUrl] = useState();
-  const [encodedImage, setEncodedImage] = useState('');
 
   const onSelectFile = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -21,42 +20,32 @@ const Crop = () => {
     setImgRef(img);
   }, []);
 
-  const createCropPreview = async (image, crop, fileName) => {
+  const createCropPreview = async (image, newCrop) => {
     const canvas = document.createElement('canvas');
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
+    canvas.width = newCrop.width;
+    canvas.height = newCrop.height;
     const ctx = canvas.getContext('2d');
 
     ctx.drawImage(
       image,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
+      newCrop.x * scaleX,
+      newCrop.y * scaleY,
+      newCrop.width * scaleX,
+      newCrop.height * scaleY,
       0,
       0,
-      crop.width,
-      crop.height,
+      newCrop.width,
+      newCrop.height,
     );
 
-    return new Promise((resolve, reject) => {
-      canvas.toBlob((blob) => {
-        if (!blob) {
-          reject(new Error('Canvas is empty'));
-          return;
-        }
-        blob.name = fileName;
-        window.URL.revokeObjectURL(previewUrl);
-        setPreviewUrl(window.URL.createObjectURL(blob));
-      }, 'image/jpeg');
-    });
+    handleImageCallback(canvas.toDataURL('image/jpeg'));
   };
 
-  const makeClientCrop = async (crop) => {
-    if (imgRef && crop.width && crop.height) {
-      createCropPreview(imgRef, crop, 'newFile.jpeg');
+  const makeClientCrop = async (clientCrop) => {
+    if (imgRef && clientCrop.width && clientCrop.height) {
+      createCropPreview(imgRef, clientCrop, 'newFile.jpeg');
     }
   };
 
@@ -72,10 +61,11 @@ const Crop = () => {
         onChange={(c) => setCrop(c)}
         onComplete={makeClientCrop}
       />
-      {previewUrl && <img alt="Crop preview" src={previewUrl} />}
-      {previewUrl}
     </div>
   );
+};
+Crop.propTypes = {
+  handleImageCallback: PropTypes.func.isRequired,
 };
 
 export default Crop;

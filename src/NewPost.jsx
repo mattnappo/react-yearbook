@@ -96,6 +96,15 @@ const NewPost = () => {
       });
   };
 
+  const handleImage = (newImage) => {
+    const { images } = state;
+    images.push(newImage);
+    setState({
+      ...state,
+      images,
+    });
+  };
+
   useEffect(getUsers, []);
 
   return (
@@ -142,7 +151,11 @@ const NewPost = () => {
             />
           </Grid>
 
-          <Button
+          <Grid item xs={12}>
+            <Crop handleImageCallback={handleImage} />
+          </Grid>
+
+          {/* <Button
             variant="contained"
             component="label"
           >
@@ -151,9 +164,7 @@ const NewPost = () => {
               type="file"
               style={{ display: 'none' }}
             />
-          </Button>
-
-          <Crop />
+          </Button> */}
 
           <Button
             variant="contained"
@@ -166,7 +177,11 @@ const NewPost = () => {
         </Grid>
 
       </Container>
-      {JSON.stringify(state)}
+      <br />
+      <br />
+      <br />
+      {`STATE: ${JSON.stringify(state)}`}
+      {console.log(`STATE: ${JSON.stringify(state)}`)}
       <BottomBar />
     </div>
   );
