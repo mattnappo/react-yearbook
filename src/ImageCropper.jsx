@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
 
-const Crop = ({ handleImageCallback }) => {
+const ImageCropper = ({ handleImageCallback }) => {
   const [upImg, setUpImg] = useState();
   const [imgRef, setImgRef] = useState(null);
   const [crop, setCrop] = useState({ unit: '%', width: 30, aspect: 1 });
@@ -64,8 +64,8 @@ const Crop = ({ handleImageCallback }) => {
     </div>
   );
 };
-Crop.propTypes = {
+ImageCropper.propTypes = {
   handleImageCallback: PropTypes.func.isRequired,
 };
 
-export default Crop;
+export default ImageCropper;

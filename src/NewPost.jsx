@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
-import Crop from './Crop';
+import ImageCropper from './ImageCropper';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -152,7 +152,7 @@ const NewPost = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Crop handleImageCallback={handleImage} />
+            <ImageCropper handleImageCallback={handleImage} />
           </Grid>
 
           <Button

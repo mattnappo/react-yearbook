@@ -60,6 +60,7 @@ const Feed = () => {
     if (posts === undefined) {
       return <p>No posts</p>;
     }
+    console.log(posts);
     return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
   };
 
