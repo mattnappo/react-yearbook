@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
+import {
+  List, ListItem, ListItemAvatar, ListItemText,
+  Avatar, Container,
+} from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
 import { apiEndpoint } from './utils';
 
 const Activity = () => {
+  const cookies = new Cookies();
   const [activity, setActivity] = useState([]);
 
   const getActivity = () => {
     fetch(
-      apiEndpoint(`getActivity/${username}`),
+      apiEndpoint(`getActivity/${cookies.get('username')}`),
       {
         method: 'GET',
         headers: {
@@ -32,10 +38,26 @@ const Activity = () => {
   return (
     <div>
       <TopBar loginText="Logout" />
-      <div className="main-content">
-        {/* A map (just like in Feed component) that will map to a list object */}
-        {/* {activity.map((item) => <SomeComponent data={item} />)} */}
-      </div>
+      <Container className="main-content" maxWidth="sm">
+        <List component="nav" aria-label="contacts">
+
+          <ListItem button>
+            <ListItemAvatar><Avatar /></ListItemAvatar>
+            <ListItemText primary="Chelsea Otakan" />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemAvatar><Avatar /></ListItemAvatar>
+            <ListItemText primary="Chelsea Otakan" />
+          </ListItem>
+
+        </List>
+
+        {activity.map((post) => <SomeComponent data={item} />)}
+
+        {JSON.stringify(activity)}
+        
+      </Container>
       <BottomBar />
     </div>
   );

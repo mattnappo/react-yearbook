@@ -5,6 +5,7 @@ import Feed from './Feed';
 import NewPost from './NewPost';
 import Settings from './Settings';
 import Search from './Search';
+import Activity from './Activity';
 import User from './User';
 
 // App is the main app containing all of the routes.
@@ -15,6 +16,7 @@ const App = () => (
     <Route exact path="/post" component={NewPost} />
     <Route exact path="/search" component={Search} />
     <Route exact path="/settings" component={Settings} />
+    <Route exact path="/activity" component={Activity} />
     <Route exact path="/accounts/:username" component={User} />
   </Switch>
 );
