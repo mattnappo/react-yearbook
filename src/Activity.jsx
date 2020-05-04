@@ -33,7 +33,8 @@ const Activity = () => {
     <div>
       <TopBar loginText="Logout" />
       <div className="main-content">
-        {/* A map (just like in feed) that will map to a list object */}
+        {/* A map (just like in Feed component) that will map to a list object */}
+        {/* {activity.map((item) => <SomeComponent data={item} />)} */}
       </div>
       <BottomBar />
     </div>

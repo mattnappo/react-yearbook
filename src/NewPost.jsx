@@ -98,11 +98,11 @@ const NewPost = () => {
   };
 
   const handleImage = (newImage) => {
-    const { images } = state;
-    images.push(newImage);
+    // const { images } = state;
+    // images.push(newImage);
     setState({
       ...state,
-      images,
+      images: [newImage],
     });
   };
 
