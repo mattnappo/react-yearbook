@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Cookies from 'universal-cookie';
-import { authEndpoint, apiEndpoint, parseURL } from './utils';
+import { apiEndpoint } from './utils';
 import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
 
@@ -23,39 +23,10 @@ const Feed = () => {
       .then((res) => {
         if (res.errors) {
           console.log(res);
-          // window.location.href = '/';
-          // window.location.href = `/errors=${res.errors}`;
         }
 
         setPosts(res.data);
       });
-  };
-
-  const authorize = () => {
-    const url = parseURL();
-
-    fetch(
-      authEndpoint('authorize'),
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          code: url.code,
-          state: url.state,
-        }),
-      },
-    ).then((res) => res.json())
-      .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
-
-        getPosts();
-      });
-
-    // getPosts(); // This or useEffect
   };
 
   const renderPosts = () => {
@@ -65,8 +36,7 @@ const Feed = () => {
     return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
   };
 
-  useEffect(authorize, []);
-  // useEffect(getPosts, []);
+  useEffect(getPosts, []);
 
   return (
     <div>

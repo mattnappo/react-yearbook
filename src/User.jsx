@@ -131,7 +131,7 @@ const User = (props) => {
             <CTypography>{getGrade()}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography>{`${n.outbound} ${n.outbound > 1 ? 'Posts' : 'Post'}`}</CTypography>
+            <CTypography>{`${n.outbound} ${n.outbound.length === 1 ? 'Post' : 'Posts'}`}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
             <CTypography>{`${n.inbound} Congratulations`}</CTypography>
