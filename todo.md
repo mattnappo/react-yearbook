@@ -10,7 +10,7 @@
 
  ## Important
   * Notifications (popups toast-like)
-  * Notification window
-  * Redirecting
   * On profile show posts
   * Show single post
+  * Redirecting
+  * Show recipients in posts on main feed
