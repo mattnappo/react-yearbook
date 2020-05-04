@@ -12,3 +12,5 @@
   * Notifications (popups toast-like)
   * Notification window
   * Redirecting
+  * On profile show posts
+  * Show single post

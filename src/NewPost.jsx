@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
-import ImageCropper from './ImageCropper';
 import AddImagePopup from './AddImagePopup';
 import { apiEndpoint } from './utils';
 
@@ -43,6 +42,7 @@ const NewPost = () => {
   });
 
   const [seniors, setSeniors] = useState([]);
+  const [showImageButton, setShowImageButton] = useState(true);
 
   const classes = useStyles();
   const cookies = new Cookies();
@@ -106,6 +106,17 @@ const NewPost = () => {
     });
   };
 
+  const submitImageAction = () => {
+    setShowImageButton(false);
+  };
+
+  const cancelImageAction = () => {
+    setState({
+      ...state,
+      images: [],
+    });
+  };
+
   useEffect(getUsers, []);
 
   return (
@@ -153,8 +164,15 @@ const NewPost = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <AddImagePopup />
-            {/* <ImageCropper handleImageCallback={handleImage} /> */}
+            {
+              showImageButton ? (
+                <AddImagePopup
+                  childHandleImage={handleImage}
+                  handleSubmit={submitImageAction}
+                  handleCancel={cancelImageAction}
+                />
+              ) : <Typography>Added Image</Typography>
+            }
           </Grid>
 
           <Grid item xs={12}>
@@ -170,7 +188,7 @@ const NewPost = () => {
         </Grid>
 
       </Container>
-      {console.log(state.images)}
+      {JSON.stringify(state.images)}
       <BottomBar />
     </div>
   );
