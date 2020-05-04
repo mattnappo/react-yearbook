@@ -7,6 +7,7 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
 import AddImagePopup from './AddImagePopup';
+import Toast from './Toast';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,7 @@ const NewPost = () => {
 
   const [seniors, setSeniors] = useState([]);
   const [showImageButton, setShowImageButton] = useState(true);
+  const [toastPosted, setToastPoasted] = useState(false);
 
   const classes = useStyles();
   const cookies = new Cookies();
@@ -92,6 +94,7 @@ const NewPost = () => {
         if (res.errors) {
           console.log(res);
         }
+        setToastPoasted(true);
       });
   };
 
@@ -182,8 +185,9 @@ const NewPost = () => {
 
         </Grid>
 
+        <Toast type="success" text="Posted!" open={toastPosted} />
+
       </Container>
-      {JSON.stringify(state.images)}
       <BottomBar />
     </div>
   );

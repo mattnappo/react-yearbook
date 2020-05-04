@@ -41,7 +41,7 @@ const Search = () => {
         if (res.errors) {
           console.log(res);
         }
-        console.log(res.data);
+
         setUsernames(res.data);
       });
   };

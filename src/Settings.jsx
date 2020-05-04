@@ -89,8 +89,6 @@ const Settings = () => {
         if (res.errors) {
           console.log(res);
         }
-
-        console.log('Changes were saved');
       });
   };
 
@@ -103,7 +101,7 @@ const Settings = () => {
           label="Senior Will"
           className={classes.wide}
           multiline
-          rowsMax={4}
+          variant={variant}
           value={state.will}
           onChange={(e) => { setState({ ...state, will: e.target.value }); }}
         />

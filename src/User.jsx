@@ -105,6 +105,18 @@ const User = (props) => {
     return user.bio;
   };
 
+  const renderSeniorWill = () => {
+    if (user.grade === 3) {
+      return (
+        <Grid item xs={12} className={classes.item}>
+          <Typography>{user.will}</Typography>
+        </Grid>
+      );
+    }
+
+    return <span />;
+  };
+
   useEffect(getUserData, []);
 
   return (
@@ -140,14 +152,12 @@ const User = (props) => {
 
           <Divider className={classes.divider} />
 
-          {/* Will only show if they are a senior */}
-          <Grid item xs={12} className={classes.item}>
-            <Typography>{user.will}</Typography>
-          </Grid>
+          {renderSeniorWill()}
 
         </Grid>
 
       </Container>
+
       <BottomBar />
     </div>
   );
