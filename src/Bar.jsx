@@ -59,7 +59,6 @@ const TopBar = ({ loginText }) => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
           return;
         }
@@ -120,7 +119,6 @@ export const BottomBar = () => {
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
-        // return <Redirect to={`/${event.target.value}`} />;
       }}
       showLabels
     >

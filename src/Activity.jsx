@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
-import Link from 'react-router-dom/Link';
+import { Link } from 'react-router-dom';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
   Avatar, Container, Typography, makeStyles, withStyles,
@@ -20,7 +20,6 @@ const useStyles = makeStyles(() => ({
 
 const CTypography = withStyles({
   root: {
-    // border: '1px solid red',
     'text-align': 'center',
     position: 'absolute',
     top: '50%',
@@ -47,9 +46,7 @@ const Activity = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
-          // window.location.href = '/';
         }
 
         setActivity(res.data);
@@ -93,8 +90,6 @@ const Activity = () => {
         <List component="nav" aria-label="activity">
           {renderActivity()}
         </List>
-
-        {/* {JSON.stringify(activity)} */}
 
       </Container>
       <BottomBar />

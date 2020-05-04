@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2, 0),
   },
   item: {
-    // border: '1px solid blue',
     position: 'relative',
   },
   centered: {
@@ -60,9 +59,7 @@ const User = (props) => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
-          // window.location.href = '/';
         }
 
         setUser(res.data);

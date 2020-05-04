@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, NativeSelect, Container,
+  TextField, Button, Container,
   Typography, Grid, Select, FormControl,
   InputLabel, makeStyles,
 } from '@material-ui/core';
@@ -41,7 +41,6 @@ const Settings = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
-  // Just to display data initially
   const [state, setState] = useState({
     username: '',
     grade: '',
@@ -65,9 +64,7 @@ const Settings = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
-          // window.location.href = '/';
         }
 
         setState(res.data);
@@ -86,13 +83,11 @@ const Settings = () => {
         body: JSON.stringify({
           ...state,
         }),
-      }, // State seems to not be working here
+      },
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
-          // window.location.href = '/';
         }
 
         console.log('Changes were saved');
@@ -100,10 +95,9 @@ const Settings = () => {
   };
 
   const variant = 'outlined';
-  // const variant = 'standard';
 
   const genSeniorWill = () => {
-    if (state.grade === 3) { // If senior
+    if (state.grade === 3) {
       return (
         <TextField
           label="Senior Will"
@@ -141,7 +135,7 @@ const Settings = () => {
             />
           </Grid>
           <Grid item xs={6}>
-            <FormControl variant="outlined" className={classes.fill}>
+            <FormControl variant={variant} className={classes.fill}>
               <InputLabel htmlFor="outlined-grade-native-simple">Grade</InputLabel>
               <Select
                 native

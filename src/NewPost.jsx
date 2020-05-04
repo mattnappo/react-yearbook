@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, Container, Chip,
-  Typography, Grid, Avatar, makeStyles,
+  TextField, Button, Container,
+  Typography, Grid, makeStyles,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
@@ -46,10 +46,6 @@ const NewPost = () => {
 
   const classes = useStyles();
   const cookies = new Cookies();
-
-  const handleDelete = () => {
-    console.log('you deleted something');
-  };
 
   const getUsers = () => {
     fetch(
@@ -100,8 +96,6 @@ const NewPost = () => {
   };
 
   const handleImage = (newImage) => {
-    // const { images } = state;
-    // images.push(newImage);
     setState({
       ...state,
       images: [newImage],
@@ -145,7 +139,6 @@ const NewPost = () => {
               filterSelectedOptions
               renderInput={(params) => (
                 <TextField
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   {...params}
                   variant="outlined"
                   label="Recipients"

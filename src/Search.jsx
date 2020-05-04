@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Redirect from 'react-router-dom/Redirect';
 import Cookies from 'universal-cookie';
 import {
   Container, makeStyles, Typography, Grid,
@@ -40,9 +39,7 @@ const Search = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
-          // window.location.href = '/';
         }
         console.log(res.data);
         setUsernames(res.data);
@@ -67,8 +64,7 @@ const Search = () => {
               options={usernames}
               getOptionLabel={(username) => username}
               renderInput={(params) => <TextField {...params} label="Search" variant="outlined" />}
-              onChange={(e, val) => { window.location.href = `/accounts/${val}`; }}
-              // onChange={(e, val) => (<Redirect to={`/accounts/${val}`} />)}
+              onChange={(e, val) => { window.location.replace(`/accounts/${val}`); }}
             />
           </Grid>
 

@@ -33,7 +33,8 @@ const Feed = () => {
     if (posts == null) {
       return <p>No posts</p>;
     }
-    return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
+    const reversedPosts = Object.values(posts).slice(0).reverse();
+    return reversedPosts.map((post) => <Post postData={post} key={post.id} />);
   };
 
   useEffect(getPosts, []);
@@ -43,7 +44,6 @@ const Feed = () => {
       <TopBar loginText="Logout" />
       <div className="main-content">
         { renderPosts() }
-        {/* { Object.values(posts).map((post) => <Post postData={post} key={post.id} />) } */}
       </div>
       <BottomBar />
     </div>

@@ -27,7 +27,6 @@ const Content = ({ bottomBar, children }) => {
 
 Content.propTypes = {
   bottomBar: PropTypes.bool,
-  // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.object.isRequired,
 };
 Content.defaultProps = {

@@ -1,12 +1,6 @@
 // import { Date } from 'datejs';
 const moment = require('moment');
 
-const conf = {
-  ip: 'localhost',
-  port: 8081,
-  protocol: 'http',
-};
-
 // authEndpoint returns an authorization endpoint to the API.
 export const authEndpoint = (endpoint) => `/oauth/${endpoint}`;
 

@@ -11,7 +11,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { apiEndpoint, formatTime } from './utils';
 
-// https://stackoverflow.com/questions/1495407/maintain-the-aspect-ratio-of-a-div-with-css/10441480#answer-10441480
 const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 600,
@@ -19,11 +18,8 @@ const useStyles = makeStyles(() => ({
     'margin-top': '24px',
   },
   media: {
-    // 'object-fit': 'cover',
     width: '100%',
-    // 'padding-top': '100%',
     position: 'relative',
-    // maxHeight: 600,
   },
 }));
 
@@ -40,6 +36,7 @@ const Post = ({ postData }, key) => {
             className={classes.media}
             alt={postData.post_id}
             src={`data:image/png;base64, ${image}`}
+            key={postData.id}
           />
         ),
       );
@@ -60,9 +57,7 @@ const Post = ({ postData }, key) => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          // eslint-disable-next-line no-console
           console.log(res);
-          // window.location.href = '/';
         }
 
         setProfilePic(res.data.profile_pic);
@@ -103,7 +98,6 @@ const Post = ({ postData }, key) => {
 };
 
 Post.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   postData: PropTypes.object.isRequired,
 };
 
