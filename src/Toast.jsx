@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import CloseIcon from '@material-ui/icons/Close';
 import { Snackbar, makeStyles } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
@@ -16,13 +17,23 @@ const useStyles = makeStyles((theme) => ({
 
 const Toast = ({ text, type, open }) => {
   const classes = useStyles();
+  const [show, setShow] = useState(true);
+
+  const handleClose = () => {
+    setShow(false);
+  };
 
   return (
-    <Snackbar className={classes.root} open={open} autoHideDuration={3000}>
-      <Alert severity={type}>
-        {text}
-      </Alert>
-    </Snackbar>
+    show ? (
+      <Snackbar
+        className={classes.root}
+        open={open}
+      >
+        <Alert severity={type} action={<CloseIcon onClick={handleClose} />}>
+          {text}
+        </Alert>
+      </Snackbar>
+    ) : <div />
   );
 };
 Toast.propTypes = {
