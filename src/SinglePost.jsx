@@ -7,10 +7,7 @@ const SinglePost = (props) => (
   <div>
     <TopBar loginText="Logout" />
     <div className="main-content">
-      {
-        <Post postData={props.location.state.post} />
-      }
-      {/* {post} */}
+      <Post postData={props.location.state.post} />
     </div>
     <BottomBar />
   </div>
