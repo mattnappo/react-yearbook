@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
+import Link from 'react-router-dom/Link';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
-  Avatar, Container,
+  Avatar, Container, Typography, makeStyles, withStyles,
 } from '@material-ui/core';
 import TopBar, { BottomBar } from './Bar';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, formatTime } from './utils';
+
+const useStyles = makeStyles(() => ({
+  centered: {
+    'text-align': 'center',
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'black',
+  },
+}));
+
+const CTypography = withStyles({
+  root: {
+    // border: '1px solid red',
+    'text-align': 'center',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%,-50%)',
+  },
+})(Typography);
 
 const Activity = () => {
   const cookies = new Cookies();
+  const classes = useStyles();
   const [activity, setActivity] = useState([]);
 
   const getActivity = () => {
@@ -33,30 +56,46 @@ const Activity = () => {
       });
   };
 
+  const renderActivity = () => {
+    if (activity.length === 0) {
+      return <CTypography>No new activity</CTypography>;
+    }
+
+    return (
+      Object.values(activity).map((post) => (
+        <Link
+          className={classes.link}
+          to={{
+            pathname: '/viewPost/',
+            state: { post },
+          }}
+        >
+          <ListItem button key={post.id}>
+            <ListItemAvatar><Avatar src="" /></ListItemAvatar>
+            <ListItemText
+              primary={`@${post.sender} congratulated you!`}
+              secondary={formatTime(post.timestamp)}
+            />
+          </ListItem>
+        </Link>
+      ))
+    );
+  };
+
   useEffect(getActivity, []);
 
   return (
     <div>
       <TopBar loginText="Logout" />
       <Container className="main-content" maxWidth="sm">
-        <List component="nav" aria-label="contacts">
+        <Typography className={classes.centered}>Activity</Typography>
 
-          <ListItem button>
-            <ListItemAvatar><Avatar /></ListItemAvatar>
-            <ListItemText primary="Chelsea Otakan" />
-          </ListItem>
-
-          <ListItem button>
-            <ListItemAvatar><Avatar /></ListItemAvatar>
-            <ListItemText primary="Chelsea Otakan" />
-          </ListItem>
-
+        <List component="nav" aria-label="activity">
+          {renderActivity()}
         </List>
 
-        {activity.map((post) => <SomeComponent data={item} />)}
+        {/* {JSON.stringify(activity)} */}
 
-        {JSON.stringify(activity)}
-        
       </Container>
       <BottomBar />
     </div>

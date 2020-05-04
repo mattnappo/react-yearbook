@@ -107,7 +107,6 @@ BottomBarLink.propTypes = {
   icon: PropTypes.element.isRequired,
 };
 
-
 export const BottomBar = () => {
   const classes = useStyles();
   const cookies = new Cookies();

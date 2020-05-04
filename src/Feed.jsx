@@ -51,21 +51,22 @@ const Feed = () => {
         if (res.errors) {
           console.log(res);
         }
+
+        getPosts();
       });
 
     // getPosts(); // This or useEffect
   };
 
   const renderPosts = () => {
-    if (posts === undefined) {
+    if (posts == null) {
       return <p>No posts</p>;
     }
-    console.log(posts);
     return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
   };
 
   useEffect(authorize, []);
-  useEffect(getPosts, []);
+  // useEffect(getPosts, []);
 
   return (
     <div>

@@ -67,11 +67,13 @@ const NewPost = () => {
           console.log(res);
         }
 
-        const tempSeniors = [];
-        for (let i = 0; i < res.data.length; i++) {
-          tempSeniors.push(res.data[i]);
+        if (res.data != null) {
+          const tempSeniors = [];
+          for (let i = 0; i < res.data.length; i++) {
+            tempSeniors.push(res.data[i]);
+          }
+          setSeniors(tempSeniors);
         }
-        setSeniors(tempSeniors);
       });
   };
 

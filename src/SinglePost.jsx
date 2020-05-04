@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
 
-const SinglePost = ({ post }) => (
+const SinglePost = (props) => (
   <div>
     <TopBar loginText="Logout" />
     <div className="main-content">
-      {post}
+      {
+        <Post postData={props.location.state.post} />
+      }
+      {/* {post} */}
     </div>
     <BottomBar />
   </div>
