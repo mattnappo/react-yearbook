@@ -9,6 +9,7 @@ import Search from './Search';
 import Activity from './Activity';
 import User from './User';
 import SinglePost from './SinglePost';
+import Test from './Test';
 
 // App is the main app containing all of the routes.
 const App = () => (
@@ -23,6 +24,8 @@ const App = () => (
     <Route exact path="/activity" component={Activity} />
     <Route exact path="/accounts/:username" component={User} />
     <Route exact path="/viewPost" component={SinglePost} />
+
+    <Route exact path="/test" component={Test} />
   </Switch>
 );
 

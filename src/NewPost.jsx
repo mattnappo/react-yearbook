@@ -4,10 +4,10 @@ import {
   TextField, Button, Container,
   Typography, Grid, makeStyles,
 } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
 import AddImagePopup from './AddImagePopup';
-import Toast from './Toast';
 import { apiEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,10 +44,16 @@ const NewPost = () => {
 
   const [seniors, setSeniors] = useState([]);
   const [showImageButton, setShowImageButton] = useState(true);
-  const [toastPosted, setToastPoasted] = useState(false);
 
   const classes = useStyles();
   const cookies = new Cookies();
+
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
 
   const getUsers = () => {
     fetch(
@@ -62,7 +68,8 @@ const NewPost = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          console.log(res);
+          toast(JSON.stringify(res.errors), 'error');
+          return;
         }
 
         if (res.data != null) {
@@ -91,10 +98,12 @@ const NewPost = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
+        if (res.errors != null) {
+          toast(JSON.stringify(res.errors), 'error');
+          return;
         }
-        setToastPoasted(true);
+
+        toast('Posted!', 'success');
       });
   };
 
@@ -121,7 +130,6 @@ const NewPost = () => {
   return (
     <div>
       <TopBar loginText="Logout" />
-
       <Container className="main-content" maxWidth="sm">
         <Grid container spacing={3}>
 
@@ -184,8 +192,6 @@ const NewPost = () => {
           </Grid>
 
         </Grid>
-
-        <Toast type="success" text="Posted!" open={toastPosted} />
 
       </Container>
       <BottomBar />
