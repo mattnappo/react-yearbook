@@ -1,45 +1,20 @@
-import React, { useState } from 'react';
+/* == UNSTABLE COMPONENT == */
+
+import React from 'react';
 import PropTypes from 'prop-types';
-import CloseIcon from '@material-ui/icons/Close';
-import { Snackbar, makeStyles } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import { useSnackbar } from 'notistack';
 
-const Alert = (props) => (
-  <MuiAlert elevation={24} variant="filled" {...props} />
-);
+const Toast = ({ text, variant }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  enqueueSnackbar(text, {
+    variant, autoHideDuration: 6000,
+  });
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    'margin-bottom': theme.spacing(6),
-  },
-}));
-
-const Toast = ({ text, type, open }) => {
-  const classes = useStyles();
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => {
-    setShow(false);
-  };
-
-  return (
-    show ? (
-      <Snackbar
-        className={classes.root}
-        open={open}
-      >
-        <Alert severity={type} action={<CloseIcon onClick={handleClose} />}>
-          {text}
-        </Alert>
-      </Snackbar>
-    ) : <div />
-  );
+  return <span />;
 };
 Toast.propTypes = {
   text: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['success', 'info', 'error', 'warning']).isRequired,
-  open: PropTypes.bool.isRequired,
+  variant: PropTypes.oneOf('success', 'error', 'info', 'warning').isRequired,
 };
 
 export default Toast;

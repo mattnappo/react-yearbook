@@ -91,20 +91,16 @@ const NewPost = () => {
 
     // If the recipients box is empty
     if (state.recipients.length === 0) {
-      console.log('recipients is invalid');
       setInvalidRecipiants(true);
     } else {
-      console.log('recipients is valid');
       setInvalidRecipiants(false);
       validRecipients = true;
     }
 
     // If the message box is empty
     if (state.message === '') {
-      console.log('message is invalid');
       setInvalidMessage(true);
     } else {
-      console.log('message is valid');
       setInvalidMessage(false);
       validMessage = true;
     }
@@ -132,7 +128,7 @@ const NewPost = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors != null) {
+        if (res.errors) {
           console.log(res.errors);
           toast(error(res.errors[0]), 'error');
           return;
@@ -151,6 +147,7 @@ const NewPost = () => {
 
   const submitImageAction = () => {
     setShowImageButton(false);
+    toast('Added image!', 'success');
   };
 
   const cancelImageAction = () => {

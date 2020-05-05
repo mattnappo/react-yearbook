@@ -37,13 +37,13 @@ const CTypography = withStyles({
 })(Typography);
 
 const User = (props) => {
-  const cookies = new Cookies();
-  const [user, setUser] = useState('');
-  const [n, setn] = useState({
-    inbound: 0,
-    outbound: 0,
-  });
   const classes = useStyles();
+  const cookies = new Cookies();
+
+  const [user, setUser] = useState('');
+  const [nInbound, setnInbound] = useState(0);
+  const [nOutbound, setnOutbound] = useState(0);
+
   const { username } = props.match.params;
 
   const getUserData = () => {
@@ -64,15 +64,13 @@ const User = (props) => {
 
         setUser(res.data);
 
-        setn({
-          ...n,
-          inbound: (res.data.inbound_posts == null) ? 0 : res.data.inbound_posts.length,
-        }); // Congrats
+        setnInbound(
+          (res.data.inbound_posts == null) ? 0 : res.data.inbound_posts.length,
+        ); // Congrats
 
-        setn({
-          ...n,
-          outbound: (res.data.outbound_posts == null) ? 0 : res.data.outbound_posts.length,
-        }); // Posts
+        setnOutbound(
+          (res.data.outbound_posts == null) ? 0 : res.data.outbound_posts.length,
+        ); // Posts
       });
   };
 
@@ -140,10 +138,10 @@ const User = (props) => {
             <CTypography>{getGrade()}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography>{`${n.outbound} ${n.outbound.length === 1 ? 'Post' : 'Posts'}`}</CTypography>
+            <CTypography>{`${nOutbound} Posts`}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography>{`${n.inbound} Congratulations`}</CTypography>
+            <CTypography>{`${nInbound} Congratulations`}</CTypography>
           </Grid>
 
           <Grid item xs={12} className={classes.item}>

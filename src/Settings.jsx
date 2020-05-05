@@ -5,23 +5,13 @@ import {
   Typography, Grid, Select, FormControl,
   InputLabel, makeStyles,
 } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 import TopBar, { BottomBar } from './Bar';
 import {
   apiEndpoint, gradeIntToString, gradeStringToInt,
 } from './utils';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    width: 1000,
-    border: '1px solid red',
-  },
-  border: {
-    border: '1px solid red',
-  },
+const useStyles = makeStyles(() => ({
   centered: {
     'text-align': 'center',
   },
@@ -49,6 +39,13 @@ const Settings = () => {
     profile_pic: '',
     nickname: '',
   });
+
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 6000,
+    });
+  };
 
   const getUserData = () => {
     const username = cookies.get('username');
@@ -89,6 +86,8 @@ const Settings = () => {
         if (res.errors) {
           console.log(res);
         }
+
+        toast('Saved changes!', 'success');
       });
   };
 
