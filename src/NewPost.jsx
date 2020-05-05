@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
 import AddImagePopup from './AddImagePopup';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, error } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,6 +41,10 @@ const NewPost = () => {
     message: '',
     images: [],
   });
+  const [invalid, setInvalid] = useState({
+    message: false,
+    recipients: false,
+  });
 
   const [seniors, setSeniors] = useState([]);
   const [showImageButton, setShowImageButton] = useState(true);
@@ -51,7 +55,7 @@ const NewPost = () => {
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
     enqueueSnackbar(text, {
-      variant, autoHideDuration: 3000,
+      variant, autoHideDuration: 6000,
     });
   };
 
@@ -68,7 +72,7 @@ const NewPost = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          toast(JSON.stringify(res.errors), 'error');
+          toast(error(res.errors[0]), 'info');
           return;
         }
 
@@ -82,7 +86,48 @@ const NewPost = () => {
       });
   };
 
+  const validate = () => {
+    let validRecipients = false;
+    let validMessage = false;
+
+    // If the message box is empty
+    if (state.message === '') {
+      setInvalid({
+        ...invalid,
+        message: true,
+      });
+    } else {
+      setInvalid({
+        ...invalid,
+        message: false,
+      });
+      validMessage = true;
+    }
+
+    // If the recipients box is empty
+    if (state.recipients.length === 0) {
+      console.log("imvalid")
+      setInvalid({
+        ...invalid,
+        recipients: true,
+      });
+    } else {
+      console.log("THIS IS HAPPENING")
+      setInvalid({
+        ...invalid,
+        recipients: false,
+      });
+      validRecipients = true;
+    }
+
+    return validRecipients && validMessage;
+  };
+
   const post = () => {
+    if (!validate()) {
+      return;
+    }
+
     fetch(
       apiEndpoint('createPost'),
       {
@@ -99,7 +144,8 @@ const NewPost = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors != null) {
-          toast(JSON.stringify(res.errors), 'error');
+          console.log(res.errors);
+          toast(error(res.errors[0]), 'error');
           return;
         }
 
@@ -151,6 +197,7 @@ const NewPost = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
+                  error={invalid.recipients}
                   variant="outlined"
                   label="Recipients"
                 />
@@ -164,6 +211,7 @@ const NewPost = () => {
               className={classes.wide}
               multiline
               value={state.message}
+              error={invalid.message}
               variant="outlined"
               onChange={(e) => { setState({ ...state, message: e.target.value }); }}
             />
@@ -192,7 +240,7 @@ const NewPost = () => {
           </Grid>
 
         </Grid>
-
+        {JSON.stringify(state)}
       </Container>
       <BottomBar />
     </div>
