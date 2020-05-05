@@ -41,10 +41,9 @@ const NewPost = () => {
     message: '',
     images: [],
   });
-  const [invalid, setInvalid] = useState({
-    message: false,
-    recipients: false,
-  });
+
+  const [invalidRecipients, setInvalidRecipiants] = useState(false);
+  const [invalidMessage, setInvalidMessage] = useState(false);
 
   const [seniors, setSeniors] = useState([]);
   const [showImageButton, setShowImageButton] = useState(true);
@@ -90,34 +89,24 @@ const NewPost = () => {
     let validRecipients = false;
     let validMessage = false;
 
-    // If the message box is empty
-    if (state.message === '') {
-      setInvalid({
-        ...invalid,
-        message: true,
-      });
-    } else {
-      setInvalid({
-        ...invalid,
-        message: false,
-      });
-      validMessage = true;
-    }
-
     // If the recipients box is empty
     if (state.recipients.length === 0) {
-      console.log("imvalid")
-      setInvalid({
-        ...invalid,
-        recipients: true,
-      });
+      console.log('recipients is invalid');
+      setInvalidRecipiants(true);
     } else {
-      console.log("THIS IS HAPPENING")
-      setInvalid({
-        ...invalid,
-        recipients: false,
-      });
+      console.log('recipients is valid');
+      setInvalidRecipiants(false);
       validRecipients = true;
+    }
+
+    // If the message box is empty
+    if (state.message === '') {
+      console.log('message is invalid');
+      setInvalidMessage(true);
+    } else {
+      console.log('message is valid');
+      setInvalidMessage(false);
+      validMessage = true;
     }
 
     return validRecipients && validMessage;
@@ -197,7 +186,7 @@ const NewPost = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  error={invalid.recipients}
+                  error={invalidRecipients}
                   variant="outlined"
                   label="Recipients"
                 />
@@ -211,7 +200,7 @@ const NewPost = () => {
               className={classes.wide}
               multiline
               value={state.message}
-              error={invalid.message}
+              error={invalidMessage}
               variant="outlined"
               onChange={(e) => { setState({ ...state, message: e.target.value }); }}
             />
@@ -240,7 +229,7 @@ const NewPost = () => {
           </Grid>
 
         </Grid>
-        {JSON.stringify(state)}
+
       </Container>
       <BottomBar />
     </div>
