@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import PostsTabs from './PostsTabs';
 import { apiEndpoint, capitalize } from './utils';
 import TopBar, { BottomBar } from './Bar';
 
@@ -121,7 +122,7 @@ const User = (props) => {
       return (
         <Link to="/settings" className="link">
           <Button variant="outlined" color="primary" className="right">
-            Edit Profile
+            <SettingsIcon />
           </Button>
         </Link>
       );
@@ -166,6 +167,10 @@ const User = (props) => {
 
           {renderSeniorWill()}
           {renderEditButton()}
+
+          <Grid item xs={12} className={classes.item}>
+            <PostsTabs />
+          </Grid>
 
         </Grid>
 
