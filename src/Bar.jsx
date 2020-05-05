@@ -76,7 +76,7 @@ const TopBar = ({ loginText }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Yearbook
+          Masters Seniors
         </Typography>
         <Button
           color="inherit"
@@ -127,7 +127,6 @@ export const BottomBar = () => {
       <BottomBarLink to="/post" label="Post" icon={<AddIcon />} />
       <BottomBarLink to="/activity" label="Activity" icon={<InboxIcon />} />
       <BottomBarLink to={`/accounts/${username}`} label="Me" icon={<AccountIcon />} />
-      {/* <BottomBarLink to="/settings" label="Settings" icon={<SettingsIcon />} /> */}
 
     </BottomNavigation>
   );

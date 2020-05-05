@@ -54,7 +54,7 @@ const NewPost = () => {
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
     enqueueSnackbar(text, {
-      variant, autoHideDuration: 6000,
+      variant, autoHideDuration: 3000,
     });
   };
 

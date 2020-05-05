@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Typography, Grid, Avatar, Container, Divider,
+  Typography, Grid, Avatar, Container,
   Button, makeStyles, withStyles,
 } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import PostsTabs from './PostsTabs';
@@ -121,8 +122,8 @@ const User = (props) => {
     if (cookies.get('username') === username) {
       return (
         <Link to="/settings" className="link">
-          <Button variant="outlined" color="primary" className="right">
-            <SettingsIcon />
+          <Button startIcon={<SettingsIcon />} variant="outlined" color="primary">
+            Edit Account
           </Button>
         </Link>
       );
@@ -156,17 +157,18 @@ const User = (props) => {
             <CTypography>{`${nOutbound} Posts`}</CTypography>
           </Grid>
           <Grid item xs={3} className={classes.item}>
-            <CTypography>{`${nInbound} Congratulations`}</CTypography>
+            <CTypography>{`${nInbound} Congrats`}</CTypography>
           </Grid>
 
           <Grid item xs={12} className={classes.item}>
             <Typography>{getBioText()}</Typography>
           </Grid>
 
-          <Divider className={classes.divider} />
-
           {renderSeniorWill()}
-          {renderEditButton()}
+
+          <Grid item xs={12} className={classes.item}>
+            {renderEditButton()}
+          </Grid>
 
           <Grid item xs={12} className={classes.item}>
             <PostsTabs />
