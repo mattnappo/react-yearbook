@@ -88,6 +88,7 @@ const Settings = () => {
         }
 
         toast('Saved changes!', 'success');
+        window.location.replace(`/accounts/${state.username}`);
       });
   };
 

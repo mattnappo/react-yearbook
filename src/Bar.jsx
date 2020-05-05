@@ -14,7 +14,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AccountIcon from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
+import InboxIcon from '@material-ui/icons/Inbox';
 import { authEndpoint } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -125,8 +125,9 @@ export const BottomBar = () => {
       <BottomBarLink to="/feed" label="Feed" icon={<HomeIcon />} />
       <BottomBarLink to="/search" label="Search" icon={<SearchIcon />} />
       <BottomBarLink to="/post" label="Post" icon={<AddIcon />} />
+      <BottomBarLink to="/activity" label="Activity" icon={<InboxIcon />} />
       <BottomBarLink to={`/accounts/${username}`} label="Me" icon={<AccountIcon />} />
-      <BottomBarLink to="/settings" label="Settings" icon={<SettingsIcon />} />
+      {/* <BottomBarLink to="/settings" label="Settings" icon={<SettingsIcon />} /> */}
 
     </BottomNavigation>
   );

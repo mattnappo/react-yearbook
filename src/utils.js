@@ -79,7 +79,7 @@ export const error = (e) => {
   switch (e.toLowerCase()) {
     case 'invalid credentials to query google api':
       return 'Invalid session';
-    case 'pg error nothing in set error something':
+    case 'pg: no rows in result set':
       return 'No results were found';
     default:
       return 'An error occurred. Please try again.';

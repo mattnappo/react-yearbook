@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {
   Typography, Grid, Avatar, Container, Divider,
-  makeStyles, withStyles,
+  Button, makeStyles, withStyles,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { apiEndpoint, capitalize } from './utils';
 import TopBar, { BottomBar } from './Bar';
@@ -115,6 +116,19 @@ const User = (props) => {
     return <span />;
   };
 
+  const renderEditButton = () => {
+    if (cookies.get('username') === username) {
+      return (
+        <Link to="/settings" className="link">
+          <Button variant="outlined" color="primary" className="right">
+            Edit Profile
+          </Button>
+        </Link>
+      );
+    }
+    return <span />;
+  };
+
   useEffect(getUserData, []);
 
   return (
@@ -151,6 +165,7 @@ const User = (props) => {
           <Divider className={classes.divider} />
 
           {renderSeniorWill()}
+          {renderEditButton()}
 
         </Grid>
 

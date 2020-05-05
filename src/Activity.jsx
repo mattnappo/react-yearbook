@@ -12,10 +12,6 @@ const useStyles = makeStyles(() => ({
   centered: {
     'text-align': 'center',
   },
-  link: {
-    textDecoration: 'none',
-    color: 'black',
-  },
 }));
 
 const CTypography = withStyles({
@@ -61,7 +57,7 @@ const Activity = () => {
     return (
       Object.values(activity).map((post) => (
         <Link
-          className={classes.link}
+          className="link"
           to={{
             pathname: '/viewPost/',
             state: { post },
