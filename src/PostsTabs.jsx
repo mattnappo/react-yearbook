@@ -87,6 +87,33 @@ const PostsTabs = () => {
     );
   };
 
+  const renderCongrats = () => {
+    if (posts.inbound == null) {
+      return <CTypography>No congrats yet</CTypography>;
+    }
+
+    return (
+      Object.values(posts.inbound).map((post) => (
+        <Link
+          key={post.id}
+          className="link"
+          to={{
+            pathname: '/viewPost/',
+            state: { post },
+          }}
+        >
+          <ListItem button>
+            <ListItemAvatar><Avatar src="" /></ListItemAvatar>
+            <ListItemText
+              primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
+              secondary={formatTime(post.timestamp)}
+            />
+          </ListItem>
+        </Link>
+      ))
+    );
+  };
+
   useEffect(getPosts, []);
 
   return (
@@ -106,6 +133,12 @@ const PostsTabs = () => {
       <TabPanel value={value} index={0}>
         <List component="nav" aria-label="posts">
           {renderPosts()}
+        </List>
+      </TabPanel>
+
+      <TabPanel value={value} index={1}>
+        <List component="nav" aria-label="congrats">
+          {renderCongrats()}
         </List>
       </TabPanel>
     </div>
