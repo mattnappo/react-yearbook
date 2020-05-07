@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TopBar = ({ loginText }) => {
   const classes = useStyles();
+  const cookies = new Cookies();
   const [loginURL, setLoginURL] = useState('');
 
   const getLoginURL = () => {
@@ -67,6 +68,16 @@ const TopBar = ({ loginText }) => {
       });
   };
 
+  const handleClick = () => {
+    if (loginText === 'Logout') {
+      cookies.remove('token');
+      cookies.remove('username');
+      cookies.remove('state');
+      cookies.remove('go_session');
+      window.location.replace('/');
+    }
+  };
+
   useEffect(getLoginURL, []);
 
   return (
@@ -81,6 +92,7 @@ const TopBar = ({ loginText }) => {
         <Button
           color="inherit"
           href={loginURL}
+          onClick={handleClick}
         >
           {loginText}
         </Button>
@@ -90,7 +102,7 @@ const TopBar = ({ loginText }) => {
 };
 
 TopBar.propTypes = {
-  loginText: PropTypes.string.isRequired,
+  loginText: PropTypes.oneOf(['Login', 'Logout']).isRequired,
 };
 
 export default TopBar;

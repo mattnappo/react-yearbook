@@ -57,13 +57,14 @@ const Activity = () => {
     return (
       Object.values(activity).map((post) => (
         <Link
+          // key={post.id}
           className="link"
           to={{
             pathname: '/viewPost/',
             state: { post },
           }}
         >
-          <ListItem button key={post.id}>
+          <ListItem button>
             <ListItemAvatar><Avatar src="" /></ListItemAvatar>
             <ListItemText
               primary={`@${post.sender} congratulated you!`}
