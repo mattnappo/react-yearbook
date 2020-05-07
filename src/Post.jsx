@@ -79,7 +79,7 @@ const Post = ({ postData }, key) => {
             </Avatar>
           )}
           title={postData.sender}
-          subheader={formatRecipients(postData)}
+          subheader={`To: ${formatRecipients(postData.recipients)}`}
         />
       </Link>
 

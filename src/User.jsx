@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 import {
   Typography, Grid, Avatar, Container,
-  Button, makeStyles, withStyles,
+  Button, makeStyles,
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from 'react-router-dom';
-import Cookies from 'universal-cookie';
+import CTypography from './CTypography';
 import PostsTabs from './PostsTabs';
 import { apiEndpoint, capitalize } from './utils';
 import TopBar, { BottomBar } from './Bar';
@@ -27,17 +28,6 @@ const useStyles = makeStyles((theme) => ({
     'text-align': 'center',
   },
 }));
-
-const CTypography = withStyles({
-  root: {
-    // border: '1px solid red',
-    'text-align': 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)',
-  },
-})(Typography);
 
 const User = (props) => {
   const classes = useStyles();

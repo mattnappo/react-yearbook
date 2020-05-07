@@ -86,11 +86,11 @@ export const error = (e) => {
   }
 };
 
-export const formatRecipients = (post) => {
-  let s = 'To: ';
-  for (let i = 0; i < post.recipients.length - 1; i++) {
-    s += `@${post.recipients[i]}, `;
+export const formatRecipients = (recipients) => {
+  let s = '';
+  for (let i = 0; i < recipients.length - 1; i++) {
+    s += `@${recipients[i]}, `;
   }
-  s += `@${post.recipients[post.recipients.length - 1]}`;
+  s += `@${recipients[recipients.length - 1]}`;
   return s;
 };

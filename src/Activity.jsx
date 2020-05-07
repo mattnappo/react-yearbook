@@ -3,8 +3,9 @@ import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
-  Avatar, Container, Typography, makeStyles, withStyles,
+  Avatar, Container, Typography, makeStyles,
 } from '@material-ui/core';
+import CTypography from './CTypography';
 import TopBar, { BottomBar } from './Bar';
 import { apiEndpoint, formatTime } from './utils';
 
@@ -13,16 +14,6 @@ const useStyles = makeStyles(() => ({
     'text-align': 'center',
   },
 }));
-
-const CTypography = withStyles({
-  root: {
-    'text-align': 'center',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%,-50%)',
-  },
-})(Typography);
 
 const Activity = () => {
   const cookies = new Cookies();
@@ -50,14 +41,15 @@ const Activity = () => {
   };
 
   const renderActivity = () => {
-    if (activity.length === 0) {
+    if (activity == null) {
       return <CTypography>No new activity</CTypography>;
     }
 
+    const reversedActivity = Object.values(activity).slice(0).reverse();
     return (
-      Object.values(activity).map((post) => (
+      reversedActivity.map((post) => (
         <Link
-          // key={post.id}
+          key={post.id}
           className="link"
           to={{
             pathname: '/viewPost/',

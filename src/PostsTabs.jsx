@@ -1,11 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {
-  Tabs, Tab, TabPanel, List, ListItem,
-  ListItemAvatar, Avatar, ListItemText,
+  Tabs, Tab, List, ListItem, Box,
+  Typography, ListItemAvatar, Avatar, ListItemText,
 
 } from '@material-ui/core';
-import { apiEndpoint, formatTime } from './utils';
+import CTypography from './CTypography';
+import { apiEndpoint, formatTime, formatRecipients } from './utils';
+
+const TabPanel = (props) => {
+  const {
+    children, value, index, ...other
+  } = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box p={3}>{children}</Box>}
+    </Typography>
+  );
+};
 
 const PostsTabs = () => {
   const cookies = new Cookies();
@@ -19,7 +40,7 @@ const PostsTabs = () => {
 
   const getPosts = () => {
     fetch(
-      apiEndpoint(`getToAndFrom/${cookies.username}`),
+      apiEndpoint(`getUserPosts/${cookies.get('username')}`),
       {
         method: 'GET',
         headers: {
@@ -34,18 +55,17 @@ const PostsTabs = () => {
           console.log(res.errors);
           return;
         }
-
+        console.log(res.data);
         setPosts(res.data);
       });
   };
 
   const renderPosts = () => {
-    if (posts.outbound.length === 0) {
+    if (posts.outbound == null) {
       return <CTypography>No Posts</CTypography>;
     }
 
     return (
-
       Object.values(posts.outbound).map((post) => (
         <Link
           key={post.id}
@@ -58,7 +78,7 @@ const PostsTabs = () => {
           <ListItem button>
             <ListItemAvatar><Avatar src="" /></ListItemAvatar>
             <ListItemText
-              primary={`@${post.sender} congratulated you!`}
+              primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
               secondary={formatTime(post.timestamp)}
             />
           </ListItem>
@@ -88,7 +108,6 @@ const PostsTabs = () => {
           {renderPosts()}
         </List>
       </TabPanel>
-
     </div>
   );
 };
