@@ -10,6 +10,5 @@
 ## Other
  * Show posts on user profile (tabs)
  * Safety redirecting
- * Show recipients in posts in Post component
- * Logout button
  * Account not yet registered when viewing an unregistered user.
+ * Only show activity for seniors
