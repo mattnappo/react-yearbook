@@ -129,9 +129,7 @@ export const BottomBar = () => {
     <BottomNavigation
       className={classes.stickToBottom}
       value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
+      onChange={(e, v) => { setValue(v); }}
       showLabels
     >
       <BottomBarLink to="/feed" label="Feed" icon={<HomeIcon />} />

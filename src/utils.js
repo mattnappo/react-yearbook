@@ -85,3 +85,12 @@ export const error = (e) => {
       return 'An error occurred. Please try again.';
   }
 };
+
+export const formatRecipients = (post) => {
+  let s = 'To: ';
+  for (let i = 0; i < post.recipients.length - 1; i++) {
+    s += `@${post.recipients[i]}, `;
+  }
+  s += `@${post.recipients[post.recipients.length - 1]}`;
+  return s;
+};

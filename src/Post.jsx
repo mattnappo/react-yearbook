@@ -9,7 +9,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { apiEndpoint, formatTime } from './utils';
+import { apiEndpoint, formatTime, formatRecipients } from './utils';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -64,15 +64,6 @@ const Post = ({ postData }, key) => {
       });
   };
 
-  const renderRecipients = () => {
-    let s = 'To: ';
-    for (let i = 0; i < postData.recipients.length - 1; i++) {
-      s += `@${postData.recipients[i]}, `;
-    }
-    s += `@${postData.recipients[postData.recipients.length - 1]}`;
-    return s;
-  };
-
   useEffect(getSenderProfilePic, []);
 
   return (
@@ -88,7 +79,7 @@ const Post = ({ postData }, key) => {
             </Avatar>
           )}
           title={postData.sender}
-          subheader={renderRecipients()}
+          subheader={formatRecipients(postData)}
         />
       </Link>
 
