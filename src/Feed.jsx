@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import Cookies from 'universal-cookie';
+import { useSnackbar } from 'notistack';
 import { apiEndpoint } from './utils';
 import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
@@ -9,6 +10,13 @@ import TopBar, { BottomBar } from './Bar';
 const Feed = () => {
   const [posts, setPosts] = useState({});
   const cookies = new Cookies();
+
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
 
   const getPosts = () => {
     fetch(
@@ -23,7 +31,7 @@ const Feed = () => {
     ).then((res) => res.json())
       .then((res) => {
         if (res.errors) {
-          console.log(res);
+          window.location.replace('/?err=sessionExpired');
         }
 
         setPosts(res.data);

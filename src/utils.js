@@ -94,3 +94,10 @@ export const formatRecipients = (recipients) => {
   s += `@${recipients[recipients.length - 1]}`;
   return s;
 };
+
+export const errors = {
+  sessionExpired: {
+    message: 'You have been logged out. Please log in again.',
+    type: 'info',
+  },
+};
