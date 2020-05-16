@@ -67,7 +67,7 @@ const TopBar = ({ loginText }) => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err); }
+        if (err) { toast(err, 'error'); return; }
 
         setLoginURL(res);
       });

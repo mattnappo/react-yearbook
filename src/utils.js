@@ -1,7 +1,4 @@
 // import { Date } from 'datejs';
-import React from 'react';
-import { useSnackbar } from 'notistack';
-
 const moment = require('moment');
 
 // authEndpoint returns an authorization endpoint to the API.
@@ -83,13 +80,19 @@ export const gradeStringToInt = (gradeString) => {
 export const handleError = (errs) => {
   if (errs == null) return null;
   const e = errs[0];
-  if (e.toLowerCase() === 'invalid credentials to query google api') {
-    window.location.replace('/?err=sessionExpired');
+
+  switch (e.toLowerCase()) {
+    case 'invalid credentials to query google api':
+      window.location.replace('/?err=sessionExpired');
+      return null;
+
+    case 'malformed email address':
+      window.location.replace('/?err=invalidEmail');
+      return null;
+
+    default:
+      return 'An error occurred.';
   }
-
-  // could use a switch here
-
-  return 'An error occurred.';
 };
 
 export const formatRecipients = (recipients) => {
@@ -111,15 +114,12 @@ export const errors = {
     message: 'Logged out',
     type: 'info',
   },
+  invalidEmail: {
+    message: 'You must use a Masters email',
+    type: 'error',
+  },
   flag: {
-    message: 'hi zach',
+    message: 'hi zach <3',
     type: 'info',
   },
-};
-
-export const Toast = ({ text, variant }) => {
-  const { enqueueSnackbar } = useSnackbar();
-  enqueueSnackbar(text, {
-    variant, autoHideDuration: 3000,
-  });
 };

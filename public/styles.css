@@ -23,9 +23,9 @@ body {
 }
 
 .snackbar {
-    /* width: 50%; */
     /* margin: 0 auto; */
-    margin-bottom: 45px;
+
+    /* margin-bottom: 45px; */ /* For being above the navbar */
     margin-left: 20px;
     margin-right: 20px;
 }

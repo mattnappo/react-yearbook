@@ -28,10 +28,12 @@ const OAuth = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        const err = handleError(res.errors);
-        if (err) { toast(err); }
+        if (res.errors) {
+          window.location.replace('/?err=invalidEmail');
+          return;
+        }
 
-        window.location.href = '/feed';
+        window.location.replace('/feed');
       });
   };
 

@@ -47,7 +47,7 @@ const Search = () => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err); }
+        if (err) { toast(err, 'error'); return; }
 
         setUsernames(res.data);
       });

@@ -60,7 +60,7 @@ const NewPost = () => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err); }
+        if (err) { toast(err, 'error'); return; }
 
         if (res.data != null) {
           const tempSeniors = [];
@@ -116,7 +116,7 @@ const NewPost = () => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err); }
+        if (err) { toast(err, 'error'); return; }
 
         toast('Posted!', 'success');
       });

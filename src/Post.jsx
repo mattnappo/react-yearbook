@@ -66,7 +66,7 @@ const Post = ({ postData }, key) => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err); }
+        if (err) { toast(err, 'error'); return; }
 
         setProfilePic(res.data.profile_pic);
       });
