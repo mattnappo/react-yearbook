@@ -8,7 +8,7 @@ import { useSnackbar } from 'notistack';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
 import AddImagePopup from './AddImagePopup';
-import { apiEndpoint, error } from './utils';
+import { apiEndpoint, handleError } from './utils';
 
 const useStyles = makeStyles(() => ({
   centered: {
@@ -59,10 +59,8 @@ const NewPost = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          toast(error(res.errors[0]), 'info');
-          return;
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         if (res.data != null) {
           const tempSeniors = [];
@@ -117,11 +115,8 @@ const NewPost = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res.errors);
-          toast(error(res.errors[0]), 'error');
-          return;
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         toast('Posted!', 'success');
       });

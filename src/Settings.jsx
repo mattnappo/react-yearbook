@@ -8,7 +8,7 @@ import {
 import { useSnackbar } from 'notistack';
 import TopBar, { BottomBar } from './Bar';
 import {
-  apiEndpoint, gradeIntToString, gradeStringToInt,
+  apiEndpoint, gradeIntToString, gradeStringToInt, handleError,
 } from './utils';
 
 const useStyles = makeStyles(() => ({
@@ -60,9 +60,8 @@ const Settings = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setState(res.data);
       });
@@ -83,9 +82,8 @@ const Settings = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         toast('Saved changes!', 'success');
         window.location.replace(`/accounts/${state.username}`);

@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { useSnackbar } from 'notistack';
 import {
   Tabs, Tab, List, ListItem, Box,
   Typography, ListItemAvatar, Avatar, ListItemText,
 
 } from '@material-ui/core';
 import CTypography from './CTypography';
-import { apiEndpoint, formatTime, formatRecipients } from './utils';
+import {
+  apiEndpoint, formatTime, formatRecipients, handleError,
+} from './utils';
 
 const TabPanel = (props) => {
   const {
@@ -36,6 +39,14 @@ const PostsTabs = () => {
     outbound: [],
   });
 
+
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
+
   const handleChange = (e, v) => { setValue(v); };
 
   const getPosts = () => {
@@ -50,12 +61,9 @@ const PostsTabs = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          // toast(error(res.errors[0]), 'info');
-          console.log(res.errors);
-          return;
-        }
-        console.log(res.data);
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
+
         setPosts(res.data);
       });
   };

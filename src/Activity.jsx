@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
   Avatar, Container, Typography, makeStyles,
 } from '@material-ui/core';
 import CTypography from './CTypography';
 import TopBar, { BottomBar } from './Bar';
-import { apiEndpoint, formatTime } from './utils';
+import {
+  apiEndpoint, formatTime, handleError,
+} from './utils';
 
 const useStyles = makeStyles(() => ({
   centered: {
@@ -19,6 +22,13 @@ const Activity = () => {
   const cookies = new Cookies();
   const classes = useStyles();
   const [activity, setActivity] = useState([]);
+
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
 
   const getActivity = () => {
     fetch(
@@ -32,9 +42,8 @@ const Activity = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setActivity(res.data);
       });

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
+import { useSnackbar } from 'notistack';
 import {
   Container, makeStyles, Typography, Grid,
   TextField,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, handleError } from './utils';
 
 const useStyles = makeStyles(() => ({
   centered: {
@@ -26,6 +27,13 @@ const Search = () => {
   const classes = useStyles();
   const [usernames, setUsernames] = useState([]);
 
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
+
   const getUsernames = () => {
     fetch(
       apiEndpoint('getUsernames'),
@@ -38,9 +46,8 @@ const Search = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setUsernames(res.data);
       });

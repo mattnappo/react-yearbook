@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
-import { apiEndpoint } from './utils';
+import { apiEndpoint, handleError } from './utils';
 import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
 
@@ -30,9 +30,8 @@ const Feed = () => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          window.location.replace('/?err=sessionExpired');
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setPosts(res.data);
       });

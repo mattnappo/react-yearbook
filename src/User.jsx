@@ -4,11 +4,12 @@ import {
   Typography, Grid, Avatar, Container,
   Button, makeStyles,
 } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Link } from 'react-router-dom';
 import CTypography from './CTypography';
 import PostsTabs from './PostsTabs';
-import { apiEndpoint, capitalize } from './utils';
+import { apiEndpoint, capitalize, handleError } from './utils';
 import TopBar, { BottomBar } from './Bar';
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,13 @@ const User = (props) => {
 
   const { username } = props.match.params;
 
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
+
   const getUserData = () => {
     fetch(
       apiEndpoint(`getUser/${username}`),
@@ -51,9 +59,8 @@ const User = (props) => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setUser(res.data);
 

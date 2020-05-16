@@ -9,7 +9,8 @@ const Home = () => {
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
     enqueueSnackbar(text, {
-      variant, autoHideDuration: 3000,
+      variant,
+      autoHideDuration: 3000,
     });
   };
 

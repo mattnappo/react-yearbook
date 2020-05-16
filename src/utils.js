@@ -1,4 +1,7 @@
 // import { Date } from 'datejs';
+import React from 'react';
+import { useSnackbar } from 'notistack';
+
 const moment = require('moment');
 
 // authEndpoint returns an authorization endpoint to the API.
@@ -39,6 +42,7 @@ export const parseURL = () => {
 
 // capitalize capitalizes the first letter of a string.
 export const capitalize = (s) => {
+  if (s === '') return '';
   if (typeof s !== 'string') return '';
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
@@ -75,15 +79,17 @@ export const gradeStringToInt = (gradeString) => {
   }
 };
 
-export const error = (e) => {
-  switch (e.toLowerCase()) {
-    case 'invalid credentials to query google api':
-      return 'Invalid session';
-    case 'pg: no rows in result set':
-      return 'No results were found';
-    default:
-      return 'An error occurred. Please try again.';
+// handleError returns the error message to render with toast.
+export const handleError = (errs) => {
+  if (errs == null) return null;
+  const e = errs[0];
+  if (e.toLowerCase() === 'invalid credentials to query google api') {
+    window.location.replace('/?err=sessionExpired');
   }
+
+  // could use a switch here
+
+  return 'An error occurred.';
 };
 
 export const formatRecipients = (recipients) => {
@@ -95,9 +101,25 @@ export const formatRecipients = (recipients) => {
   return s;
 };
 
+// rename to errorSnacks
 export const errors = {
   sessionExpired: {
     message: 'You have been logged out. Please log in again.',
     type: 'info',
   },
+  logout: {
+    message: 'Logged out',
+    type: 'info',
+  },
+  flag: {
+    message: 'hi zach',
+    type: 'info',
+  },
+};
+
+export const Toast = ({ text, variant }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  enqueueSnackbar(text, {
+    variant, autoHideDuration: 3000,
+  });
 };

@@ -9,13 +9,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useSnackbar } from 'notistack';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import InboxIcon from '@material-ui/icons/Inbox';
-import { authEndpoint } from './utils';
+import { authEndpoint, handleError } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +44,13 @@ const TopBar = ({ loginText }) => {
   const cookies = new Cookies();
   const [loginURL, setLoginURL] = useState('');
 
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
+
   const getLoginURL = () => {
     if (loginText === 'Logout') {
       return;
@@ -59,10 +66,8 @@ const TopBar = ({ loginText }) => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-          return;
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setLoginURL(res);
       });
@@ -74,7 +79,7 @@ const TopBar = ({ loginText }) => {
       cookies.remove('username');
       cookies.remove('state');
       cookies.remove('go_session');
-      window.location.replace('/');
+      window.location.replace('/?err=logout');
     }
   };
 

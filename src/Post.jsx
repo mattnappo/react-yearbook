@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
-
+import { useSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { apiEndpoint, formatTime, formatRecipients } from './utils';
+import {
+  apiEndpoint, formatTime, formatRecipients, handleError,
+} from './utils';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,6 +29,13 @@ const Post = ({ postData }, key) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const [profilePic, setProfilePic] = useState('');
+
+  const { enqueueSnackbar } = useSnackbar();
+  const toast = (text, variant) => {
+    enqueueSnackbar(text, {
+      variant, autoHideDuration: 3000,
+    });
+  };
 
   const renderImages = () => {
     if (postData.images !== null) {
@@ -56,9 +65,8 @@ const Post = ({ postData }, key) => {
       },
     ).then((res) => res.json())
       .then((res) => {
-        if (res.errors) {
-          console.log(res);
-        }
+        const err = handleError(res.errors);
+        if (err) { toast(err); }
 
         setProfilePic(res.data.profile_pic);
       });
