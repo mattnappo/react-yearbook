@@ -10,18 +10,7 @@ import TopBar, { BottomBar } from './Bar';
 import AddImagePopup from './AddImagePopup';
 import { apiEndpoint, error } from './utils';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    width: 1000,
-    border: '1px solid red',
-  },
-  border: {
-    border: '1px solid red',
-  },
+const useStyles = makeStyles(() => ({
   centered: {
     'text-align': 'center',
   },

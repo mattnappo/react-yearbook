@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { CircularProgress } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { apiEndpoint } from './utils';
 import Post from './Post';
@@ -29,10 +30,18 @@ const Feed = () => {
       });
   };
 
-  const renderPosts = () => {
-    if (posts == null) {
-      return <p>No posts</p>;
+  const renderLoading = () => {
+    if (Object.values(posts).length === 0) {
+      return (
+        <div className="loading">
+          <CircularProgress />
+        </div>
+      );
     }
+  };
+
+  const renderPosts = () => {
+    if (posts == null) return <p>No Posts</p>;
     const reversedPosts = Object.values(posts).slice(0).reverse();
     return reversedPosts.map((post) => <Post postData={post} key={post.id} />);
   };
@@ -43,6 +52,7 @@ const Feed = () => {
     <div>
       <TopBar loginText="Logout" />
       <div className="main-content">
+        { renderLoading() }
         { renderPosts() }
       </div>
       <BottomBar />
