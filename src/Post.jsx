@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import {
-  apiEndpoint, formatTime, formatRecipients, handleError,
+  apiEndpoint, formatTime, handleError,
 } from './utils';
 
 const useStyles = makeStyles(() => ({

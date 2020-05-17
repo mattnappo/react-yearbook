@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, Container,
+  TextField, Button, Container, Card,
   Typography, Grid, Select, FormControl,
   InputLabel, makeStyles,
 } from '@material-ui/core';
@@ -12,6 +12,12 @@ import {
 } from './utils';
 
 const useStyles = makeStyles(() => ({
+  root: {
+    maxWidth: 600,
+    margin: 'auto',
+    padding: '28px',
+    'margin-top': '24px',
+  },
   centered: {
     'text-align': 'center',
   },
@@ -114,74 +120,78 @@ const Settings = () => {
     <div>
       <TopBar loginText="Logout" />
 
-      <Container className="main-content" maxWidth="sm">
-        <Grid container spacing={3}>
+        <Container className="main-content" maxWidth="sm">
+      {/* <Card className={classes.root}> */}
+          <Grid container spacing={3}>
 
-          <Grid item xs={12}>
-            <Typography className={classes.centered}>Edit Account Settings</Typography>
-          </Grid>
+            <Grid item xs={12}>
+              <b><Typography className={classes.centered}>Edit Account Settings</Typography></b>
+            </Grid>
 
-          <Grid item xs={6}>
-            <TextField
-              className={classes.wide}
-              label="Nickname"
-              variant={variant}
-              value={state.nickname}
-              onChange={(e) => { setState({ ...state, nickname: e.target.value }); }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <FormControl variant={variant} className={classes.fill}>
-              <InputLabel htmlFor="outlined-grade-native-simple">Grade</InputLabel>
-              <Select
-                native
-                value={gradeIntToString(state.grade)}
-                onChange={(e) => {
-                  setState({ ...state, grade: gradeStringToInt(e.target.value) });
-                }}
-                label="Grade"
-                inputProps={{
-                  id: 'outlined-grade-native-simple',
-                  name: 'grade',
-                }}
+            <Grid item xs={6}>
+              <TextField
+                className={classes.wide}
+                label="Nickname"
+                variant={variant}
+                value={state.nickname}
+                onChange={(e) => { setState({ ...state, nickname: e.target.value }); }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl variant={variant} className={classes.fill}>
+                <InputLabel htmlFor="outlined-grade-native-simple">Grade</InputLabel>
+                <Select
+                  native
+                  value={gradeIntToString(state.grade)}
+                  onChange={(e) => {
+                    setState({ ...state, grade: gradeStringToInt(e.target.value) });
+                  }}
+                  label="Grade"
+                  inputProps={{
+                    id: 'outlined-grade-native-simple',
+                    name: 'grade',
+                  }}
+                >
+                  <option aria-label="none" value="" />
+                  <option value="freshman">Freshman</option>
+                  <option value="sophomore">Sophomore</option>
+                  <option value="junior">Junior</option>
+                  <option value="senior">Senior</option>
+                </Select>
+              </FormControl>
+
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                label="Bio"
+                className={classes.wide}
+                multiline
+                variant={variant}
+                value={state.bio}
+                onChange={(e) => { setState({ ...state, bio: e.target.value }); }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              {genSeniorWill()}
+            </Grid>
+
+            <Grid item xs={4}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={save}
               >
-                <option aria-label="none" value="" />
-                <option value="freshman">Freshman</option>
-                <option value="sophomore">Sophomore</option>
-                <option value="junior">Junior</option>
-                <option value="senior">Senior</option>
-              </Select>
-            </FormControl>
+                Save Changes
+              </Button>
+            </Grid>
 
           </Grid>
+          {/* </Card> */}
 
-          <Grid item xs={12}>
-            <TextField
-              label="Bio"
-              className={classes.wide}
-              multiline
-              variant={variant}
-              value={state.bio}
-              onChange={(e) => { setState({ ...state, bio: e.target.value }); }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            {genSeniorWill()}
-          </Grid>
+        </Container>
 
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={save}
-          >
-            Save Changes
-          </Button>
-
-        </Grid>
-
-      </Container>
-
-      <BottomBar />
+      <BottomBar defaultValue="me" />
     </div>
   );
 };

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
-  Avatar, Container, Typography, makeStyles,
+  Avatar, Container, Typography, CircularProgress,
+  makeStyles,
 } from '@material-ui/core';
 import CTypography from './CTypography';
 import TopBar, { BottomBar } from './Bar';
@@ -49,6 +50,17 @@ const Activity = () => {
       });
   };
 
+  const renderLoading = () => {
+    if (Object.values(activity).length === 0) {
+      return (
+        <div className="loading">
+          <CircularProgress />
+        </div>
+      );
+    }
+    return <span />;
+  };
+
   const renderActivity = () => {
     if (activity == null) {
       return <CTypography>No new activity</CTypography>;
@@ -86,7 +98,8 @@ const Activity = () => {
         <Typography className={classes.centered}>Activity</Typography>
 
         <List component="nav" aria-label="activity">
-          {renderActivity()}
+          { renderLoading() }
+          { renderActivity() }
         </List>
 
       </Container>

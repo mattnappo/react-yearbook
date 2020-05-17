@@ -210,7 +210,7 @@ const NewPost = () => {
         </Grid>
 
       </Container>
-      <BottomBar />
+      <BottomBar defaultValue="post" />
     </div>
   );
 };

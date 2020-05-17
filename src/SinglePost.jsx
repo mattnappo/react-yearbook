@@ -9,6 +9,7 @@ const SinglePost = (props) => (
       <Post postData={props.location.state.post} />
     </div>
     <BottomBar />
+    {/* <BottomBar defaultValue="feed" /> */}
   </div>
 );
 

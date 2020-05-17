@@ -93,7 +93,7 @@ const TopBar = ({ loginText }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Masters Seniors
+          Masters Seniors 2020
         </Typography>
         <Button
           color="inherit"

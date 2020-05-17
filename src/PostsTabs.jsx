@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import {
-  Tabs, Tab, List, ListItem, Box,
+  Tabs, Tab, List, ListItem, Box, makeStyles,
   Typography, ListItemAvatar, Avatar, ListItemText,
 
 } from '@material-ui/core';
@@ -11,6 +11,12 @@ import CTypography from './CTypography';
 import {
   apiEndpoint, formatTime, formatRecipients, handleError,
 } from './utils';
+
+const useStyles = makeStyles(() => ({
+  centered: {
+    'text-align': 'center',
+  },
+}));
 
 const TabPanel = (props) => {
   const {
@@ -32,13 +38,13 @@ const TabPanel = (props) => {
 };
 
 const PostsTabs = () => {
+  const classes = useStyles();
   const cookies = new Cookies();
   const [value, setValue] = useState(0);
   const [posts, setPosts] = useState({
     inbound: [],
     outbound: [],
   });
-
 
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
@@ -110,7 +116,7 @@ const PostsTabs = () => {
             state: { post },
           }}
         >
-          <ListItem button>
+          <ListItem button className={classes.wide}>
             <ListItemAvatar><Avatar src="" /></ListItemAvatar>
             <ListItemText
               primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}

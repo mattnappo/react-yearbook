@@ -95,7 +95,7 @@ const Feed = () => {
         { renderLoadMore() }
 
       </div>
-      <BottomBar />
+      <BottomBar defaultValue="feed" />
     </div>
   );
 };

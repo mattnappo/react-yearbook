@@ -77,7 +77,7 @@ const Search = () => {
 
         </Grid>
       </Container>
-      <BottomBar />
+      <BottomBar defaultValue="search" />
     </div>
   );
 };

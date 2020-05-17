@@ -1,6 +1,7 @@
+/* @import url('%PUBLIC_URL%/fonts/SF-Pro-Display-Regular.otf'); */
+
 .link {
     text-decoration: none;
-    /* color: black; */
     color: inherit;
 }
 

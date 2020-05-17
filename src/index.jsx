@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
-import App from './App';
+import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import * as serviceWorker from './serviceWorker';
+import theme from './theme';
+import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +19,11 @@ ReactDOM.render(
         }}
         className="snackbar"
       >
-        <App />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+
       </SnackbarProvider>
     </BrowserRouter>
   </React.StrictMode>,
