@@ -96,9 +96,7 @@ const NewPost = () => {
   };
 
   const post = () => {
-    if (!validate()) {
-      return;
-    }
+    if (!validate()) return;
 
     fetch(
       apiEndpoint('createPost'),

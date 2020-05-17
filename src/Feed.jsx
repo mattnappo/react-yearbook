@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress } from '@material-ui/core';
+import {
+  CircularProgress, Link, Typography, makeStyles,
+} from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import { apiEndpoint, handleError } from './utils';
 import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
 
+const useStyles = makeStyles(() => ({
+  centered: {
+    'text-align': 'center',
+    padding: '24px 0px 12px 0px',
+  },
+}));
+
 // Feed is the main window containing the post feed.
 const Feed = () => {
   const [posts, setPosts] = useState({});
   const cookies = new Cookies();
+  const classes = useStyles();
 
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
@@ -20,7 +30,7 @@ const Feed = () => {
 
   const getPosts = () => {
     fetch(
-      apiEndpoint('getPosts'),
+      apiEndpoint('getnPosts/20'),
       {
         method: 'GET',
         headers: {
@@ -45,12 +55,19 @@ const Feed = () => {
         </div>
       );
     }
+    return <span />;
   };
 
   const renderPosts = () => {
     if (posts == null) return <p>No Posts</p>;
     const reversedPosts = Object.values(posts).slice(0).reverse();
     return reversedPosts.map((post) => <Post postData={post} key={post.id} />);
+  };
+
+  const loadMorePosts = (event) => {
+    event.preventDefault();
+
+    getPosts();
   };
 
   useEffect(getPosts, []);
@@ -61,6 +78,13 @@ const Feed = () => {
       <div className="main-content">
         { renderLoading() }
         { renderPosts() }
+
+        <Typography className={classes.centered}>
+          <Link onClick={loadMorePosts}>
+            Load More
+          </Link>
+        </Typography>
+
       </div>
       <BottomBar />
     </div>

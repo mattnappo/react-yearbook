@@ -27,7 +27,7 @@ const Home = () => {
     <div>
       <TopBar loginText="Login" />
       <div className="main-content">
-        <Typography>Welcome!</Typography>
+        <Typography>{`Welcome! Note: I didn't style the website yet. Don't worry, its going to look better than this I promise. :)`}</Typography>
         { renderErrors() }
       </div>
     </div>

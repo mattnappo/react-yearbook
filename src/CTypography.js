@@ -2,7 +2,6 @@ import { Typography, withStyles } from '@material-ui/core';
 
 const CTypography = withStyles({
   root: {
-    // border: '1px solid red',
     'text-align': 'center',
     position: 'absolute',
     top: '50%',
