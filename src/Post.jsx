@@ -53,6 +53,20 @@ const Post = ({ postData }, key) => {
     return <span />;
   };
 
+  const renderRecipients = () => (
+    postData.recipients.map((recipient, index) => (
+      index === postData.recipients.length - 1 ? (
+        <Link to={`/accounts/${recipient}`} className="link">
+          {`@${recipient}`}
+        </Link>
+      ) : (
+        <Link to={`/accounts/${recipient}`} className="link">
+          {`@${recipient}, `}
+        </Link>
+      )
+    ))
+  );
+
   const getSenderProfilePic = () => {
     fetch(
       apiEndpoint(`getUser/${postData.sender}`),
@@ -76,20 +90,24 @@ const Post = ({ postData }, key) => {
 
   return (
     <Card className={classes.root} id={key}>
-      <Link
-        className="link"
-        to={`/accounts/${postData.sender}`}
-      >
-        <CardHeader
-          avatar={(
-            <Avatar aria-label="recipe" src={profilePic}>
-              {postData.sender[0].toUpperCase()}
-            </Avatar>
-          )}
-          title={postData.sender}
-          subheader={`To: ${formatRecipients(postData.recipients)}`}
-        />
-      </Link>
+      <CardHeader
+        avatar={(
+          <Avatar aria-label="recipe" src={profilePic}>
+            {postData.sender[0].toUpperCase()}
+          </Avatar>
+        )}
+        title={(
+          <Link to={`/accounts/${postData.sender}`} className="link">
+            {postData.sender}
+          </Link>
+        )}
+        subheader={(
+          <span>
+            {`To: `}
+            { renderRecipients() }
+          </span>
+        )}
+      />
 
       {renderImages()}
 
