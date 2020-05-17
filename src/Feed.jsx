@@ -58,6 +58,19 @@ const Feed = () => {
     return <span />;
   };
 
+  const renderLoadMore = () => {
+    if (Object.values(posts).length !== 0) {
+      return (
+        <Typography className={classes.centered}>
+          <Link onClick={loadMorePosts}>
+            Load More
+          </Link>
+        </Typography>
+      );
+    }
+    return <span />;
+  };
+
   const renderPosts = () => {
     if (posts == null) return <p>No Posts</p>;
     const reversedPosts = Object.values(posts).slice(0).reverse();
@@ -79,11 +92,7 @@ const Feed = () => {
         { renderLoading() }
         { renderPosts() }
 
-        <Typography className={classes.centered}>
-          <Link onClick={loadMorePosts}>
-            Load More
-          </Link>
-        </Typography>
+        { renderLoadMore() }
 
       </div>
       <BottomBar />

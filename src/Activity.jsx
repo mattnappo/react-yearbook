@@ -90,7 +90,7 @@ const Activity = () => {
         </List>
 
       </Container>
-      <BottomBar />
+      <BottomBar defaultValue="activity" />
     </div>
   );
 };

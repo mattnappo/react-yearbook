@@ -56,11 +56,11 @@ const Post = ({ postData }, key) => {
   const renderRecipients = () => (
     postData.recipients.map((recipient, index) => (
       index === postData.recipients.length - 1 ? (
-        <Link to={`/accounts/${recipient}`} className="link">
+        <Link to={`/accounts/${recipient}`} className="link" key={index}>
           {`@${recipient}`}
         </Link>
       ) : (
-        <Link to={`/accounts/${recipient}`} className="link">
+        <Link to={`/accounts/${recipient}`} className="link" key={index}>
           {`@${recipient}, `}
         </Link>
       )
@@ -69,7 +69,7 @@ const Post = ({ postData }, key) => {
 
   const getSenderProfilePic = () => {
     fetch(
-      apiEndpoint(`getUser/${postData.sender}`),
+      apiEndpoint(`getUserProfilePic/${postData.sender}`),
       {
         method: 'GET',
         headers: {
@@ -82,7 +82,7 @@ const Post = ({ postData }, key) => {
         const err = handleError(res.errors);
         if (err) { toast(err, 'error'); return; }
 
-        setProfilePic(res.data.profile_pic);
+        setProfilePic(res.data);
       });
   };
 

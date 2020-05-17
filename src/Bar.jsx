@@ -15,7 +15,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import InboxIcon from '@material-ui/icons/Inbox';
-import { authEndpoint, handleError } from './utils';
+import Test from './Test';
+import { authEndpoint, handleError, capitalize } from './utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -112,36 +113,76 @@ TopBar.propTypes = {
 
 export default TopBar;
 
-const BottomBarLink = ({ to, label, icon }) => (
-  <Link to={to}>
-    <BottomNavigationAction label={label} value={to} icon={icon} />
-  </Link>
+const BottomBarLink = ({
+  to, icon, val,
+}) => (
+  <BottomNavigationAction
+    component={Link}
+    to={to}
+    label={capitalize(val)}
+    value={val}
+    icon={icon}
+  />
 );
 BottomBarLink.propTypes = {
   to: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
 };
 
-export const BottomBar = () => {
+export const BottomBar = ({ defaultValue }) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const username = cookies.get('username');
 
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(defaultValue);
 
   return (
     <BottomNavigation
       className={classes.stickToBottom}
       value={value}
       onChange={(e, v) => { setValue(v); }}
-      showLabels
     >
-      <BottomBarLink to="/feed" label="Feed" icon={<HomeIcon />} />
-      <BottomBarLink to="/search" label="Search" icon={<SearchIcon />} />
-      <BottomBarLink to="/post" label="Post" icon={<AddIcon />} />
-      <BottomBarLink to="/activity" label="Activity" icon={<InboxIcon />} />
-      <BottomBarLink to={`/accounts/${username}`} label="Me" icon={<AccountIcon />} />
+      {/* <BottomBarLink to="/feed" value="feed" icon={<HomeIcon />} />
+      <BottomBarLink to="/search" value="search" icon={<SearchIcon />} />
+      <BottomBarLink to="/post" value="post" icon={<AddIcon />} />
+      <BottomBarLink to="/activity" value="activity" icon={<InboxIcon />} />
+      <BottomBarLink to={`/accounts/${username}`} value="me" icon={<AccountIcon />} /> */}
+
+      <BottomNavigationAction
+        component={Link}
+        to="/feed"
+        label={capitalize('feed')}
+        value="feed"
+        icon={<HomeIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to="/search"
+        label={capitalize('search')}
+        value="search"
+        icon={<SearchIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to="/post"
+        label={capitalize('post')}
+        value="post"
+        icon={<AddIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to="/activity"
+        label={capitalize('activity')}
+        value="activity"
+        icon={<InboxIcon />}
+      />
+      <BottomNavigationAction
+        component={Link}
+        to={`/accounts/${username}`}
+        label={capitalize('Me')}
+        value="me"
+        icon={<AccountIcon />}
+      />
 
     </BottomNavigation>
   );
