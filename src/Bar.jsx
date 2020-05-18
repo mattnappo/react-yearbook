@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {
-  AppBar, Toolbar, IconButton, Typography, Button,
+  AppBar, Toolbar, Typography, Button, Grid,
 } from '@material-ui/core/';
-import MenuIcon from '@material-ui/icons/Menu';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +14,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import InboxIcon from '@material-ui/icons/Inbox';
-import Test from './Test';
 import { authEndpoint, handleError, capitalize } from './utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +21,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     position: 'fixed',
     top: 0,
+  },
+  clear: {
+    background: 'transparent',
+    boxShadow: 'none',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -40,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TopBar = ({ loginText }) => {
+const ClearBar = ({ loginText }) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const [loginURL, setLoginURL] = useState('');
@@ -74,44 +76,27 @@ const TopBar = ({ loginText }) => {
       });
   };
 
-  const handleClick = () => {
-    if (loginText === 'Logout') {
-      cookies.remove('token');
-      cookies.remove('username');
-      cookies.remove('state');
-      cookies.remove('go_session');
-      window.location.replace('/?err=logout');
-    }
-  };
-
   useEffect(getLoginURL, []);
 
   return (
-    <AppBar className={classes.root} position="static">
+    <AppBar className={classes.clear} position="static">
       <Toolbar>
-        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Masters Seniors 2020
-        </Typography>
-        <Button
-          color="inherit"
-          href={loginURL}
-          onClick={handleClick}
-        >
-          {loginText}
-        </Button>
+        <Typography style={{ flex: 1 }} />
+        <div>
+          <Button
+            raised
+            color="inherit"
+            href={loginURL}
+          >
+            Login
+          </Button>
+        </div>
       </Toolbar>
     </AppBar>
   );
 };
 
-TopBar.propTypes = {
-  loginText: PropTypes.oneOf(['Login', 'Logout']).isRequired,
-};
-
-export default TopBar;
+export default ClearBar;
 
 const BottomBarLink = ({
   to, icon, val,
@@ -185,5 +170,35 @@ export const BottomBar = ({ defaultValue }) => {
       />
 
     </BottomNavigation>
+  );
+};
+
+// The logout bar
+export const TopBar = () => {
+  const classes = useStyles();
+  const cookies = new Cookies();
+
+  const logout = () => {
+    cookies.remove('token');
+    cookies.remove('username');
+    cookies.remove('state');
+    cookies.remove('go_session');
+    window.location.replace('/?err=logout');
+  };
+
+  return (
+    <AppBar className={classes.clear} position="static">
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          {`Congratulations '20!`}
+        </Typography>
+        <Button
+          color="inherit"
+          onClick={logout}
+        >
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 };

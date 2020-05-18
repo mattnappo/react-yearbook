@@ -1,11 +1,32 @@
 import React from 'react';
 import { useSnackbar } from 'notistack';
-import Typography from '@material-ui/core/Typography';
-import TopBar from './Bar';
+import { Typography, makeStyles } from '@material-ui/core';
+import ClearBar from './Bar';
+import CTypography from './CTypography';
 import { parseURL, errors } from './utils';
+
+const useStyles = makeStyles(() => ({
+  root: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  container: {
+    'background-color': '#8321fd',
+    'background-image': 'linear-gradient(117deg, #8321fd 0%, #B721FF 100%)',
+    'min-height': '100%',
+  },
+  white: {
+    color: 'white',
+  },
+}));
 
 // Home is the landing page.
 const Home = () => {
+  const classes = useStyles();
+
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
     enqueueSnackbar(text, {
@@ -24,10 +45,13 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <TopBar loginText="Login" />
-      <div className="main-content">
-        <Typography>{`Welcome! Note: I didn't style the website yet. Don't worry, its going to look better than this I promise. :)`}</Typography>
+    <div className={classes.root}>
+      <div className={classes.container}>
+        <ClearBar />
+        <CTypography className={classes.white}>
+          Congratulations Masters Class of 2020!
+        </CTypography>
+
         { renderErrors() }
       </div>
     </div>
