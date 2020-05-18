@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {
-  AppBar, Toolbar, Typography, Button, Grid,
+  AppBar, Toolbar, Typography, Button,
 } from '@material-ui/core/';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -42,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClearBar = ({ loginText }) => {
+export const ClearBar = () => {
   const classes = useStyles();
-  const cookies = new Cookies();
   const [loginURL, setLoginURL] = useState('');
 
   const { enqueueSnackbar } = useSnackbar();
@@ -55,10 +54,6 @@ const ClearBar = ({ loginText }) => {
   };
 
   const getLoginURL = () => {
-    if (loginText === 'Logout') {
-      return;
-    }
-
     fetch(
       authEndpoint('login'),
       {
@@ -95,8 +90,6 @@ const ClearBar = ({ loginText }) => {
     </AppBar>
   );
 };
-
-export default ClearBar;
 
 const BottomBarLink = ({
   to, icon, val,
@@ -174,7 +167,7 @@ export const BottomBar = ({ defaultValue }) => {
 };
 
 // The logout bar
-export const TopBar = () => {
+const TopBar = () => {
   const classes = useStyles();
   const cookies = new Cookies();
 
@@ -187,7 +180,7 @@ export const TopBar = () => {
   };
 
   return (
-    <AppBar className={classes.clear} position="static">
+    <AppBar className={classes.root} position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
           {`Congratulations '20!`}
@@ -202,3 +195,5 @@ export const TopBar = () => {
     </AppBar>
   );
 };
+
+export default TopBar;

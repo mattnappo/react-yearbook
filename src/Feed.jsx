@@ -87,7 +87,7 @@ const Feed = () => {
 
   return (
     <div>
-      <TopBar loginText="Logout" />
+      <TopBar />
       <div className="main-content">
         { renderLoading() }
         { renderPosts() }
