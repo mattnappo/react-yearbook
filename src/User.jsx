@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
   Typography, Grid, Avatar, Container,
-  Button, makeStyles,
+  Button, Box, makeStyles,
 } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -90,6 +90,7 @@ const User = (props) => {
   };
 
   const genHeaderText = () => {
+    if (!user.firstname) return '';
     if (user.nickname === '') {
       return `${capitalize(user.firstname)} ${capitalize(user.lastname)} (@${user.username})`;
     }
@@ -138,7 +139,7 @@ const User = (props) => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <Typography className={classes.centered}>{genHeaderText()}</Typography>
+            <Box className="header">{genHeaderText()}</Box>
           </Grid>
 
           <Grid item xs={3} className={classes.item}>

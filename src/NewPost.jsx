@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, Container,
+  TextField, Button, Container, Box,
   Typography, Grid, makeStyles,
 } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
@@ -148,7 +148,7 @@ const NewPost = () => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <Typography className={classes.centered}>Make New Post</Typography>
+            <Box className="header">Make New Post</Box>
           </Grid>
 
           <Grid item xs={12}>

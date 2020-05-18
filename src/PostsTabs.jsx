@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
   listItem: {
     width: '100%',
-    padding: 0,
+    padding: 2,
   },
 }));
 

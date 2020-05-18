@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
-  Avatar, Container, Typography, CircularProgress,
+  Avatar, Container, Box, CircularProgress,
   makeStyles,
 } from '@material-ui/core';
 import CTypography from './CTypography';
@@ -95,7 +95,7 @@ const Activity = () => {
     <div>
       <TopBar />
       <Container className="main-content" maxWidth="sm">
-        <Typography className="pageHeader">Activity</Typography>
+        <Box className="header">Activity</Box>
 
         <List component="nav" aria-label="activity">
           { renderLoading() }

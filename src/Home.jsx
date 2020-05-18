@@ -32,8 +32,6 @@ const useStyles = makeStyles(() => ({
   rect: {
     stroke: 'none',
     fill: '#fafafa',
-    // backgroundColor: '#8321fd',
-    // fill: 'linear-gradient(117deg, #8321fd 0%, #B721FF 100%)',
   },
   svg: {
     width: '100%',
