@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   },
   listItem: {
     width: '100%',
-    padding: 2,
+    // padding: '8px 0px 8px 0px',
   },
 }));
 
@@ -41,8 +41,30 @@ const TabPanel = (props) => {
   );
 };
 
-const PostsTabs = () => {
+const ActivityItem = ({ post }) => {
   const classes = useStyles();
+
+  return (
+    <Link
+      key={post.id}
+      className="link"
+      to={{
+        pathname: '/viewPost/',
+        state: { post },
+      }}
+    >
+      <ListItem button className={classes.listItem}>
+        <ListItemAvatar><Avatar src="" /></ListItemAvatar>
+        <ListItemText
+          primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
+          secondary={formatTime(post.timestamp)}
+        />
+      </ListItem>
+    </Link>
+  );
+};
+
+const PostsTabs = () => {
   const cookies = new Cookies();
   const [value, setValue] = useState(0);
   const [posts, setPosts] = useState({
@@ -79,57 +101,17 @@ const PostsTabs = () => {
   };
 
   const renderPosts = () => {
-    if (posts.outbound == null) {
-      return <CTypography>No Posts</CTypography>;
-    }
+    if (posts.outbound == null) return <CTypography>No posts yet</CTypography>;
 
-    return (
-      Object.values(posts.outbound).map((post) => (
-        <Link
-          key={post.id}
-          className="link"
-          to={{
-            pathname: '/viewPost/',
-            state: { post },
-          }}
-        >
-          <ListItem button className={classes.listItem}>
-            <ListItemAvatar><Avatar src="" /></ListItemAvatar>
-            <ListItemText
-              primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
-              secondary={formatTime(post.timestamp)}
-            />
-          </ListItem>
-        </Link>
-      ))
-    );
+    const reversedPosts = Object.values(posts.outbound).slice(0).reverse();
+    return reversedPosts.map((post) => <ActivityItem post={post} />);
   };
 
   const renderCongrats = () => {
-    if (posts.inbound == null) {
-      return <CTypography>No congrats yet</CTypography>;
-    }
+    if (posts.inbound == null) return <CTypography>No congrats yet</CTypography>;
 
-    return (
-      Object.values(posts.inbound).map((post) => (
-        <Link
-          key={post.id}
-          className="link"
-          to={{
-            pathname: '/viewPost/',
-            state: { post },
-          }}
-        >
-          <ListItem button className={classes.listItem}>
-            <ListItemAvatar><Avatar src="" /></ListItemAvatar>
-            <ListItemText
-              primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
-              secondary={formatTime(post.timestamp)}
-            />
-          </ListItem>
-        </Link>
-      ))
-    );
+    const reversedCongrats = Object.values(posts.inbound).slice(0).reverse();
+    return reversedCongrats.map((post) => <ActivityItem post={post} />);
   };
 
   useEffect(getPosts, []);
