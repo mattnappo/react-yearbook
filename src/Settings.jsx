@@ -91,6 +91,7 @@ const Settings = () => {
         const err = handleError(res.errors);
         if (err) { toast(err, 'error'); return; }
 
+        cookies.set('grade', state.grade);
         toast('Saved changes!', 'success');
         window.location.replace(`/accounts/${state.username}`);
       });

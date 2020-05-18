@@ -178,6 +178,7 @@ const TopBar = () => {
     cookies.remove('username');
     cookies.remove('state');
     cookies.remove('go_session');
+    cookies.remove('grade');
     window.location.replace('/?err=logout');
   };
 

@@ -98,8 +98,6 @@ const User = (props) => {
   };
 
   const getBioText = () => {
-    console.log('REGISTERD');
-    console.log(user.registered);
     if (!user.registered) return `@${user.username} hasn't made an account yet. Tell them to log in!`;
     if (user.bio === '') return 'No bio';
     return user.bio;
