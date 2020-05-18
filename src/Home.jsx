@@ -6,7 +6,6 @@ import { parseURL, errors } from './utils';
 
 const headerStyles = {
   font: '"Merriweather", serif',
-  // font: '"Pacifico", cursive';
   color: '#fff',
 };
 
@@ -68,6 +67,8 @@ const useStyles = makeStyles(() => ({
   },
   textPadding: {
     padding: '24px',
+    maxWidth: 850,
+    margin: '0 auto',
   },
 }));
 

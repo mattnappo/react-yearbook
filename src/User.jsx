@@ -133,7 +133,7 @@ const User = (props) => {
 
   return (
     <div>
-      <TopBar loginText="Logout" />
+      <TopBar />
       <Container className="main-content" maxWidth="sm">
         <Grid container spacing={3}>
 
@@ -176,7 +176,7 @@ const User = (props) => {
 
       </Container>
 
-      <BottomBar />
+      <BottomBar defaultValue="me" />
     </div>
   );
 };

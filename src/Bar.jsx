@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {
   AppBar, Toolbar, Typography, Button,
@@ -119,13 +119,13 @@ export const BottomBar = ({ defaultValue }) => {
       className={classes.stickToBottom}
       value={value}
       onChange={(e, v) => { setValue(v); }}
+      // showLabels
     >
       {/* <BottomBarLink to="/feed" value="feed" icon={<HomeIcon />} />
       <BottomBarLink to="/search" value="search" icon={<SearchIcon />} />
       <BottomBarLink to="/post" value="post" icon={<AddIcon />} />
       <BottomBarLink to="/activity" value="activity" icon={<InboxIcon />} />
       <BottomBarLink to={`/accounts/${username}`} value="me" icon={<AccountIcon />} /> */}
-
       <BottomNavigationAction
         component={Link}
         to="/feed"

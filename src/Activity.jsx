@@ -93,9 +93,9 @@ const Activity = () => {
 
   return (
     <div>
-      <TopBar loginText="Logout" />
+      <TopBar />
       <Container className="main-content" maxWidth="sm">
-        <Typography className={classes.centered}>Activity</Typography>
+        <Typography className="pageHeader">Activity</Typography>
 
         <List component="nav" aria-label="activity">
           { renderLoading() }

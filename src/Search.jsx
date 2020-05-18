@@ -57,7 +57,7 @@ const Search = () => {
 
   return (
     <div>
-      <TopBar loginText="Logout" />
+      <TopBar />
       <Container className="main-content" maxWidth="sm">
 
         <Grid container spacing={3}>

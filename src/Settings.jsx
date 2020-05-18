@@ -118,7 +118,7 @@ const Settings = () => {
 
   return (
     <div>
-      <TopBar loginText="Logout" />
+      <TopBar />
 
         <Container className="main-content" maxWidth="sm">
       {/* <Card className={classes.root}> */}
@@ -176,15 +176,13 @@ const Settings = () => {
               {genSeniorWill()}
             </Grid>
 
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={save}
-              >
-                Save Changes
-              </Button>
-            </Grid>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={save}
+            >
+              Save Changes
+            </Button>
 
           </Grid>
           {/* </Card> */}

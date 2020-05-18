@@ -1,7 +1,7 @@
 /* @import url('%PUBLIC_URL%/fonts/SF-Pro-Display-Regular.otf'); */
 
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 .link {
     text-decoration: none;
@@ -33,4 +33,21 @@ body {
     /* margin-bottom: 45px; */ /* For being above the navbar */
     margin-left: 20px;
     margin-right: 20px;
+}
+
+.pageHeader {
+    font-weight: 400px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 4000px) {
+    .textResize {
+        font-size: 1.17em;
+    }
+}
+
+@media only screen and (max-width: 555px) {
+    .textResize {
+        font-size: 10px;
+    }
 }
