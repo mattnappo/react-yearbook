@@ -81,13 +81,6 @@ const useStyles = makeStyles(() => ({
 // Home is the landing page.
 const Home = () => {
   const classes = useStyles();
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWidth(window.innerWidth);
-    });
-  }, []);
 
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
@@ -112,10 +105,8 @@ const Home = () => {
         <ClearBar />
         <div className={classes.textPadding}>
           <Typography className={classes.header}>
-          {/* <Typography variant={width > smWidth ? 'h2' : 'h3'} className={classes.header}> */}
             Congratulations Masters Class of 2020!
           </Typography>
-          {/* <Typography variant={width > smWidth ? 'h4' : 'h5'} className={classes.subheader}> */}
           <Typography className={classes.subheader}>
             A Dedication to Our Seniors
           </Typography>
