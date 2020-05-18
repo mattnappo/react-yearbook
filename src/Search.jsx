@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import {
   Container, makeStyles, Typography, Grid,
-  TextField,
+  Box, TextField,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TopBar, { BottomBar } from './Bar';
@@ -63,7 +63,7 @@ const Search = () => {
         <Grid container spacing={3}>
 
           <Grid item xs={12}>
-            <Typography className={classes.centered}>Search</Typography>
+            <Box className="header">Search</Box>
           </Grid>
 
           <Grid item xs={12}>

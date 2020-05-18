@@ -3,7 +3,6 @@
 ## Styling
  * Make activity wider
  * Double check font stuff
- * Bold face
  * Bottombar shrink / test
 
 ## Scalability
@@ -23,3 +22,4 @@
  * Fix buttons on new post page
  * Bold the headers on each page
  * Other optimizations / security features
+ * Bottom navbar is squished

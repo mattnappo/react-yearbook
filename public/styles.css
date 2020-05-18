@@ -9,8 +9,7 @@
 }
 
 .main-content {
-    margin-bottom: 64px;
-    margin-top: 88px;
+    margin-top: 72px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -30,7 +29,7 @@ body {
 .snackbar {
     /* margin: 0 auto; */
 
-    /* margin-bottom: 45px; */ /* For being above the navbar */
+    margin-bottom: 45px; /* For being above the navbar */
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -40,14 +39,8 @@ body {
     text-align: center;
 }
 
-@media only screen and (max-width: 4000px) {
-    .textResize {
-        font-size: 1.17em;
-    }
-}
-
-@media only screen and (max-width: 555px) {
-    .textResize {
-        font-size: 10px;
-    }
+.header {
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
 }

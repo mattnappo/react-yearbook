@@ -16,6 +16,10 @@ const useStyles = makeStyles(() => ({
   centered: {
     'text-align': 'center',
   },
+  listItem: {
+    width: '100%',
+    padding: 0,
+  },
 }));
 
 const TabPanel = (props) => {
@@ -89,7 +93,7 @@ const PostsTabs = () => {
             state: { post },
           }}
         >
-          <ListItem button>
+          <ListItem button className={classes.listItem}>
             <ListItemAvatar><Avatar src="" /></ListItemAvatar>
             <ListItemText
               primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
@@ -116,7 +120,7 @@ const PostsTabs = () => {
             state: { post },
           }}
         >
-          <ListItem button className={classes.wide}>
+          <ListItem button className={classes.listItem}>
             <ListItemAvatar><Avatar src="" /></ListItemAvatar>
             <ListItemText
               primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}

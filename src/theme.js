@@ -9,7 +9,7 @@ const theme = createMuiTheme({
     fontFamily:
       '-apple-system,system-ui,BlinkMacSystemFont,' +
       '"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
-    fontSize: 15,
+    fontSize: window.innerHTML > 600 ? 15 : 12,
   },
 });
 

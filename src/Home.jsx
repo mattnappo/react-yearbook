@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
 import { Typography, makeStyles } from '@material-ui/core';
 import { ClearBar } from './Bar';
@@ -8,6 +8,8 @@ const headerStyles = {
   font: '"Merriweather", serif',
   color: '#fff',
 };
+
+const smWidth = 864;
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -38,6 +40,7 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
 
+
   root: {
     position: 'absolute',
     top: 0,
@@ -50,6 +53,7 @@ const useStyles = makeStyles(() => ({
     // backgroundImage: 'linear-gradient(117deg, #8321fd 0%, #B721FF 100%)',
     minHeight: '64%',
     width: '100%',
+    padding: 12,
     'box-shadow': '5px 10px 18px #888888',
   },
   header: {
@@ -57,16 +61,18 @@ const useStyles = makeStyles(() => ({
     fontWeight: 500,
     fontFamily: headerStyles.font,
     textAlign: 'center',
-    wordBreak: 'break-all',
+    wordWrap: 'break-word',
+    fontSize: window.innerWidth > smWidth ? 56 : 38,
   },
   subheader: {
     color: headerStyles.color,
     fontFamily: headerStyles.font,
     textAlign: 'center',
     marginTop: '12px',
+    fontSize: window.innerWidth > smWidth ? 34 : 22,
   },
   textPadding: {
-    padding: '24px',
+    padding: '16px',
     maxWidth: 850,
     margin: '0 auto',
   },
@@ -75,6 +81,13 @@ const useStyles = makeStyles(() => ({
 // Home is the landing page.
 const Home = () => {
   const classes = useStyles();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWidth(window.innerWidth);
+    });
+  }, []);
 
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
@@ -98,10 +111,12 @@ const Home = () => {
       <div className={classes.topSection}>
         <ClearBar />
         <div className={classes.textPadding}>
-          <Typography variant="h3" className={classes.header}>
+          <Typography className={classes.header}>
+          {/* <Typography variant={width > smWidth ? 'h2' : 'h3'} className={classes.header}> */}
             Congratulations Masters Class of 2020!
           </Typography>
-          <Typography variant="h4" className={classes.subheader}>
+          {/* <Typography variant={width > smWidth ? 'h4' : 'h5'} className={classes.subheader}> */}
+          <Typography className={classes.subheader}>
             A Dedication to Our Seniors
           </Typography>
         </div>
