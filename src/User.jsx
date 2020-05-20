@@ -82,7 +82,7 @@ const User = (props) => {
       case 1:
         return 'Sophomore';
       case 2:
-        return 'junior';
+        return 'Junior';
       case 3:
         return 'Senior';
       default:
