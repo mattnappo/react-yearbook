@@ -18,12 +18,13 @@ const useStyles = makeStyles(() => ({
 
 // Feed is the main window containing the post feed.
 const Feed = () => {
-  const n = 3; // The amount of posts to get at a time
+  const n = 10; // The amount of posts to get at a time
 
-  const [posts, setPosts] = useState({});
+  const [posts, setPosts] = useState([]);
   const [offset, setOffset] = useState(0);
   const [numPosts, setNumPosts] = useState(-1);
   const [loadMoreText, setLoadMoreText] = useState('Load More');
+  const [gotPosts, setGotPosts] = useState(false);
 
   const cookies = new Cookies();
   const classes = useStyles();
@@ -55,7 +56,7 @@ const Feed = () => {
 
   const getPosts = () => {
     if (numPosts !== -1) {
-      if (offset >= numPosts) {
+      if (offset + n - 1 >= numPosts) {
         console.log(`NUM POSTS: ${numPosts}`);
         console.log(`   OFFSET: ${offset}`);
         setLoadMoreText(`You've reached the bottom!`); return;
@@ -76,15 +77,17 @@ const Feed = () => {
         const err = handleError(res.errors);
         if (err || res.data == null) { toast(`err: ${err} Error!`, 'error'); return; }
 
+        setGotPosts(true);
         setOffset(offset + n);
-        setPosts(res.data);
+        // console.log(JSON.stringify(res.data));
+        setPosts(posts.concat(res.data));
       });
   };
 
   const loadMorePosts = (event) => { event.preventDefault(); getPosts(); };
 
   const renderLoading = () => {
-    if (posts == null) {
+    if (!gotPosts) {
       return (
         <div className="loading">
           <CircularProgress />
