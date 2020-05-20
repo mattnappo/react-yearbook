@@ -91,7 +91,7 @@ const Settings = () => {
         const err = handleError(res.errors);
         if (err) { toast(err, 'error'); return; }
 
-        cookies.set('grade', state.grade);
+        cookies.set('grade', parseInt(state.grade, 10));
         toast('Saved changes!', 'success');
         window.location.replace(`/accounts/${state.username}`);
       });
@@ -190,8 +190,8 @@ const Settings = () => {
         </Grid>
         {/* </Card> */}
 
+        {JSON.stringify(state)}
       </Container>
-
       <BottomBar defaultValue="me" />
     </div>
   );

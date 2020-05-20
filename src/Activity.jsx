@@ -54,10 +54,8 @@ const Activity = () => {
   };
 
   const renderActivity = () => {
+    if (activity == null) return <CTypography>No new activity</CTypography>;
     renderLoading();
-    if (activity == null) {
-      return <CTypography>No new activity</CTypography>;
-    }
 
     const reversedActivity = Object.values(activity).slice(0).reverse();
     return (

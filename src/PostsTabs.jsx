@@ -108,7 +108,7 @@ const PostsTabs = ({ username }) => {
 
   const renderCongrats = () => {
     console.log(`THING: ${cookies.get('grade')}`);
-    if (cookies.get('grade') !== 3) return <CTypography>Only seniors can be congratulated</CTypography>;
+    if (cookies.get('grade') !== '3') return <CTypography>Only seniors can be congratulated</CTypography>;
     if (posts.inbound == null) return <CTypography>No congrats yet</CTypography>;
 
     const reversedCongrats = Object.values(posts.inbound).slice(0).reverse();
