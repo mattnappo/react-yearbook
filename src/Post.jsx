@@ -105,6 +105,7 @@ const Post = ({ postData }, key) => {
           <span>
             {`To: `}
             { renderRecipients() }
+            { `ID: ${postData.id}` }
           </span>
         )}
       />

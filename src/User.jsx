@@ -176,10 +176,7 @@ const User = (props) => {
         </Grid>
 
       </Container>
-      {console.log(`COOKIE USERNAME: ${cookies.get('username')}\nregular USERNAME: ${user.username}`)}
-      {
-        user.username == cookies.get('username') ? <BottomBar defaultValue="me" /> : <BottomBar />
-      }
+      { username === cookies.get('username') ? <BottomBar defaultValue="me" /> : <BottomBar /> }
     </div>
   );
 };

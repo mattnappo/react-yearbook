@@ -17,7 +17,9 @@ const useStyles = makeStyles(() => ({
 
 // Feed is the main window containing the post feed.
 const Feed = () => {
+  const n = 3;
   const [posts, setPosts] = useState({});
+  const [offset, setOffset] = useState(0);
   const cookies = new Cookies();
   const classes = useStyles();
 
@@ -30,7 +32,7 @@ const Feed = () => {
 
   const getPosts = () => {
     fetch(
-      apiEndpoint('getnPosts/10'),
+      apiEndpoint(`getnPostsOffset/${n}/${offset}`),
       {
         method: 'GET',
         headers: {
@@ -42,7 +44,7 @@ const Feed = () => {
       .then((res) => {
         const err = handleError(res.errors);
         if (err) { toast(err, 'error'); return; }
-
+        setOffset(offset + n);
         setPosts(res.data);
       });
   };
