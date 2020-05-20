@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  CircularProgress, Link, Typography, makeStyles, Box,
+  CircularProgress, Typography, makeStyles, Box, Button,
 } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
@@ -9,17 +9,22 @@ import Post from './Post';
 import TopBar, { BottomBar } from './Bar';
 
 const useStyles = makeStyles(() => ({
-  centered: {
+  loadMore: {
     'text-align': 'center',
     padding: '24px 0px 12px 0px',
+    marginBottom: 64,
   },
 }));
 
 // Feed is the main window containing the post feed.
 const Feed = () => {
-  const n = 3;
+  const n = 3; // The amount of posts to get at a time
+
   const [posts, setPosts] = useState({});
   const [offset, setOffset] = useState(0);
+  const [numPosts, setNumPosts] = useState(0);
+  const [loadMoreText, setLoadMoreText] = useState('Load More');
+
   const cookies = new Cookies();
   const classes = useStyles();
 
@@ -30,7 +35,29 @@ const Feed = () => {
     });
   };
 
+  const getNumPosts = () => {
+    fetch(
+      apiEndpoint('getNumPosts'),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        const err = handleError(res.errors);
+        if (err) { toast(err, 'error'); return; }
+        setNumPosts(res.data);
+      });
+  };
+
   const getPosts = () => {
+    if (offset + n >= numPosts) {
+      setLoadMoreText(`You've reached the bottom!`); return;
+    }
+
     fetch(
       apiEndpoint(`getnPostsOffset/${n}/${offset}`),
       {
@@ -43,14 +70,17 @@ const Feed = () => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err, 'error'); return; }
+        if (err || res.data == null) { toast(`err: ${err} Error!`, 'error'); return; }
+
         setOffset(offset + n);
         setPosts(res.data);
       });
   };
 
+  const loadMorePosts = (event) => { event.preventDefault(); getPosts(); };
+
   const renderLoading = () => {
-    if (Object.values(posts).length === 0) {
+    if (posts == null) {
       return (
         <div className="loading">
           <CircularProgress />
@@ -60,33 +90,22 @@ const Feed = () => {
     return <span />;
   };
 
-  const renderLoadMore = () => {
-    console.log(Object.values(posts).length);
-    if (Object.values(posts).length !== 0) {
-      return (
-        <Typography className={classes.centered}>
-          <Link onClick={loadMorePosts}>
-            Load More
-          </Link>
-        </Typography>
-      );
-    }
-    return <span />;
-  };
+  const renderLoadMore = () => (
+    <Typography className={classes.loadMore}>
+      {
+        loadMoreText === 'Load More' ? (
+          <Button onClick={loadMorePosts}>{loadMoreText}</Button>
+        ) : loadMoreText
+      }
+    </Typography>
+  );
 
   const renderPosts = () => {
     if (posts == null) return <p>No Posts</p>;
-    renderLoadMore();
-    // const reversedPosts = Object.values(posts).slice(0).reverse();
     return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
   };
 
-  const loadMorePosts = (event) => {
-    event.preventDefault();
-
-    getPosts();
-  };
-
+  useEffect(getNumPosts, []);
   useEffect(getPosts, []);
 
   return (
@@ -96,8 +115,13 @@ const Feed = () => {
         <Box className="header">Feed</Box>
         { renderLoading() }
         { renderPosts() }
-
+        { renderLoadMore() }
       </div>
+
+      {`   offset: ${offset}`}<br />
+      {` numPosts: ${numPosts}`}<br />
+      {`     data: ${JSON.stringify(posts)}`}
+
       <BottomBar defaultValue="feed" />
     </div>
   );
