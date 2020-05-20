@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import {
   AppBar, Toolbar, Typography, Button,
@@ -170,14 +170,8 @@ export const BottomBar = ({ defaultValue }) => {
 // The logout bar
 const TopBar = () => {
   const classes = useStyles();
-  const cookies = new Cookies();
 
   const logout = () => {
-    cookies.remove('token');
-    cookies.remove('username');
-    cookies.remove('state');
-    cookies.remove('go_session');
-    cookies.remove('grade');
     window.location.replace('/?err=logout');
   };
 

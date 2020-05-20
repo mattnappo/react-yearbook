@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import { Typography, makeStyles } from '@material-ui/core';
 import { ClearBar } from './Bar';
@@ -79,6 +80,7 @@ const useStyles = makeStyles(() => ({
 // Home is the landing page.
 const Home = () => {
   const classes = useStyles();
+  const cookies = new Cookies();
 
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
@@ -91,6 +93,12 @@ const Home = () => {
   const renderErrors = () => {
     const { err } = parseURL();
     if (err != null) {
+      cookies.remove('token');
+      cookies.remove('username');
+      cookies.remove('state');
+      cookies.remove('go_session');
+      cookies.remove('grade');
+
       if (errors[err]) {
         toast(errors[err].message, errors[err].type);
       }

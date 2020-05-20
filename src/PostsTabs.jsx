@@ -64,7 +64,7 @@ const ActivityItem = ({ post }) => {
   );
 };
 
-const PostsTabs = () => {
+const PostsTabs = ({ username }) => {
   const cookies = new Cookies();
   const [value, setValue] = useState(0);
   const [posts, setPosts] = useState({
@@ -83,7 +83,7 @@ const PostsTabs = () => {
 
   const getPosts = () => {
     fetch(
-      apiEndpoint(`getUserPosts/${cookies.get('username')}`),
+      apiEndpoint(`getUserPosts/${username}`),
       {
         method: 'GET',
         headers: {
