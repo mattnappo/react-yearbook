@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import CTypography from './CTypography';
 import {
-  apiEndpoint, parseURL, formatTime, formatRecipients, handleError,
+  apiEndpoint, formatTime, formatRecipients, handleError,
 } from './utils';
 
 const useStyles = makeStyles(() => ({
@@ -66,6 +66,7 @@ const ActivityItem = ({ post }) => {
 const PostsTabs = ({ username }) => {
   const cookies = new Cookies();
   const [value, setValue] = useState(0);
+  const [grade, setGrade] = useState();
   const [posts, setPosts] = useState({
     inbound: [],
     outbound: [],
@@ -107,15 +108,34 @@ const PostsTabs = ({ username }) => {
   };
 
   const renderCongrats = () => {
-    console.log(`THING: ${cookies.get('grade')}`);
-    if (cookies.get('grade') !== '3') return <CTypography>Only seniors can be congratulated</CTypography>;
+    if (grade !== 3) return <CTypography>Only seniors can be congratulated</CTypography>;
     if (posts.inbound == null) return <CTypography>No congrats yet</CTypography>;
 
     const reversedCongrats = Object.values(posts.inbound).slice(0).reverse();
     return reversedCongrats.map((post) => <ActivityItem post={post} />);
   };
 
+  const getGrade = () => {
+    fetch(
+      apiEndpoint(`getUserGrade/${cookies.get('username')}`),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        const err = handleError(res.errors);
+        if (err) { toast(err, 'error'); return; }
+
+        setGrade(res.data);
+      });
+  };
+
   useEffect(getPosts, [username]);
+  useEffect(getGrade, []);
 
   return (
     <div>
