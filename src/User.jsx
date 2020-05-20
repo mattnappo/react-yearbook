@@ -106,7 +106,7 @@ const User = (props) => {
   };
 
   const renderSeniorWill = () => {
-    if (user.grade === '3') {
+    if (user.grade === 3) {
       return (
         <Grid item xs={12} className={classes.item}>
           <Typography>{user.will}</Typography>

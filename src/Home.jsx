@@ -128,7 +128,7 @@ const Home = () => {
 
       <div className={classes.bottomSection}>
         <Typography>
-          Some nice text
+          Congratulations to the class of 2020!
         </Typography>
       </div>
 

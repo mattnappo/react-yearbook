@@ -57,8 +57,6 @@ const Feed = () => {
   const getPosts = () => {
     if (numPosts !== -1) {
       if (offset + n - 1 >= numPosts) {
-        console.log(`NUM POSTS: ${numPosts}`);
-        console.log(`   OFFSET: ${offset}`);
         setLoadMoreText(`You've reached the bottom!`); return;
       }
     }
@@ -79,7 +77,6 @@ const Feed = () => {
 
         setGotPosts(true);
         setOffset(offset + n);
-        // console.log(JSON.stringify(res.data));
         setPosts(posts.concat(res.data));
       });
   };
@@ -129,10 +126,6 @@ const Feed = () => {
         { renderPosts() }
         { renderLoadMore() }
       </div>
-
-      {/* {`   offset: ${offset}`}<br />
-      {` numPosts: ${numPosts}`}<br />
-      {`     data: ${JSON.stringify(posts)}`} */}
 
       <BottomBar defaultValue="feed" />
     </div>
