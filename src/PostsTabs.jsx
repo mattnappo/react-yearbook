@@ -79,9 +79,7 @@ const PostsTabs = ({ username }) => {
   };
 
   const handleChange = (e, v) => { setValue(v); };
-  // const username = 
   const getPosts = () => {
-    // const username = parseURL();
     fetch(
       apiEndpoint(`getUserPosts/${username}`),
       {

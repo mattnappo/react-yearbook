@@ -170,7 +170,7 @@ const User = (props) => {
           </Grid>
 
           <Grid item xs={12} className={classes.item}>
-            <PostsTabs username={user.username} />
+            <PostsTabs username={username} />
           </Grid>
 
         </Grid>

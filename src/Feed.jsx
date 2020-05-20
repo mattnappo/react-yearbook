@@ -30,7 +30,7 @@ const Feed = () => {
 
   const getPosts = () => {
     fetch(
-      apiEndpoint('getnPosts/20'),
+      apiEndpoint('getnPosts/10'),
       {
         method: 'GET',
         headers: {
@@ -59,6 +59,7 @@ const Feed = () => {
   };
 
   const renderLoadMore = () => {
+    console.log(Object.values(posts).length);
     if (Object.values(posts).length !== 0) {
       return (
         <Typography className={classes.centered}>
@@ -73,8 +74,9 @@ const Feed = () => {
 
   const renderPosts = () => {
     if (posts == null) return <p>No Posts</p>;
-    const reversedPosts = Object.values(posts).slice(0).reverse();
-    return reversedPosts.map((post) => <Post postData={post} key={post.id} />);
+    renderLoadMore();
+    // const reversedPosts = Object.values(posts).slice(0).reverse();
+    return Object.values(posts).map((post) => <Post postData={post} key={post.id} />);
   };
 
   const loadMorePosts = (event) => {
@@ -92,8 +94,6 @@ const Feed = () => {
         <Box className="header">Feed</Box>
         { renderLoading() }
         { renderPosts() }
-
-        { renderLoadMore() }
 
       </div>
       <BottomBar defaultValue="feed" />
