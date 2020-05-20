@@ -102,14 +102,16 @@ const Settings = () => {
   const genSeniorWill = () => {
     if (state.grade === 3) {
       return (
-        <TextField
-          label="Senior Will"
-          className={classes.wide}
-          multiline
-          variant={variant}
-          value={state.will}
-          onChange={(e) => { setState({ ...state, will: e.target.value }); }}
-        />
+        <Grid item xs={12}>
+          <TextField
+            label="Senior Will"
+            className={classes.wide}
+            multiline
+            variant={variant}
+            value={state.will}
+            onChange={(e) => { setState({ ...state, will: e.target.value }); }}
+          />
+        </Grid>
       );
     }
     return <span />;
@@ -173,9 +175,8 @@ const Settings = () => {
               onChange={(e) => { setState({ ...state, bio: e.target.value }); }}
             />
           </Grid>
-          <Grid item xs={12}>
-            {genSeniorWill()}
-          </Grid>
+
+          {genSeniorWill()}
 
           <Grid item xs={12}>
             <Button
@@ -190,7 +191,6 @@ const Settings = () => {
         </Grid>
         {/* </Card> */}
 
-        {JSON.stringify(state)}
       </Container>
       <BottomBar defaultValue="me" />
     </div>

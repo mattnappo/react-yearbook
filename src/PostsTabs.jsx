@@ -40,8 +40,32 @@ const TabPanel = (props) => {
   );
 };
 
+// Very bad profile pic solution (fast temporary)
 const ActivityItem = ({ post }) => {
   const classes = useStyles();
+  const cookies = new Cookies();
+  const [profilePic, setProfilePic] = useState('');
+
+  const getSenderProfilePic = () => {
+    fetch(
+      apiEndpoint(`getUserProfilePic/${post.sender}`),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        const err = handleError(res.errors);
+        if (err) { console.log(err); return; } // I don;t want to put toast here AGAIN in this file
+
+        setProfilePic(res.data);
+      });
+  };
+
+  useEffect(getSenderProfilePic, []);
 
   return (
     <Link
@@ -53,7 +77,7 @@ const ActivityItem = ({ post }) => {
       }}
     >
       <ListItem button className={classes.listItem}>
-        <ListItemAvatar><Avatar src="" /></ListItemAvatar>
+        <ListItemAvatar><Avatar src={post.profilePic} /></ListItemAvatar>
         <ListItemText
           primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
           secondary={formatTime(post.timestamp)}
