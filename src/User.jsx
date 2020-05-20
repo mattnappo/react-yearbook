@@ -60,7 +60,8 @@ const User = (props) => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err, 'error'); return; }
+        // if (err) { toast(err, 'error'); return; }
+        if (err) { console.log(err); }
 
         setUser(res.data);
 
@@ -175,8 +176,10 @@ const User = (props) => {
         </Grid>
 
       </Container>
-
-      <BottomBar defaultValue="me" />
+      {console.log(`COOKIE USERNAME: ${cookies.get('username')}\nregular USERNAME: ${user.username}`)}
+      {
+        user.username == cookies.get('username') ? <BottomBar defaultValue="me" /> : <BottomBar />
+      }
     </div>
   );
 };

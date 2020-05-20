@@ -5,11 +5,10 @@ import { useSnackbar } from 'notistack';
 import {
   Tabs, Tab, List, ListItem, Box, makeStyles,
   Typography, ListItemAvatar, Avatar, ListItemText,
-
 } from '@material-ui/core';
 import CTypography from './CTypography';
 import {
-  apiEndpoint, formatTime, formatRecipients, handleError,
+  apiEndpoint, parseURL, formatTime, formatRecipients, handleError,
 } from './utils';
 
 const useStyles = makeStyles(() => ({
@@ -80,8 +79,9 @@ const PostsTabs = ({ username }) => {
   };
 
   const handleChange = (e, v) => { setValue(v); };
-
+  // const username = 
   const getPosts = () => {
+    // const username = parseURL();
     fetch(
       apiEndpoint(`getUserPosts/${username}`),
       {
@@ -94,7 +94,8 @@ const PostsTabs = ({ username }) => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err, 'error'); return; }
+        // if (err) { toast(err, 'error'); return; }
+        if (err) { console.log(err); }
 
         setPosts(res.data);
       });
@@ -108,14 +109,15 @@ const PostsTabs = ({ username }) => {
   };
 
   const renderCongrats = () => {
-    if (cookies.get('grade') !== '3') return <CTypography>Only seniors can be congratulated</CTypography>;
+    console.log(`THING: ${cookies.get('grade')}`);
+    if (cookies.get('grade') !== 3) return <CTypography>Only seniors can be congratulated</CTypography>;
     if (posts.inbound == null) return <CTypography>No congrats yet</CTypography>;
 
     const reversedCongrats = Object.values(posts.inbound).slice(0).reverse();
     return reversedCongrats.map((post) => <ActivityItem post={post} />);
   };
 
-  useEffect(getPosts, []);
+  useEffect(getPosts, [username]);
 
   return (
     <div>
