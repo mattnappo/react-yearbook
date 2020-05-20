@@ -79,7 +79,6 @@ export const ClearBar = () => {
         <Typography style={{ flex: 1 }} />
         <div>
           <Button
-            raised
             color="inherit"
             href={loginURL}
           >

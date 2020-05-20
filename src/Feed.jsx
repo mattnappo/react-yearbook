@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  CircularProgress, Link, Typography, makeStyles,
+  CircularProgress, Link, Typography, makeStyles, Box,
 } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
@@ -89,6 +89,7 @@ const Feed = () => {
     <div>
       <TopBar />
       <div className="main-content">
+        <Box className="header">Feed</Box>
         { renderLoading() }
         { renderPosts() }
 

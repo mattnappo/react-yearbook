@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,10 +9,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import ImageCropper from './ImageCropper';
+// import classes from '*.module.css';
+
+const useStyles = makeStyles(() => ({
+  upper: {
+    marginBottom: 48,
+  },
+}));
 
 const AddImagePopup = ({ childHandleImage, handleSubmit, handleCancel }) => {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+  const custom_classes = useStyles();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClickOpen = () => {
@@ -47,7 +56,7 @@ const AddImagePopup = ({ childHandleImage, handleSubmit, handleCancel }) => {
         <DialogContent>
           <ImageCropper handleImageCallback={childHandleImage} />
         </DialogContent>
-        <DialogActions>
+        <DialogActions className={custom_classes.upper}>
           <Button autoFocus onClick={handleCancelDialog} color="primary">
             Cancel
           </Button>

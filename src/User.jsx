@@ -85,7 +85,7 @@ const User = (props) => {
       case 3:
         return 'Senior';
       default:
-        return 'Error';
+        return 'Grade';
     }
   };
 
@@ -98,6 +98,7 @@ const User = (props) => {
   };
 
   const getBioText = () => {
+    if (!user) return '';
     if (!user.registered) return `@${user.username} hasn't made an account yet. Tell them to log in!`;
     if (user.bio === '') return 'No bio';
     return user.bio;

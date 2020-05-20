@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import {
   List, ListItem, ListItemAvatar, ListItemText,
-  Avatar, Container, Box, CircularProgress,
-  makeStyles,
+  Avatar, Container, Box, CircularProgress, Typography,
 } from '@material-ui/core';
 import CTypography from './CTypography';
 import TopBar, { BottomBar } from './Bar';
@@ -13,15 +12,8 @@ import {
   apiEndpoint, formatTime, handleError,
 } from './utils';
 
-const useStyles = makeStyles(() => ({
-  centered: {
-    'text-align': 'center',
-  },
-}));
-
 const Activity = () => {
   const cookies = new Cookies();
-  const classes = useStyles();
   const [activity, setActivity] = useState([]);
 
   const { enqueueSnackbar } = useSnackbar();
@@ -62,6 +54,7 @@ const Activity = () => {
   };
 
   const renderActivity = () => {
+    renderLoading();
     if (activity == null) {
       return <CTypography>No new activity</CTypography>;
     }
@@ -98,8 +91,7 @@ const Activity = () => {
         <Box className="header">Activity</Box>
 
         <List component="nav" aria-label="activity">
-          { renderLoading() }
-          { renderActivity() }
+          { cookies.get('grade') === '3' ? renderActivity() : <Typography className="centered">Only Seniors have access to this page</Typography> }
         </List>
 
       </Container>
