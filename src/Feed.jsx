@@ -22,7 +22,7 @@ const Feed = () => {
 
   const [posts, setPosts] = useState({});
   const [offset, setOffset] = useState(0);
-  const [numPosts, setNumPosts] = useState(0);
+  const [numPosts, setNumPosts] = useState(-1);
   const [loadMoreText, setLoadMoreText] = useState('Load More');
 
   const cookies = new Cookies();
@@ -54,8 +54,12 @@ const Feed = () => {
   };
 
   const getPosts = () => {
-    if (offset + n >= numPosts) {
-      setLoadMoreText(`You've reached the bottom!`); return;
+    if (numPosts !== -1) {
+      if (offset >= numPosts) {
+        console.log(`NUM POSTS: ${numPosts}`);
+        console.log(`   OFFSET: ${offset}`);
+        setLoadMoreText(`You've reached the bottom!`); return;
+      }
     }
 
     fetch(
