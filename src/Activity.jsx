@@ -15,12 +15,32 @@ import {
 const Activity = () => {
   const cookies = new Cookies();
   const [activity, setActivity] = useState([]);
+  const [grade, setGrade] = useState();
 
   const { enqueueSnackbar } = useSnackbar();
   const toast = (text, variant) => {
     enqueueSnackbar(text, {
       variant, autoHideDuration: 3000,
     });
+  };
+
+  const getGrade = () => {
+    fetch(
+      apiEndpoint(`getUserGrade/${cookies.get('username')}`),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        const err = handleError(res.errors);
+        if (err) { toast(err, 'error'); return; }
+
+        setGrade(res.data);
+      });
   };
 
   const getActivity = () => {
@@ -80,6 +100,7 @@ const Activity = () => {
     );
   };
 
+  useEffect(getGrade, []);
   useEffect(getActivity, []);
 
   return (
@@ -89,7 +110,7 @@ const Activity = () => {
         <Box className="header">Activity</Box>
 
         <List component="nav" aria-label="activity">
-          { cookies.get('grade') === '3' ? renderActivity() : <Typography className="centered">Only Seniors have access to this page</Typography> }
+          { grade === 3 ? renderActivity() : <Typography className="centered">Only Seniors have access to this page</Typography> }
         </List>
 
       </Container>
