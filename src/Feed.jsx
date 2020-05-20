@@ -97,15 +97,20 @@ const Feed = () => {
     return <span />;
   };
 
-  const renderLoadMore = () => (
-    <Typography className={classes.loadMore}>
-      {
-        loadMoreText === 'Load More' ? (
-          <Button onClick={loadMorePosts}>{loadMoreText}</Button>
-        ) : loadMoreText
-      }
-    </Typography>
-  );
+  const renderLoadMore = () => {
+    if (gotPosts) {
+      return (
+        <Typography className={classes.loadMore}>
+          {
+            loadMoreText === 'Load More' ? (
+              <Button onClick={loadMorePosts}>{loadMoreText}</Button>
+            ) : loadMoreText
+          }
+        </Typography>
+      );
+    }
+    return <span />;
+  };
 
   const renderPosts = () => {
     if (posts == null) return <p>No Posts</p>;
@@ -125,9 +130,9 @@ const Feed = () => {
         { renderLoadMore() }
       </div>
 
-      {`   offset: ${offset}`}<br />
+      {/* {`   offset: ${offset}`}<br />
       {` numPosts: ${numPosts}`}<br />
-      {`     data: ${JSON.stringify(posts)}`}
+      {`     data: ${JSON.stringify(posts)}`} */}
 
       <BottomBar defaultValue="feed" />
     </div>
