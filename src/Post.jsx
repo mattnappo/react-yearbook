@@ -58,6 +58,7 @@ const Post = ({ postData, single }, key) => {
         if (err) { toast(err, 'error'); return; }
 
         toast('Deleted post', 'success');
+        window.location.replace('/feed');
       });
   };
 
