@@ -42,6 +42,25 @@ const Post = ({ postData, single }, key) => {
     });
   };
 
+  const deletePost = () => {
+    fetch(
+      apiEndpoint(`deletePost/${postData.post_id}`),
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${cookies.get('token')}`,
+        },
+      },
+    ).then((res) => res.json())
+      .then((res) => {
+        const err = handleError(res.errors);
+        if (err) { toast(err, 'error'); return; }
+
+        toast('Deleted post', 'success');
+      });
+  };
+
   const renderImages = () => {
     if (postData.images !== null) {
       return postData.images.map(
@@ -126,7 +145,7 @@ const Post = ({ postData, single }, key) => {
         </Typography>
         {
           single && cookies.get('username') === postData.sender ? (
-            <Button color="secondary" className={classes.deleteButton}>Delete Post</Button>
+            <Button onClick={deletePost} color="secondary" className={classes.deleteButton}>Delete Post</Button>
           ) : <span />
         }
       </CardContent>
