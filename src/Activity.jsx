@@ -15,6 +15,7 @@ import {
 const Activity = () => {
   const cookies = new Cookies();
   const [activity, setActivity] = useState([]);
+  const [profilePics, setProfilePics] = useState([]);
   const [grade, setGrade] = useState();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -58,7 +59,8 @@ const Activity = () => {
         const err = handleError(res.errors);
         if (err) { toast(err, 'error'); return; }
 
-        setActivity(res.data);
+        setActivity(res.activity);
+        setProfilePics(res.profile_pics);
       });
   };
 
@@ -79,7 +81,7 @@ const Activity = () => {
 
     const reversedActivity = Object.values(activity).slice(0).reverse();
     return (
-      reversedActivity.map((post) => (
+      reversedActivity.map((post, index) => (
         <Link
           key={post.id}
           className="link"
@@ -89,7 +91,7 @@ const Activity = () => {
           }}
         >
           <ListItem button>
-            <ListItemAvatar><Avatar src="" /></ListItemAvatar>
+            <ListItemAvatar><Avatar src={profilePics[index]} /></ListItemAvatar>
             <ListItemText
               primary={`@${post.sender} congratulated you!`}
               secondary={formatTime(post.timestamp)}
@@ -118,6 +120,5 @@ const Activity = () => {
     </div>
   );
 };
-
 
 export default Activity;

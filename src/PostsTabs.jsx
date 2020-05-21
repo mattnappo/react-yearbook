@@ -77,7 +77,7 @@ const ActivityItem = ({ post }) => {
       }}
     >
       <ListItem button className={classes.listItem}>
-        <ListItemAvatar><Avatar src={post.profilePic} /></ListItemAvatar>
+        <ListItemAvatar><Avatar src={profilePic} /></ListItemAvatar>
         <ListItemText
           primary={`@${post.sender} congratulated ${formatRecipients(post.recipients)}!`}
           secondary={formatTime(post.timestamp)}
