@@ -55,6 +55,11 @@ const useStyles = makeStyles(() => ({
     padding: 12,
     'box-shadow': '5px 10px 18px #888888',
   },
+  bottomSection: {
+    maxWidth: 600,
+    padding: 48,
+    margin: 'auto',
+  },
   header: {
     color: headerStyles.color,
     fontWeight: 500,
@@ -128,7 +133,8 @@ const Home = () => {
 
       <div className={classes.bottomSection}>
         <Typography>
-          Congratulations to the class of 2020!
+          Congratulations to the class of 2020! This app was created for you! It is place to congratulate and say farewell to your senior friends.
+          The goal is to have one central place to share memorable photos and messages. All you need to do to start congratulating the class of 2020 is just log in!
         </Typography>
       </div>
 

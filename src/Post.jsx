@@ -6,6 +6,7 @@ import { useSnackbar } from 'notistack';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import Button from '@material-ui/core/Button';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
@@ -23,9 +24,13 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     position: 'relative',
   },
+  deleteButton: {
+    float: 'right',
+    marginBottom: 12,
+  },
 }));
 
-const Post = ({ postData }, key) => {
+const Post = ({ postData, single }, key) => {
   const classes = useStyles();
   const cookies = new Cookies();
   const [profilePic, setProfilePic] = useState('');
@@ -116,9 +121,14 @@ const Post = ({ postData }, key) => {
           {postData.message}
         </Typography>
         <br />
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography color="textSecondary" component="p">
           {formatTime(postData.timestamp)}
         </Typography>
+        {
+          single && cookies.get('username') === postData.sender ? (
+            <Button color="secondary" className={classes.deleteButton}>Delete Post</Button>
+          ) : <span />
+        }
       </CardContent>
     </Card>
   );
@@ -126,6 +136,10 @@ const Post = ({ postData }, key) => {
 
 Post.propTypes = {
   postData: PropTypes.object.isRequired,
+  single: PropTypes.bool,
+};
+Post.defaultProps = {
+  single: false,
 };
 
 export default Post;
