@@ -14,4 +14,3 @@
 # Overall
  * Landing page text
  * Email notifications (moderation and on post)
- * Add seniors to DB

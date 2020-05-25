@@ -137,6 +137,26 @@ const Home = () => {
         <Typography>
           Congratulations to the class of 2020! This app was created for you, and it is a place to congratulate your senior friends.
           All you need to do to start congratulating the class of 2020 is log in! (with your Masters email)
+
+          Congratulateions to the class of 2020. Log in with your Masters account and post a message or a photo. Make someone smile, or laugh, and remind
+          them of their amazing time at Masters.
+
+          We can{`'`}t be together on the last day of school 
+          This year, we won't all be together on campus on the last day of school. 
+
+          Our seniors won't be all in one place signing yearbooks, saying goodbye (for now), and enjoying those last special spring
+          days on campus. Let's send our seniors off with a virtual yearbook signing by posting a message or a photo in this app that
+          was created just for the Masters Community.
+
+          Congratulations to the class of 2020! Seniors - post a message and/or photo of a memory from your time at Masters.
+          Underclassman - Post a message and/or photo to your senior friends. We know we're not all there on campus to close
+          out the school year, so let's create a virtual send-off to the amazing class of 2020.
+
+          This app was created just for the Masters community. Let's post tons of photos and messages saying congrats to
+          the class of 2020!
+
+          Log in with your Mastes account to congratulate a senior! You can post a message or photo congratulating a senior,
+          or a group of seniors!
         </Typography>
       </div>
 
