@@ -116,6 +116,7 @@ const NewPost = () => {
         const err = handleError(res.errors);
         if (err) { toast(err, 'error'); return; }
 
+        window.location.replace('/feed');
         toast('Posted!', 'success');
       });
   };

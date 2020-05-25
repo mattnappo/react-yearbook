@@ -159,7 +159,7 @@ const Settings = () => {
                 <option value="freshman">Freshman</option>
                 <option value="sophomore">Sophomore</option>
                 <option value="junior">Junior</option>
-                <option value="senior">Senior</option>
+                <option value="senior" disabled>Senior</option>
               </Select>
             </FormControl>
 

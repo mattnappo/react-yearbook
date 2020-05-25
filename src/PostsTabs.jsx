@@ -141,7 +141,7 @@ const PostsTabs = ({ username }) => {
 
   const getGrade = () => {
     fetch(
-      apiEndpoint(`getUserGrade/${cookies.get('username')}`),
+      apiEndpoint(`getUserGrade/${username}`),
       {
         method: 'GET',
         headers: {

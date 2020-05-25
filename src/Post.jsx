@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 600,
     margin: 'auto',
-    'margin-top': '24px',
+    marginTop: 24,
   },
   media: {
     width: '100%',
@@ -29,7 +29,10 @@ const useStyles = makeStyles(() => ({
     marginBottom: 12,
   },
   single: {
-    marginBottom: 24,
+    maxWidth: 600,
+    margin: 'auto',
+    marginTop: 24,
+    marginBottom: 80,
   },
 }));
 
@@ -117,7 +120,7 @@ const Post = ({ postData, single }, key) => {
   useEffect(getSenderProfilePic, []);
 
   return (
-    <Card className={classes.root} id={key}>
+    <Card className={single ? classes.single : classes.root} id={key}>
       <CardHeader
         avatar={(
           <Avatar aria-label="recipe" src={profilePic}>
@@ -139,7 +142,7 @@ const Post = ({ postData, single }, key) => {
 
       {renderImages()}
 
-	  <CardContent className={classes.single}>
+      <CardContent> 
         <Typography variant="body2" color="textSecondary" component="p">
           {postData.message}
         </Typography>
@@ -148,7 +151,7 @@ const Post = ({ postData, single }, key) => {
           {formatTime(postData.timestamp)}
         </Typography>
         {
-          single && cookies.get('username') === postData.sender ? (
+          cookies.get('username') === postData.sender ? (
             <Button onClick={deletePost} color="secondary" className={classes.deleteButton}>Delete Post</Button>
           ) : <span />
         }

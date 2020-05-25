@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import ReactCrop from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
@@ -54,6 +55,7 @@ const ImageCropper = ({ handleImageCallback }) => {
       <div>
         <input type="file" accept="image/*" onChange={onSelectFile} />
       </div>
+      <Typography>Zoom out before uploading an image</Typography>
       <ReactCrop
         src={upImg}
         onImageLoaded={onLoad}

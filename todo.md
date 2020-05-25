@@ -13,7 +13,6 @@
 
 # Overall
  * Landing page text
- * Sensor curse words
  * Email notifications (moderation and on post)
  * Add seniors to DB
  * Remove option to become a senior

@@ -69,8 +69,6 @@ export const gradeStringToInt = (gradeString) => {
       return 1;
     case 'junior':
       return 2;
-    case 'senior':
-      return 3;
     default:
       return 'invalid grade';
   }
@@ -89,6 +87,9 @@ export const handleError = (errs) => {
     case 'malformed email address':
       window.location.replace('/?err=invalidEmail');
       return null;
+
+    case 'curse word':
+      return 'No curse words allowed';
 
     default:
       return 'An error occurred.';
