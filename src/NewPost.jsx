@@ -41,9 +41,9 @@ const NewPost = () => {
   const cookies = new Cookies();
 
   const { enqueueSnackbar } = useSnackbar();
-  const toast = (text, variant) => {
+  const toast = (text, variant, time) => {
     enqueueSnackbar(text, {
-      variant, autoHideDuration: 1000,
+      variant, autoHideDuration: time,
     });
   };
 
@@ -114,10 +114,10 @@ const NewPost = () => {
     ).then((res) => res.json())
       .then((res) => {
         const err = handleError(res.errors);
-        if (err) { toast(err, 'error'); return; }
+        if (err) { toast(err, 'error', 3000); return; }
 
         window.location.replace('/feed');
-        toast('Posted!', 'success');
+        toast('Posted!', 'success', 1000);
       });
   };
 

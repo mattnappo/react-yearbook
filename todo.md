@@ -14,3 +14,4 @@
 # Overall
  * Landing page text
  * Email notifications (moderation and on post)
+ * Opt out of email notifs button
