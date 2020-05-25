@@ -15,6 +15,3 @@
  * Landing page text
  * Email notifications (moderation and on post)
  * Add seniors to DB
- * Remove option to become a senior
- * Refresh newPost page on post
- * MarginBottom on SinglePost component broken

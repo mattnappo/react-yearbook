@@ -171,7 +171,7 @@ const PostsTabs = ({ username }) => {
         textColor="primary"
         centered
       >
-        <Tab label="Posts" />
+        { username === cookies.get('username') ? <Tab label="My Posts" /> : <Tab label="Posts" /> }
         <Tab label="Congrats" />
       </Tabs>
 

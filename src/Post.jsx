@@ -142,7 +142,7 @@ const Post = ({ postData, single }, key) => {
 
       {renderImages()}
 
-      <CardContent> 
+      <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {postData.message}
         </Typography>

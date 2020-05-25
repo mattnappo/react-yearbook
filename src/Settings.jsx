@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import {
-  TextField, Button, Container, Card, Box,
+  TextField, Button, Container, Box,
   Grid, Select, FormControl,
   InputLabel, makeStyles,
 } from '@material-ui/core';
