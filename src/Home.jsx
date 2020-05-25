@@ -3,7 +3,7 @@ import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
 import { Typography, makeStyles } from '@material-ui/core';
 import { ClearBar } from './Bar';
-import { parseURL, errors } from './utils';
+import { parseURL, apiEndpoint, errors } from './utils';
 
 const headerStyles = {
   font: '"Merriweather", serif',
@@ -95,9 +95,12 @@ const Home = () => {
     });
   };
 
+  const test = () => {
+  	fetch(apiEndpoint('/test'));
+  };
+
   const renderErrors = () => {
     const { err } = parseURL();
-    if (err != null) {
       cookies.remove('token');
       cookies.remove('username');
       cookies.remove('state');
@@ -107,7 +110,6 @@ const Home = () => {
       if (errors[err]) {
         toast(errors[err].message, errors[err].type);
       }
-    }
   };
 
   return (
@@ -133,8 +135,8 @@ const Home = () => {
 
       <div className={classes.bottomSection}>
         <Typography>
-          Congratulations to the class of 2020! This app was created for you! It is place to congratulate and say farewell to your senior friends.
-          The goal is to have one central place to share memorable photos and messages. All you need to do to start congratulating the class of 2020 is just log in!
+          Congratulations to the class of 2020! This app was created for you, and it is a place to congratulate your senior friends.
+          All you need to do to start congratulating the class of 2020 is log in! (with your Masters email)
         </Typography>
       </div>
 

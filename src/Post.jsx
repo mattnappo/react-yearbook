@@ -28,6 +28,9 @@ const useStyles = makeStyles(() => ({
     float: 'right',
     marginBottom: 12,
   },
+  single: {
+    marginBottom: 24,
+  },
 }));
 
 const Post = ({ postData, single }, key) => {
@@ -136,7 +139,7 @@ const Post = ({ postData, single }, key) => {
 
       {renderImages()}
 
-      <CardContent>
+	  <CardContent className={classes.single}>
         <Typography variant="body2" color="textSecondary" component="p">
           {postData.message}
         </Typography>

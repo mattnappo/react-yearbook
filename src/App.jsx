@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import Home from './Home';
 import OAuth from './OAuth';
 import Feed from './Feed';
@@ -9,12 +10,19 @@ import Search from './Search';
 import Activity from './Activity';
 import User from './User';
 import SinglePost from './SinglePost';
-import Test from './Test';
+import Beta from './Beta';
 
 // App is the main app containing all of the routes.
-const App = () => (
+const App = () => {
+	const cookies = new Cookies();
+
+	return (
   <Switch>
-    <Route exact path="/" component={Home} />
+	{
+		cookies.get('access') === 'testing_the_beta' ? (
+    		<Route exact path="/" component={Home} />
+		) : <Route exact path="/" component={Beta} />
+	}
     <Route exact path="/oauth" component={OAuth} />
 
     <Route exact path="/feed" component={Feed} />
@@ -24,9 +32,7 @@ const App = () => (
     <Route exact path="/activity" component={Activity} />
     <Route exact path="/accounts/:username" component={User} />
     <Route exact path="/viewPost" component={SinglePost} />
-
-    <Route exact path="/test" component={Test} />
   </Switch>
-);
-
+  );
+}
 export default App;

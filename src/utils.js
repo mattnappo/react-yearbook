@@ -2,7 +2,7 @@
 const moment = require('moment');
 
 // authEndpoint returns an authorization endpoint to the API.
-export const authEndpoint = (endpoint) => `/oauth/${endpoint}`;
+export const authEndpoint = (endpoint) => `/api/oauth/${endpoint}`;
 
 // apiEndpoint returns an endpoint to the API.
 export const apiEndpoint = (endpoint) => `/api/${endpoint}`;
