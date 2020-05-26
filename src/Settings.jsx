@@ -15,11 +15,11 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 600,
     margin: 'auto',
-    padding: '28px',
-    'margin-top': '24px',
+    padding: 28,
+    marginTop: 24,
   },
   centered: {
-    'text-align': 'center',
+    textAlign: 'center',
   },
   wide: {
     width: '100%',
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     height: '100%',
   },
   main: {
-    'background-color': 'white',
+    backgroundColor: 'white',
   },
 }));
 
@@ -117,6 +117,28 @@ const Settings = () => {
     return <span />;
   };
 
+  const renderOptions = () => {
+    if (state.grade === 3) {
+      return (
+        <span>
+          <option aria-label="none" value="" />
+          <option value="freshman" disabled>Freshman</option>
+          <option value="sophomore" disabled>Sophomore</option>
+          <option value="junior" disabled>Junior</option>
+        </span>
+      );
+    }
+
+    return (
+      <span>
+        <option aria-label="none" value="" />
+        <option value="freshman">Freshman</option>
+        <option value="sophomore">Sophomore</option>
+        <option value="junior">Junior</option>
+      </span>
+    );
+  };
+
   useEffect(getUserData, []);
 
   return (
@@ -154,7 +176,9 @@ const Settings = () => {
                   id: 'outlined-grade-native-simple',
                   name: 'grade',
                 }}
+                disabled={state.grade === 3}
               >
+                {/* {renderOptions()} */}
                 <option aria-label="none" value="" />
                 <option value="freshman">Freshman</option>
                 <option value="sophomore">Sophomore</option>
