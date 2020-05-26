@@ -14,25 +14,28 @@ import Beta from './Beta';
 
 // App is the main app containing all of the routes.
 const App = () => {
-	const cookies = new Cookies();
+  const cookies = new Cookies();
 
-	return (
-  <Switch>
-	{
-		cookies.get('access') === 'testing_the_beta' ? (
-    		<Route exact path="/" component={Home} />
-		) : <Route exact path="/" component={Beta} />
-	}
-    <Route exact path="/oauth" component={OAuth} />
+  return (
+    <Switch>
+      {
+        cookies.get('access') === 'testing_the_beta' ? (
+          <Route exact path="/" component={Home} />
+        ) : (
+          <Route exact path="/" component={Beta} />
+        )
+      }
+      <Route exact path="/oauth" component={OAuth} />
 
-    <Route exact path="/feed" component={Feed} />
-    <Route exact path="/post" component={NewPost} />
-    <Route exact path="/search" component={Search} />
-    <Route exact path="/settings" component={Settings} />
-    <Route exact path="/activity" component={Activity} />
-    <Route exact path="/accounts/:username" component={User} />
-    <Route exact path="/viewPost" component={SinglePost} />
-  </Switch>
+      <Route exact path="/feed" component={Feed} />
+      <Route exact path="/post" component={NewPost} />
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/settings" component={Settings} />
+      <Route exact path="/activity" component={Activity} />
+      <Route exact path="/accounts/:username" component={User} />
+      <Route exact path="/viewPost" component={SinglePost} />
+    </Switch>
   );
-}
+};
+
 export default App;

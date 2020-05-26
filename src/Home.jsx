@@ -87,6 +87,9 @@ const useStyles = makeStyles(() => ({
   bigger: {
     fontSize: 16,
   },
+  small: {
+    fontSize: 12,
+  },
 }));
 
 // Home is the landing page.
@@ -146,8 +149,8 @@ const Home = () => {
       { renderErrors() }
 
       <div position="fixed" color="black" className={classes.stickToBottom}>
-        <Typography>Created by Matt Nappo</Typography>
-        <Typography>Report any issues to mattnappo@gmail.com</Typography>
+        <Typography className={classes.small}>Created by Matt Nappo</Typography>
+        <Typography className={classes.small}>Report any issues to mattnappo@gmail.com</Typography>
       </div>
 
     </div>

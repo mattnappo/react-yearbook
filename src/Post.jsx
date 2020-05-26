@@ -34,6 +34,9 @@ const useStyles = makeStyles(() => ({
     marginTop: 24,
     marginBottom: 80,
   },
+  small: {
+    fontSize: 12,
+  },
 }));
 
 const Post = ({ postData, single }, key) => {
@@ -147,7 +150,7 @@ const Post = ({ postData, single }, key) => {
           {postData.message}
         </Typography>
         <br />
-        <Typography color="textSecondary" component="p">
+        <Typography color="textSecondary" className={classes.small}>
           {formatTime(postData.timestamp)}
         </Typography>
         {
