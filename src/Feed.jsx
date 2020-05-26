@@ -60,9 +60,12 @@ const Feed = () => {
         setLoadMoreText(`You've reached the bottom!`); return;
       }
     }
-
+	let tempN = n;
+    if (n + offset > numPosts) {
+		tempN = numPosts - offset;
+	}
     fetch(
-      apiEndpoint(`getnPostsOffset/${n}/${offset}`),
+      apiEndpoint(`getnPostsOffset/${tempN}/${offset}`),
       {
         method: 'GET',
         headers: {
@@ -126,7 +129,7 @@ const Feed = () => {
         { renderPosts() }
         { renderLoadMore() }
       </div>
-
+      { console.log(`OFFSET: ${offset}`)  }
       <BottomBar defaultValue="feed" />
     </div>
   );
