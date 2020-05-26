@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Cookies from 'universal-cookie';
 import { useSnackbar } from 'notistack';
-import { Typography, makeStyles } from '@material-ui/core';
+import { Typography, AppBar, makeStyles } from '@material-ui/core';
 import { ClearBar } from './Bar';
-import { parseURL, apiEndpoint, errors } from './utils';
+import { parseURL, errors } from './utils';
 
 const headerStyles = {
   font: '"Merriweather", serif',
@@ -15,16 +15,12 @@ const smWidth = 864;
 const useStyles = makeStyles(() => ({
   container: {
     '--divider-height': '5rem',
-
     position: 'relative',
     top: 'calc( var(--divider-height)/2 * -1 )',
-
     height: 'var(--divider-height)',
     width: '100%',
     float: 'left',
     'z-index': 1,
-
-  /*   outline: 1px solid red; */
   },
   path: {
     stroke: 'none',
@@ -38,8 +34,6 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '100%',
   },
-
-
   root: {
     position: 'absolute',
     top: 0,
@@ -80,6 +74,19 @@ const useStyles = makeStyles(() => ({
     maxWidth: 850,
     margin: '0 auto',
   },
+  stickToBottom: {
+    textAlign: 'center',
+    width: '100%',
+    position: 'fixed',
+    top: 'auto',
+    bottom: 0,
+    padding: 8,
+    boxShadow: 0,
+    backgroundColor: '#fafafa',
+  },
+  small: {
+    fontSize: 1,
+  },
 }));
 
 // Home is the landing page.
@@ -95,21 +102,17 @@ const Home = () => {
     });
   };
 
-  const test = () => {
-  	fetch(apiEndpoint('/test'));
-  };
-
   const renderErrors = () => {
     const { err } = parseURL();
-      cookies.remove('token');
-      cookies.remove('username');
-      cookies.remove('state');
-      cookies.remove('go_session');
-      cookies.remove('grade');
+    cookies.remove('token');
+    cookies.remove('username');
+    cookies.remove('state');
+    cookies.remove('go_session');
+    cookies.remove('grade');
 
-      if (errors[err]) {
-        toast(errors[err].message, errors[err].type);
-      }
+    if (errors[err]) {
+      toast(errors[err].message, errors[err].type);
+    }
   };
 
   return (
@@ -135,32 +138,16 @@ const Home = () => {
 
       <div className={classes.bottomSection}>
         <Typography>
-          Congratulations to the class of 2020! This app was created for you, and it is a place to congratulate your senior friends.
-          All you need to do to start congratulating the class of 2020 is log in! (with your Masters email)
-
-          Congratulateions to the class of 2020. Log in with your Masters account and post a message or a photo. Make someone smile, or laugh, and remind
-          them of their amazing time at Masters.
-
-          We can{`'`}t be together on the last day of school 
-          This year, we won't all be together on campus on the last day of school. 
-
-          Our seniors won't be all in one place signing yearbooks, saying goodbye (for now), and enjoying those last special spring
-          days on campus. Let's send our seniors off with a virtual yearbook signing by posting a message or a photo in this app that
-          was created just for the Masters Community.
-
-          Congratulations to the class of 2020! Seniors - post a message and/or photo of a memory from your time at Masters.
-          Underclassman - Post a message and/or photo to your senior friends. We know we're not all there on campus to close
-          out the school year, so let's create a virtual send-off to the amazing class of 2020.
-
-          This app was created just for the Masters community. Let's post tons of photos and messages saying congrats to
-          the class of 2020!
-
-          Log in with your Mastes account to congratulate a senior! You can post a message or photo congratulating a senior,
-          or a group of seniors!
+          Congratulations to the class of 2020! Log in with your Masters account to
+          post a message or photo congratulating a senior (or a group of seniors)!
         </Typography>
       </div>
 
       { renderErrors() }
+
+      <div position="fixed" color="black" className={classes.stickToBottom}>
+        <Typography>Created by Matt Nappo</Typography>
+      </div>
 
     </div>
   );

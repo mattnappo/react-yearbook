@@ -29,7 +29,6 @@ body {
 
 .snackbar {
     /* margin: 0 auto; */
-
     margin-bottom: 45px; /* For being above the navbar */
     margin-left: 20px;
     margin-right: 20px;
@@ -47,3 +46,11 @@ body {
 }
 
 .centered { text-align: center; }
+
+.beta {
+    text-align: center;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

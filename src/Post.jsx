@@ -151,7 +151,7 @@ const Post = ({ postData, single }, key) => {
           {formatTime(postData.timestamp)}
         </Typography>
         {
-          cookies.get('username') === postData.sender ? (
+          single && cookies.get('username') === postData.sender ? (
             <Button onClick={deletePost} color="secondary" className={classes.deleteButton}>Delete Post</Button>
           ) : <span />
         }

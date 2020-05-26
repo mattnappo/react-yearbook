@@ -18,7 +18,7 @@ const Beta = () => {
   };
 
   return (
-    <div>
+    <div className="beta">
       Welcome to the beta. Please dont share this yet please.<br />
       Enter the beta testing code:
       <form onSubmit={handleSubmit}>
