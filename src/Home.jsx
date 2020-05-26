@@ -84,8 +84,8 @@ const useStyles = makeStyles(() => ({
     boxShadow: 0,
     backgroundColor: '#fafafa',
   },
-  small: {
-    fontSize: 1,
+  bigger: {
+    fontSize: 16,
   },
 }));
 
@@ -137,7 +137,7 @@ const Home = () => {
       </div>
 
       <div className={classes.bottomSection}>
-        <Typography>
+        <Typography className={classes.bigger}>
           Congratulations to the class of 2020! Log in with your Masters account to
           post a message or photo congratulating a senior (or a group of seniors)!
         </Typography>
@@ -147,6 +147,7 @@ const Home = () => {
 
       <div position="fixed" color="black" className={classes.stickToBottom}>
         <Typography>Created by Matt Nappo</Typography>
+        <Typography>Report any issues to mattnappo@gmail.com</Typography>
       </div>
 
     </div>
