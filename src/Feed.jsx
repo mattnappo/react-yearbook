@@ -23,6 +23,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [offset, setOffset] = useState(0);
   const [numPosts, setNumPosts] = useState(-1);
+  const [postCounter, setPostCounter] = useState(0);
   const [loadMoreText, setLoadMoreText] = useState('Load More');
   const [gotPosts, setGotPosts] = useState(false);
 
@@ -56,13 +57,17 @@ const Feed = () => {
 
   const getPosts = () => {
     if (numPosts !== -1) {
-      if (offset + n - 1 >= numPosts) {
+      if (postCounter >= numPosts) {
+	    console.log(`HAPPENING: o=${offset} n=${n} numposts=${numPosts}`);
         setLoadMoreText(`You've reached the bottom!`); return;
       }
     }
-
+	let tempN = n;
+    if (n + offset > numPosts && numPosts > offset) {
+		tempN = numPosts - offset;
+	}
     fetch(
-      apiEndpoint(`getnPostsOffset/${n}/${offset}`),
+      apiEndpoint(`getnPostsOffset/${tempN}/${offset}`),
       {
         method: 'GET',
         headers: {
@@ -76,8 +81,10 @@ const Feed = () => {
         if (err || res.data == null) { toast(`err: ${err} Error!`, 'error'); return; }
 
         setGotPosts(true);
+		setPostCounter(postCounter + res.data.length);
         setOffset(offset + n);
         setPosts(posts.concat(res.data));
+		console.log(`len: ${res.data.length} pc=${postCounter}`);
       });
   };
 
@@ -126,6 +133,7 @@ const Feed = () => {
         { renderPosts() }
         { renderLoadMore() }
       </div>
+
       <BottomBar defaultValue="feed" />
     </div>
   );
